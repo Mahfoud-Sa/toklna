@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toklna/pages/myaccount_page.dart';
 import 'package:toklna/pages/services_page.dart';
 import 'package:toklna/widgets/bottom_nav.dart' hide BottomNavBar;
+import 'package:toklna/widgets/twakilna_card_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,60 +37,14 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                // Profile card
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 32,
-                        backgroundColor: Colors.grey,
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'خليفة هود سالم بن سالم',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              '٢٩٥٢٧٩٩٩٤',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: const [
-                          Icon(Icons.check_circle, color: Color(0xFF00A66A)),
-                          SizedBox(width: 4),
-                          Text(
-                            'توكلنا',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                TawakkalnaIdCard(
+                  name: 'خليفة هود سالم بن سالم',
+                  idNumber: '٢٩٥٢٧٩٩٩٤',
+                  imageUrl:
+                      'https://example.com/profile.jpg', // Replace with actual image URL
                 ),
 
+                // Profile card
                 const SizedBox(height: 16),
 
                 // Status + QR

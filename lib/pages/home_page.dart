@@ -1,7 +1,9 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:toklna/pages/myaccount_page.dart';
 import 'package:toklna/pages/services_page.dart';
 import 'package:toklna/widgets/bottom_nav.dart' hide BottomNavBar;
+import 'package:toklna/widgets/progress_square.dart';
 import 'package:toklna/widgets/twakilna_card_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,22 +16,28 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 4;
 
+  // ⬅⬅ Added these so ProgressSquare works
+  double _value = 0.0;
+  bool _auto = true;
+
   @override
   Widget build(BuildContext context) {
-    // choose body based on current index so bottom nav stays visible
     Widget bodyContent;
 
     switch (_currentIndex) {
       case 0:
         bodyContent = const MyAccountPage();
         break;
+
       case 1:
       case 2:
         bodyContent = const Center(child: Text('قيد التطوير'));
         break;
+
       case 3:
         bodyContent = const ServicesPage();
         break;
+
       case 4:
       default:
         bodyContent = SafeArea(
@@ -37,17 +45,21 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
+                /// ------------------------------------
+                /// 🔵 PROGRESS SQUARE AT TOP OF COLUMN
+                /// ------------------------------------
+                const SizedBox(height: 20),
+
+                /// Tawakkalna Card
                 TawakkalnaIdCard(
                   name: 'خليفة هود سالم بن سالم',
                   idNumber: '٢٩٥٢٧٩٩٩٤',
-                  imageUrl:
-                      'https://example.com/profile.jpg', // Replace with actual image URL
+                  imageUrl: 'https://example.com/profile.jpg',
                 ),
 
-                // Profile card
                 const SizedBox(height: 16),
 
-                // Status + QR
+                /// Status + QR
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
@@ -55,53 +67,55 @@ class _HomePageState extends State<HomePage> {
                     vertical: 12,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: const Color.fromARGB(255, 23, 100, 26),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Icon(Icons.refresh, size: 20),
+                      ProgressSquare(
+                        progress: _value,
+                        size: 80,
+                        strokeWidth: 6,
+                        trackColor: Colors.transparent,
+                        progressColor: Colors.white,
+                        auto: _auto,
+                        duration: const Duration(seconds: 14),
+                        child: Image.asset(
+                          'assets/qr_code_example_svg.jpg', // Replace with your actual image path
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'غير محصن',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'آخر تحديث: الخميس ٤ ديسمبر ٢٠٢٤م',
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          ),
+                        ],
+                      ),
                       const SizedBox(width: 8),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'غير محصن',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'آخر تحديث: الخميس ٤ ديسمبر ٢٠٢٤م',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Color(0xFFE0F5F3),
-                        ),
-                        child: const Center(
-                          child: Icon(Icons.qr_code, size: 40),
-                        ),
-                      ),
+                      const Icon(color: Colors.white, Icons.refresh, size: 20),
                     ],
                   ),
                 ),
 
                 const SizedBox(height: 16),
 
-                // Promo banner
+                /// Promo Banner
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
@@ -169,13 +183,9 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: const Color(0xFFF4F5F7),
         body: bodyContent,
-
-        // Bottom Navigation (extracted widget)
         bottomNavigationBar: BottomNavBar(
           currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() => _currentIndex = index);
-          },
+          onTap: (index) => setState(() => _currentIndex = index),
         ),
       ),
     );

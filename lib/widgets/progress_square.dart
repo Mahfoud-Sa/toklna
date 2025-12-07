@@ -15,6 +15,7 @@ class ProgressSquare extends StatefulWidget {
   final Duration duration;
   final double speed; // 1.0 = normal, >1 faster, <1 slower
   final double size;
+  final double innerPadding; // space between child and progress stroke
   final Widget? child;
 
   const ProgressSquare({
@@ -27,6 +28,7 @@ class ProgressSquare extends StatefulWidget {
     this.duration = const Duration(seconds: 3),
     this.speed = 1.0,
     this.size = 150,
+    this.innerPadding = 12.0,
     this.child,
   }) : super(key: key);
 
@@ -114,6 +116,7 @@ class _ProgressSquareState extends State<ProgressSquare>
                   strokeWidth: widget.strokeWidth,
                   trackColor: widget.trackColor,
                   progressColor: widget.progressColor,
+                  innerPadding: widget.innerPadding,
                 ),
               );
             },
@@ -135,12 +138,14 @@ class _SquarePainter extends CustomPainter {
   final double strokeWidth;
   final Color trackColor;
   final Color progressColor;
+  final double innerPadding;
 
   _SquarePainter({
     required this.progress,
     required this.strokeWidth,
     required this.trackColor,
     required this.progressColor,
+    required this.innerPadding,
   });
 
   @override
@@ -155,7 +160,10 @@ class _SquarePainter extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..style = PaintingStyle.stroke;
 
-    final s = min(size.width, size.height);
+    // Inset the square by innerPadding so there's space between the child
+    // (center image) and the progress stroke.
+    final inset = innerPadding.clamp(0.0, min(size.width, size.height) / 2);
+    final s = max(0.0, min(size.width, size.height) - 2 * inset);
     final left = (size.width - s) / 2;
     final top = (size.height - s) / 2;
     final right = left + s;
@@ -222,6 +230,7 @@ class _SquarePainter extends CustomPainter {
     return oldDelegate.progress != progress ||
         oldDelegate.strokeWidth != strokeWidth ||
         oldDelegate.trackColor != trackColor ||
-        oldDelegate.progressColor != progressColor;
+        oldDelegate.progressColor != progressColor ||
+        oldDelegate.innerPadding != innerPadding;
   }
 }

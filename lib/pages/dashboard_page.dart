@@ -63,12 +63,10 @@ class _DashboardPageState extends State<DashboardPage> {
             /// 🔵 PROGRESS SQUARE AT TOP OF COLUMN
             /// ------------------------------------
             const SizedBox(height: 20),
-
-            /// Tawakkalna Card
-            TawakkalnaIdCard(
-              name: 'خليفة هود سالم بن سالم',
-              idNumber: '٢٩٥٢٧٩٩٩٤',
-              //  imageUrl: 'https://example.com/profile.jpg',
+            Image(
+              image: AssetImage('assets/icon.jpeg'),
+              width: 400,
+              height: 400,
             ),
 
             const SizedBox(height: 16),
@@ -86,6 +84,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProgressSquare(
+                    innerPadding: 4,
                     progress: _value,
                     size: 80,
                     strokeWidth: 4,
@@ -94,7 +93,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     auto: _auto,
                     duration: const Duration(seconds: 14),
                     child: Image.asset(
-                      'assets/qr_code_example_svg.jpg',
+                      'assets/qr_code.png',
                       width: 60,
                       height: 60,
                       fit: BoxFit.contain,

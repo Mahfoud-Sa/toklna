@@ -22,7 +22,7 @@ class BottomNavBar extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
-          label: 'حسابي',
+          label: 'sadfasd',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.layers_outlined),

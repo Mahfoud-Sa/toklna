@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class TawakkalnaIdCard extends StatelessWidget {
   final String name;
   final String idNumber;
-  final String imageUrl;
+  //final String imageUrl;
 
   const TawakkalnaIdCard({
     super.key,
     required this.name,
     required this.idNumber,
-    required this.imageUrl,
+    //  required this.imageUrl,
   });
 
   @override
@@ -33,15 +33,14 @@ class TawakkalnaIdCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Profile Image
-          CircleAvatar(
-            radius: 45,
-            backgroundColor: Colors.teal,
-            child: CircleAvatar(
-              radius: 42,
-              backgroundImage: NetworkImage(imageUrl),
-            ),
-          ),
-
+          // CircleAvatar(
+          //   radius: 45,
+          //   backgroundColor: Colors.teal,
+          //   child: CircleAvatar(
+          //     radius: 42,
+          //     backgroundImage: NetworkImage(imageUrl),
+          //   ),
+          // ),
           const SizedBox(height: 12),
 
           // Name

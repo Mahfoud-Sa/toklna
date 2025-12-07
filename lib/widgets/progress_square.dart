@@ -14,6 +14,7 @@ class ProgressSquare extends StatefulWidget {
   final Color progressColor;
   final bool auto;
   final Duration duration;
+  final double speed; // 1.0 = normal, >1 faster, <1 slower
   final double size;
   final Widget? child;
 
@@ -25,6 +26,7 @@ class ProgressSquare extends StatefulWidget {
     this.progressColor = const Color(0xFF1976D2),
     this.auto = false,
     this.duration = const Duration(seconds: 3),
+    this.speed = 1.0,
     this.size = 150,
     this.child,
   }) : super(key: key);
@@ -45,21 +47,50 @@ class _ProgressSquareState extends State<ProgressSquare>
     super.initState();
     _controller = AnimationController(vsync: this, duration: widget.duration);
 
-    widget.auto
-        ? _controller.repeat()
-        : _controller.value = widget.progress.clamp(0.0, 1.0);
+    if (widget.auto) {
+      final periodMs =
+          (widget.duration.inMilliseconds /
+                  (widget.speed <= 0 ? 1 : widget.speed))
+              .round();
+      _controller.repeat(
+        period: Duration(milliseconds: periodMs > 0 ? periodMs : 1),
+      );
+    } else {
+      _controller.value = widget.progress.clamp(0.0, 1.0);
+    }
   }
 
   @override
   void didUpdateWidget(covariant ProgressSquare oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.auto != widget.auto) {
-      widget.auto ? _controller.repeat() : _controller.stop();
+    // If auto mode toggled or duration/speed changed while auto, restart repeat with new period
+    if (oldWidget.auto != widget.auto ||
+        (widget.auto &&
+            (oldWidget.duration != widget.duration ||
+                oldWidget.speed != widget.speed))) {
+      if (widget.auto) {
+        final periodMs =
+            (widget.duration.inMilliseconds /
+                    (widget.speed <= 0 ? 1 : widget.speed))
+                .round();
+        _controller.repeat(
+          period: Duration(milliseconds: periodMs > 0 ? periodMs : 1),
+        );
+      } else {
+        _controller.stop();
+      }
     }
 
+    // If not auto and progress changed, animate to the new progress value (smooth), scaled by speed
     if (!widget.auto && oldWidget.progress != widget.progress) {
-      _controller.value = widget.progress.clamp(0.0, 1.0);
+      final target = widget.progress.clamp(0.0, 1.0);
+      final animMs = (300 / (widget.speed <= 0 ? 1 : widget.speed)).round();
+      _controller.animateTo(
+        target,
+        duration: Duration(milliseconds: animMs > 0 ? animMs : 1),
+        curve: Curves.linear,
+      );
     }
   }
 
@@ -188,5 +219,10 @@ class _SquarePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _SquarePainter oldDelegate) => true;
+  bool shouldRepaint(covariant _SquarePainter oldDelegate) {
+    return oldDelegate.progress != progress ||
+        oldDelegate.strokeWidth != strokeWidth ||
+        oldDelegate.trackColor != trackColor ||
+        oldDelegate.progressColor != progressColor;
+  }
 }

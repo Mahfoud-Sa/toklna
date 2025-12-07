@@ -20,25 +20,34 @@ class BottomNavBar extends StatelessWidget {
       unselectedItemColor: Colors.grey,
       onTap: onTap,
       items: const [
+        // Left-most: Home
         BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          label: 'sadfasd',
+          icon: Icon(Icons.home_outlined),
+          label: 'الرئيسية',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.layers_outlined),
-          label: 'لوحة البيانات',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.wallet_membership_outlined),
-          label: 'المحفظة الرقمية',
-        ),
+
+        // Second from left: Services
         BottomNavigationBarItem(
           icon: Icon(Icons.grid_view_outlined),
           label: 'الخدمات',
         ),
+
+        // Middle: Data Dashboard
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: 'الرئيسية',
+          icon: Icon(Icons.layers_outlined),
+          label: 'لوحة البيانات',
+        ),
+
+        // Second from right: Wallet
+        BottomNavigationBarItem(
+          icon: Icon(Icons.wallet_membership_outlined),
+          label: 'المحفظة الرقمية',
+        ),
+
+        // Right-most: My Account
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_outline),
+          label: 'حسابي',
         ),
       ],
     );

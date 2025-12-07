@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toklna/pages/dashboard_page.dart';
 import 'package:toklna/pages/myaccount_page.dart';
 import 'package:toklna/pages/services_page.dart';
-import 'package:toklna/widgets/bottom_nav.dart' hide BottomNavBar;
+import 'package:toklna/widgets/bottom_nav.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,22 +19,32 @@ class _HomePageState extends State<HomePage> {
     Widget bodyContent;
 
     switch (_currentIndex) {
-      case 4:
-        bodyContent = const MyAccountPage();
-        break;
-
-      case 2:
-      case 3:
-        bodyContent = const Center(child: Text('قيد التطوير'));
+      case 0:
+        // Home (dashboard)
+        bodyContent = const DashboardPage();
         break;
 
       case 1:
+        // Services
         bodyContent = const ServicesPage();
         break;
 
-      case 0:
+      case 2:
+        // Data Dashboard (placeholder)
+        bodyContent = const Center(child: Text('لوحة البيانات - قيد التطوير'));
+        break;
+
+      case 3:
+        // Wallet (placeholder)
+        bodyContent = const Center(
+          child: Text('المحفظة الرقمية - قيد التطوير'),
+        );
+        break;
+
+      case 4:
       default:
-        bodyContent = const DashboardPage();
+        // My Account
+        bodyContent = const MyAccountPage();
     }
 
     return Directionality(

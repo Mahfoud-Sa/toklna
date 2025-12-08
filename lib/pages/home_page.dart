@@ -3,6 +3,7 @@ import 'package:toklna/pages/dashboard_page.dart';
 import 'package:toklna/pages/myaccount_page.dart';
 import 'package:toklna/pages/services_page.dart';
 import 'package:toklna/widgets/bottom_nav.dart';
+import 'package:toklna/widgets/data_popup.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,15 +31,13 @@ class _HomePageState extends State<HomePage> {
         break;
 
       case 2:
-        // Data Dashboard (placeholder)
-        bodyContent = const Center(child: Text('لوحة البيانات - قيد التطوير'));
+        // Data Dashboard (uses popup)
+        bodyContent = const DataPopup();
         break;
 
       case 3:
         // Wallet (placeholder)
-        bodyContent = const Center(
-          child: Text('المحفظة الرقمية - قيد التطوير'),
-        );
+        bodyContent = const DataPopup();
         break;
 
       case 4:

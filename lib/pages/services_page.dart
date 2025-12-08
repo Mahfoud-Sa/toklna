@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:toklna/utils/pdf_generator.dart';
+import 'package:toklna/widgets/tawakkalna_certificate.dart';
 
-/// ServicesPage
-///
-/// A single, clean implementation of the Services page. This file previously
-/// contained multiple duplicate class definitions and even an embedded
-/// `main()`/app scaffold. Those duplicates have been removed so other parts
-/// of the app (like `main.dart` / `home_page.dart`) can own the app entrypoint
-/// and navigation.
 class ServicesPage extends StatelessWidget {
   const ServicesPage({super.key});
 
@@ -22,10 +18,10 @@ class ServicesPage extends StatelessWidget {
               'الخدمات',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 12),
 
             _buildSectionHeader('العامة'),
             _buildServiceItem(
+              context,
               icon: Icons.verified,
               title: 'رمز توكلنا',
               color: Colors.blue,
@@ -34,51 +30,118 @@ class ServicesPage extends StatelessWidget {
             const SizedBox(height: 20),
 
             _buildSectionHeader('خدمات التصاريح'),
-            _buildServiceItem(
-              icon: Icons.person,
-              title: 'التصاريح الشخصية',
-              color: Colors.green,
-            ),
-            _buildServiceItem(
-              icon: Icons.health_and_safety,
-              title: 'تصاريح التحقق الآلي للحالة الصحية',
-              color: Colors.green,
+            Wrap(
+              alignment: WrapAlignment.start,
+              textDirection: TextDirection.ltr,
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                _buildServiceItem(
+                  context,
+                  icon: Icons.person,
+                  title: 'التصاريح الشخصية',
+                  color: Colors.green,
+                ),
+                _buildServiceItem(
+                  context,
+                  icon: Icons.health_and_safety,
+                  title: 'تصاريح التحقق الآلي للحالة الصحية',
+                  color: Colors.green,
+                ),
+              ],
             ),
 
             const SizedBox(height: 20),
 
             _buildSectionHeader('الصحة'),
-            _buildServiceItem(
-              icon: Icons.local_hospital,
-              title: 'لقاح كورونا',
-              color: Colors.red,
+            Wrap(
+              alignment: WrapAlignment.start,
+              textDirection: TextDirection.ltr,
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                _buildServiceItem(
+                  context,
+                  icon: Icons.local_hospital,
+                  title: 'لقاح كورونا',
+                  color: Colors.red,
+                  onTap: () async {
+                    final cert = VaccinationCertificate.example();
+                    try {
+                      await generateAndOpenCertificatePdf(
+                        cert,
+                        filename: 'tawakkalna_certificate.pdf',
+                      );
+                    } on MissingPluginException catch (_) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'PDF is not available on this platform. Try a full rebuild.',
+                          ),
+                        ),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to generate PDF: $e')),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
 
             const SizedBox(height: 20),
 
             _buildSectionHeader('خدمات السفر'),
-            _buildServiceItem(
-              icon: Icons.airplanemode_active,
-              title: 'الجواز الصحي',
-              color: Colors.purple,
+            Wrap(
+              alignment: WrapAlignment.start,
+              textDirection: TextDirection.ltr,
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                _buildServiceItem(
+                  context,
+                  icon: Icons.airplanemode_active,
+                  title: 'الجواز الصحي',
+                  color: Colors.purple,
+                ),
+              ],
             ),
 
             const SizedBox(height: 20),
 
             _buildSectionHeader('أفراد الأسرة'),
-            _buildServiceItem(
-              icon: Icons.family_restroom,
-              title: 'رعاية أفراد الأسرة',
-              color: Colors.orange,
+            Wrap(
+              alignment: WrapAlignment.start,
+              textDirection: TextDirection.ltr,
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                _buildServiceItem(
+                  context,
+                  icon: Icons.family_restroom,
+                  title: 'رعاية أفراد الأسرة',
+                  color: Colors.orange,
+                ),
+              ],
             ),
 
             const SizedBox(height: 20),
 
             _buildSectionHeader('الرقمية'),
-            _buildServiceItem(
-              icon: Icons.dashboard,
-              title: 'لوحة البيانات',
-              color: Colors.teal,
+            Wrap(
+              alignment: WrapAlignment.start,
+              textDirection: TextDirection.ltr,
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                _buildServiceItem(
+                  context,
+                  icon: Icons.dashboard,
+                  title: 'لوحة البيانات',
+                  color: Colors.teal,
+                ),
+              ],
             ),
           ],
         ),
@@ -100,32 +163,76 @@ class ServicesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildServiceItem({
+  Widget _buildServiceItem(
+    BuildContext context, {
     required IconData icon,
     required String title,
     required Color color,
+    double preferredSize = 110,
+    VoidCallback? onTap,
   }) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        leading: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(10),
+    // Compute responsive tile size to avoid overflow.
+    final media = MediaQuery.of(context);
+    // Available width inside the page (accounting for padding in parent SingleChildScrollView)
+    final availableWidth =
+        media.size.width - 32; // parent uses 16 horizontal padding
+    // Estimate columns that could fit using preferred size + spacing (12)
+    final estColumns = availableWidth ~/ (preferredSize + 12);
+    final columns = estColumns >= 1 ? estColumns : 1;
+    final tileWidth = ((availableWidth - (columns - 1) * 12) / columns).clamp(
+      72.0,
+      preferredSize,
+    );
+
+    final tileSize = tileWidth;
+
+    return InkWell(
+      onTap: onTap ?? () {},
+      borderRadius: BorderRadius.circular(12),
+      child: SizedBox(
+        width: tileSize,
+        // Allow height to grow if title needs two lines. Use a minHeight so
+        // tiles remain visually balanced but can expand for longer titles.
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: tileSize),
+          child: Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: tileSize * 0.36,
+                    height: tileSize * 0.36,
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(icon, color: color, size: tileSize * 0.28),
+                  ),
+                  const SizedBox(height: 8),
+                  Flexible(
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-          child: Icon(icon, color: color),
         ),
-        title: Text(
-          title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: () {
-          // Handle service item tap
-        },
       ),
     );
   }

@@ -10,8 +10,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  double _value = 0.0;
-  bool _auto = true;
+  final double _value = 0.0;
+  final bool _auto = true;
 
   String _getArabicDateTime() {
     final now = DateTime.now();
@@ -92,13 +92,13 @@ class _DashboardPageState extends State<DashboardPage> {
                     progressColor: Colors.white,
                     auto: _auto,
                     duration: const Duration(seconds: 14),
+                    speed: 3.0,
                     child: Image.asset(
                       'assets/qr_code.png',
                       width: 60,
                       height: 60,
                       fit: BoxFit.contain,
                     ),
-                    speed: 3.0,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

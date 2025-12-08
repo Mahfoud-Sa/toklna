@@ -19,7 +19,7 @@ class ProgressSquare extends StatefulWidget {
   final Widget? child;
 
   const ProgressSquare({
-    Key? key,
+    super.key,
     this.progress = 0.0,
     this.strokeWidth = 8.0,
     this.trackColor = const Color(0xFFE0E0E0),
@@ -30,7 +30,7 @@ class ProgressSquare extends StatefulWidget {
     this.size = 150,
     this.innerPadding = 12.0,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   State<ProgressSquare> createState() => _ProgressSquareState();

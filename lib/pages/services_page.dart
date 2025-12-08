@@ -10,9 +10,9 @@ class ServicesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        // padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
               'الخدمات',
@@ -20,11 +20,18 @@ class ServicesPage extends StatelessWidget {
             ),
 
             _buildSectionHeader('العامة'),
-            _buildServiceItem(
-              context,
-              icon: Icons.verified,
-              title: 'رمز توكلنا',
-              color: Colors.blue,
+            Wrap(
+              alignment: WrapAlignment.start,
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                _buildServiceItem(
+                  context,
+                  icon: Icons.verified,
+                  title: 'رمز توكلنا',
+                  color: Colors.blue,
+                ),
+              ],
             ),
 
             const SizedBox(height: 20),
@@ -32,7 +39,6 @@ class ServicesPage extends StatelessWidget {
             _buildSectionHeader('خدمات التصاريح'),
             Wrap(
               alignment: WrapAlignment.start,
-              textDirection: TextDirection.ltr,
               spacing: 12,
               runSpacing: 12,
               children: [
@@ -48,6 +54,18 @@ class ServicesPage extends StatelessWidget {
                   title: 'تصاريح التحقق الآلي للحالة الصحية',
                   color: Colors.green,
                 ),
+                _buildServiceItem(
+                  context,
+                  icon: Icons.health_and_safety,
+                  title: 'ماسح كود التحقق',
+                  color: Colors.green,
+                ),
+                _buildServiceItem(
+                  context,
+                  icon: Icons.health_and_safety,
+                  title: 'اصدار تسريح تحقق الي للحالة الصحية',
+                  color: Colors.green,
+                ),
               ],
             ),
 
@@ -56,10 +74,15 @@ class ServicesPage extends StatelessWidget {
             _buildSectionHeader('الصحة'),
             Wrap(
               alignment: WrapAlignment.start,
-              textDirection: TextDirection.ltr,
               spacing: 12,
               runSpacing: 12,
               children: [
+                _buildServiceItem(
+                  context,
+                  icon: Icons.local_hospital,
+                  title: 'اسل عن مساعدة',
+                  color: Colors.red,
+                ),
                 _buildServiceItem(
                   context,
                   icon: Icons.local_hospital,
@@ -95,7 +118,6 @@ class ServicesPage extends StatelessWidget {
             _buildSectionHeader('خدمات السفر'),
             Wrap(
               alignment: WrapAlignment.start,
-              textDirection: TextDirection.ltr,
               spacing: 12,
               runSpacing: 12,
               children: [
@@ -113,7 +135,6 @@ class ServicesPage extends StatelessWidget {
             _buildSectionHeader('أفراد الأسرة'),
             Wrap(
               alignment: WrapAlignment.start,
-              textDirection: TextDirection.ltr,
               spacing: 12,
               runSpacing: 12,
               children: [
@@ -121,6 +142,12 @@ class ServicesPage extends StatelessWidget {
                   context,
                   icon: Icons.family_restroom,
                   title: 'رعاية أفراد الأسرة',
+                  color: Colors.orange,
+                ),
+                _buildServiceItem(
+                  context,
+                  icon: Icons.family_restroom,
+                  title: 'افراد الاسرة والعاملين',
                   color: Colors.orange,
                 ),
               ],
@@ -131,7 +158,6 @@ class ServicesPage extends StatelessWidget {
             _buildSectionHeader('الرقمية'),
             Wrap(
               alignment: WrapAlignment.start,
-              textDirection: TextDirection.ltr,
               spacing: 12,
               runSpacing: 12,
               children: [
@@ -171,65 +197,47 @@ class ServicesPage extends StatelessWidget {
     double preferredSize = 110,
     VoidCallback? onTap,
   }) {
-    // Compute responsive tile size to avoid overflow.
-    final media = MediaQuery.of(context);
-    // Available width inside the page (accounting for padding in parent SingleChildScrollView)
-    final availableWidth =
-        media.size.width - 32; // parent uses 16 horizontal padding
-    // Estimate columns that could fit using preferred size + spacing (12)
-    final estColumns = availableWidth ~/ (preferredSize + 12);
-    final columns = estColumns >= 1 ? estColumns : 1;
-    final tileWidth = ((availableWidth - (columns - 1) * 12) / columns).clamp(
-      72.0,
-      preferredSize,
-    );
-
-    final tileSize = tileWidth;
+    // Use a fixed tile size for consistent appearance
+    const double tileSize = 110;
 
     return InkWell(
       onTap: onTap ?? () {},
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
         width: tileSize,
-        // Allow height to grow if title needs two lines. Use a minHeight so
-        // tiles remain visually balanced but can expand for longer titles.
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: tileSize),
-          child: Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: tileSize * 0.36,
-                    height: tileSize * 0.36,
-                    decoration: BoxDecoration(
-                      color: color.withOpacity(0.12),
-                      borderRadius: BorderRadius.circular(12),
+        height: tileSize,
+        child: Card(
+          color: Colors.white,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/icons/icon_1.jpeg",
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 8),
+                Flexible(
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
                     ),
-                    child: Icon(icon, color: color, size: tileSize * 0.28),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 8),
-                  Flexible(
-                    child: Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

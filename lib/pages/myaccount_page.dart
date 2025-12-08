@@ -43,22 +43,14 @@ class MyAccountPage extends StatelessWidget {
                   _buildTile("تواصل معنا", Icons.mail_outline),
                 ],
               ),
+
               const SizedBox(height: 32),
-              const Text("توكلنا - SDAIA"),
-              const SizedBox(height: 8),
-              const Text("v 3.8.6", style: TextStyle(color: Colors.grey)),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 60,
-                    vertical: 14,
-                  ),
-                ),
-                child: const Text("قفل التطبيق"),
+              Image.asset(
+                'assets/brand.png',
+                width: double.infinity,
+                fit: BoxFit.contain,
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),

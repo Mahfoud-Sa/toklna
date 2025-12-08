@@ -33,10 +33,9 @@ class DataPopup extends StatelessWidget {
                           topLeft: Radius.circular(16),
                           topRight: Radius.circular(16),
                         ),
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF2AB6B0), Color(0xFF3C93C8)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                        image: DecorationImage(
+                          image: AssetImage('assets/red_s.png'),
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -61,7 +60,7 @@ class DataPopup extends StatelessWidget {
                         child: Center(
                           child: Icon(
                             Icons.layers_outlined,
-                            color: theme.primaryColor,
+                            color: Color.fromARGB(255, 76, 150, 139),
                             size: 32,
                           ),
                         ),
@@ -90,7 +89,12 @@ class DataPopup extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF00A66A),
+                            backgroundColor: const Color.fromARGB(
+                              255,
+                              76,
+                              150,
+                              139,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -99,7 +103,10 @@ class DataPopup extends StatelessWidget {
                           onPressed: () {
                             // hook: open Tawakkalna link or navigator
                           },
-                          child: const Text('تحميل توكلنا'),
+                          child: const Text(
+                            'تحميل توكلنا',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
 

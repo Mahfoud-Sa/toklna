@@ -57,34 +57,34 @@ Future<Uint8List> generateCertificatePdf(
             pw.SizedBox(height: 12),
             pw.Divider(),
 
-            // Personal info table (two columns)
-            pw.Table(
-              columnWidths: {
-                0: pw.FlexColumnWidth(1),
-                1: pw.FlexColumnWidth(1),
-              },
-              children: [
-                _infoRow('ID No.', 'رقم الهوية', certificate.idNo),
-                _infoRow(
-                  'Passport No.',
-                  'رقم جواز السفر',
-                  certificate.passportNo,
+            /// PERSONAL INFO TABLE
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: pw.Table(
+                border: pw.TableBorder.symmetric(
+                  inside: pw.BorderSide(color: PdfColors.grey300),
                 ),
-                _infoRow('Name (AR)', 'الإسم', certificate.nameArabic),
-                _infoRow('Name (EN)', 'Name', certificate.nameEnglish),
-                _infoRow(
-                  'Date of Birth',
-                  'تاريخ الميلاد',
-                  certificate.dateOfBirth,
-                ),
-                _infoRow('Nationality', 'الجنسية', certificate.nationality),
-                _infoRow('Blood Type', 'فصيلة الدم', certificate.bloodType),
-                _infoRow(
-                  'Insurance',
-                  'حالة التأمين',
-                  certificate.insuranceStatus,
-                ),
-              ],
+                children: [
+                  _infoRow("ID No.", "رقم الهوية", certificate.idNo),
+                  _infoRow(
+                    "Passport No.",
+                    "جواز السفر",
+                    certificate.passportNo,
+                  ),
+                  _infoRow(
+                    "Date of Birth",
+                    "تاريخ الميلاد",
+                    certificate.dateOfBirth,
+                  ),
+                  _infoRow("Nationality", "الجنسية", certificate.nationality),
+                  _infoRow("Blood Type", "فصيلة الدم", certificate.bloodType),
+                  _infoRow(
+                    "Insurance",
+                    "حالة التأمين",
+                    certificate.insuranceStatus,
+                  ),
+                ],
+              ),
             ),
 
             pw.SizedBox(height: 12),
@@ -96,7 +96,7 @@ Future<Uint8List> generateCertificatePdf(
             ),
             pw.SizedBox(height: 8),
 
-            // Doses
+            /// DOSES LIST
             pw.Column(
               children: certificate.doses.map((d) {
                 return pw.Container(
@@ -148,11 +148,11 @@ Future<Uint8List> generateCertificatePdf(
             pw.SizedBox(height: 12),
             pw.Divider(),
 
+            /// QR + TEXT
             pw.SizedBox(height: 8),
             pw.Row(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                // QR placeholder
                 pw.Container(
                   width: 100,
                   height: 100,
@@ -167,9 +167,12 @@ Future<Uint8List> generateCertificatePdf(
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
-                      pw.Text(
-                        'امسح رمز الاستجابة السريعة للتحقق الإلكتروني',
-                        textAlign: pw.TextAlign.right,
+                      pw.Directionality(
+                        textDirection: pw.TextDirection.rtl,
+                        child: pw.Text(
+                          'امسح رمز الاستجابة السريعة للتحقق الإلكتروني',
+                          textAlign: pw.TextAlign.right,
+                        ),
                       ),
                       pw.SizedBox(height: 8),
                       pw.Text(
@@ -183,6 +186,8 @@ Future<Uint8List> generateCertificatePdf(
             ),
 
             pw.Spacer(),
+
+            /// FOOTER
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
@@ -205,11 +210,12 @@ Future<Uint8List> generateCertificatePdf(
   return doc.save();
 }
 
+/// Row for the personal info table
 pw.TableRow _infoRow(String en, String ar, String value) {
   return pw.TableRow(
     children: [
       pw.Padding(
-        padding: pw.EdgeInsets.symmetric(vertical: 6),
+        padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 6),
         child: pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
@@ -225,10 +231,10 @@ pw.TableRow _infoRow(String en, String ar, String value) {
           ],
         ),
       ),
-      pw.Padding(
-        padding: pw.EdgeInsets.symmetric(vertical: 6),
-        child: pw.Directionality(
-          textDirection: pw.TextDirection.rtl,
+      pw.Directionality(
+        textDirection: pw.TextDirection.rtl,
+        child: pw.Padding(
+          padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 6),
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.end,
             children: [
@@ -258,19 +264,5 @@ Future<void> generateAndOpenCertificatePdf(
   String filename = 'certificate.pdf',
 }) async {
   final bytes = await generateCertificatePdf(certificate);
-  try {
-    await Printing.layoutPdf(onLayout: (_) async => bytes, name: filename);
-  } on MissingPluginException catch (e) {
-    // Happens when the native plugin isn't registered (app not fully rebuilt,
-    // running in unsupported platform, or plugin not added). Provide a clear
-    // log message and rethrow so callers can handle it if needed.
-    // Common fix: stop the app, run `flutter clean` && `flutter pub get`,
-    // then a full `flutter run` (not hot reload).
-    print('MissingPluginException while trying to open PDF: $e');
-    print(
-      'If you just added the `printing` plugin, stop the app and run a full rebuild:',
-    );
-    print('  flutter clean; flutter pub get; flutter run');
-    rethrow;
-  }
+  await Printing.layoutPdf(onLayout: (_) async => bytes, name: filename);
 }

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:toklna/utils/pdf_generator.dart';
 import 'package:toklna/widgets/tawakkalna_certificate.dart';
 
@@ -89,23 +93,27 @@ class ServicesPage extends StatelessWidget {
                   title: 'لقاح كورونا',
                   color: Colors.red,
                   onTap: () async {
-                    final cert = VaccinationCertificate.example();
                     try {
-                      await generateAndOpenCertificatePdf(
-                        cert,
-                        filename: 'tawakkalna_certificate.pdf',
+                      // Load PDF from assets
+                      final byteData = await rootBundle.load(
+                        "assets/certificate.pdf",
                       );
-                    } on MissingPluginException catch (_) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'PDF is not available on this platform. Try a full rebuild.',
-                          ),
+
+                      // save to temporary directory
+                      final tempDir = await getTemporaryDirectory();
+                      final file = File("${tempDir.path}/certificate.pdf");
+                      await file.writeAsBytes(byteData.buffer.asUint8List());
+
+                      // Open viewer page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => PdfViewerPage(path: file.path),
                         ),
                       );
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to generate PDF: $e')),
+                        SnackBar(content: Text('Failed to open PDF: $e')),
                       );
                     }
                   },
@@ -240,6 +248,26 @@ class ServicesPage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PdfViewerPage extends StatelessWidget {
+  final String path;
+
+  const PdfViewerPage({super.key, required this.path});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("PDF Viewer")),
+      body: PDFView(
+        filePath: path,
+        enableSwipe: true,
+        swipeHorizontal: true,
+        autoSpacing: true,
+        pageFling: true,
       ),
     );
   }

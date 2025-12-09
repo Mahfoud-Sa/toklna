@@ -136,56 +136,16 @@ class _DashboardPageState extends State<DashboardPage> {
 
             const SizedBox(height: 16),
 
-            /// Promo Banner
-            Container(
+            /// Promo Banner — fill full width with fixed height
+            SizedBox(
+              //  height: 48,
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              decoration: BoxDecoration(
-                color: Colors.black87,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 8),
-                  const Expanded(
-                    child: Text(
-                      'Explore the new features on Tawakkalna Services',
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Row(
-                    children: [
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white24,
-                        ),
-                        child: const Icon(Icons.person, color: Colors.white),
-                      ),
-                      const SizedBox(width: 4),
-                      const Text(
-                        'توكلنا',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              child: Image.asset(
+                'assets/toklna_band.png',
+                fit: BoxFit.cover,
+                width: double.infinity,
               ),
             ),
-
             const Spacer(),
           ],
         ),

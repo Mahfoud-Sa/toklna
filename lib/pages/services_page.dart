@@ -194,7 +194,6 @@ class ServicesPage extends StatelessWidget {
     required IconData icon,
     required String title,
     required Color color,
-    double preferredSize = 110,
     VoidCallback? onTap,
   }) {
     // Use a fixed tile size for consistent appearance

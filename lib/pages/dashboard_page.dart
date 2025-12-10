@@ -55,7 +55,8 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -146,7 +147,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 width: double.infinity,
               ),
             ),
-            const Spacer(),
+            const SizedBox(height: 16),
           ],
         ),
       ),

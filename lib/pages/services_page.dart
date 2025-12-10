@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:toklna/pages/passport.dart';
 import 'package:toklna/utils/pdf_generator.dart';
 import 'package:toklna/widgets/tawakkalna_certificate.dart';
 
@@ -93,29 +94,10 @@ class ServicesPage extends StatelessWidget {
                   title: 'لقاح كورونا',
                   color: Colors.red,
                   onTap: () async {
-                    try {
-                      // Load PDF from assets
-                      final byteData = await rootBundle.load(
-                        "assets/certificate.pdf",
-                      );
-
-                      // save to temporary directory
-                      final tempDir = await getTemporaryDirectory();
-                      final file = File("${tempDir.path}/certificate.pdf");
-                      await file.writeAsBytes(byteData.buffer.asUint8List());
-
-                      // Open viewer page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => PdfViewerPage(path: file.path),
-                        ),
-                      );
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to open PDF: $e')),
-                      );
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => HealthPassportPage()),
+                    );
                   },
                 ),
               ],

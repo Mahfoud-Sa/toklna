@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:toklna/pages/passport.dart';
 import 'package:toklna/pages/services_page.dart';
-import 'package:toklna/utils/pdf_generator.dart';
-import 'package:toklna/widgets/tawakkalna_certificate.dart';
+import 'package:toklna/services/pdf_date_service.dart';
 
 // Main widget for the health passport page
 class HealthPassportPage extends StatelessWidget {
@@ -300,21 +291,13 @@ class HealthPassportPage extends StatelessWidget {
                 ),
                 onPressed: () async {
                   try {
-                    // Load PDF from assets
-                    final byteData = await rootBundle.load(
-                      "assets/certificate.pdf",
-                    );
-
-                    // save to temporary directory
-                    final tempDir = await getTemporaryDirectory();
-                    final file = File("${tempDir.path}/certificate.pdf");
-                    await file.writeAsBytes(byteData.buffer.asUint8List());
-
-                    // Open viewer page
+                    // Use the new PDF service to add date and get file path
+                    final filePath = await PdfDateService.generatePdfWithDate();
+                    // Navigate to in-app PDF viewer
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => PdfViewerPage(path: file.path),
+                        builder: (_) => PdfViewerPage(path: filePath),
                       ),
                     );
                   } catch (e) {

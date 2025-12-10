@@ -20,38 +20,46 @@ class MyAccountPage extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.black),
         ),
 
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              _buildSection(
-                title: "إعدادات الحساب",
-                items: [
-                  _buildTile("اللغة", Icons.language),
-                  _buildTile("تحديث رقم الجوال", Icons.phone_android),
-                  _buildTile("تغيير كلمة المرور", Icons.lock_outline),
-                  _buildTile("تحديث موقع السكن", Icons.home_outlined),
-                ],
-              ),
-              const SizedBox(height: 24),
-              _buildSection(
-                title: "حول التطبيق",
-                items: [
-                  _buildTile("شركاء النجاح", Icons.handshake_outlined),
-                  _buildTile("الأسئلة الشائعة", Icons.help_outline),
-                  _buildTile("سياسة استخدام الموقع", Icons.article_outlined),
-                  _buildTile("تواصل معنا", Icons.mail_outline),
-                ],
-              ),
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/pattern.jpeg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                _buildSection(
+                  title: "إعدادات الحساب",
+                  items: [
+                    _buildTile("اللغة", Icons.language),
+                    _buildTile("تحديث رقم الجوال", Icons.phone_android),
+                    _buildTile("تغيير كلمة المرور", Icons.lock_outline),
+                    _buildTile("تحديث موقع السكن", Icons.home_outlined),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                _buildSection(
+                  title: "حول التطبيق",
+                  items: [
+                    _buildTile("شركاء النجاح", Icons.handshake_outlined),
+                    _buildTile("الأسئلة الشائعة", Icons.help_outline),
+                    _buildTile("سياسة استخدام الموقع", Icons.article_outlined),
+                    _buildTile("تواصل معنا", Icons.mail_outline),
+                  ],
+                ),
 
-              const SizedBox(height: 32),
-              Image.asset(
-                'assets/brand.png',
-                width: double.infinity,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(height: 16),
-            ],
+                const SizedBox(height: 32),
+                Image.asset(
+                  'assets/brand.png',
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
         ),
       ),

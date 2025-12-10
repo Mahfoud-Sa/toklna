@@ -65,7 +65,7 @@ class _DashboardPageState extends State<DashboardPage> {
             /// ------------------------------------
             const SizedBox(height: 20),
             Image(
-              image: AssetImage('assets/icon.jpeg'),
+              image: AssetImage('assets/‏‏icon.jpeg'),
               width: 400,
               height: 400,
             ),
@@ -147,7 +147,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 width: double.infinity,
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 120),
           ],
         ),
       ),

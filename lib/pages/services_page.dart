@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:printing/printing.dart';
 import 'package:toklna/pages/passport.dart';
 import 'package:toklna/utils/pdf_generator.dart';
 import 'package:toklna/widgets/tawakkalna_certificate.dart';
@@ -13,153 +14,162 @@ class ServicesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        // padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              'الخدمات',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/pattern.jpeg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'الخدمات',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
 
-            _buildSectionHeader('العامة'),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 12,
-              runSpacing: 12,
-              children: [
-                _buildServiceItem(
-                  context,
-                  icon: Icons.verified,
-                  title: 'رمز توكلنا',
-                  color: Colors.blue,
-                ),
-              ],
-            ),
+              _buildSectionHeader('العامة'),
+              Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_1.jpeg",
+                    title: 'رمز توكلنا',
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            _buildSectionHeader('خدمات التصاريح'),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 12,
-              runSpacing: 12,
-              children: [
-                _buildServiceItem(
-                  context,
-                  icon: Icons.person,
-                  title: 'التصاريح الشخصية',
-                  color: Colors.green,
-                ),
-                _buildServiceItem(
-                  context,
-                  icon: Icons.health_and_safety,
-                  title: 'تصاريح التحقق الآلي للحالة الصحية',
-                  color: Colors.green,
-                ),
-                _buildServiceItem(
-                  context,
-                  icon: Icons.health_and_safety,
-                  title: 'ماسح كود التحقق',
-                  color: Colors.green,
-                ),
-                _buildServiceItem(
-                  context,
-                  icon: Icons.health_and_safety,
-                  title: 'اصدار تسريح تحقق الي للحالة الصحية',
-                  color: Colors.green,
-                ),
-              ],
-            ),
+              _buildSectionHeader('خدمات التصاريح'),
+              Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_2.jpg",
+                    title: 'التصاريح الشخصية',
+                    color: Colors.green,
+                  ),
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_3.png",
+                    title: 'تصاريح التحقق الآلي للحالة الصحية',
+                    color: Colors.green,
+                  ),
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_4.png",
+                    title: 'ماسح كود التحقق',
+                    color: Colors.green,
+                  ),
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_5.png",
+                    title: 'اصدار تسريح تحقق الي للحالة الصحية',
+                    color: Colors.green,
+                  ),
+                ],
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            _buildSectionHeader('الصحة'),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 12,
-              runSpacing: 12,
-              children: [
-                _buildServiceItem(
-                  context,
-                  icon: Icons.local_hospital,
-                  title: 'اسل عن مساعدة',
-                  color: Colors.red,
-                ),
-                _buildServiceItem(
-                  context,
-                  icon: Icons.local_hospital,
-                  title: 'لقاح كورونا',
-                  color: Colors.red,
-                  onTap: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => HealthPassportPage()),
-                    );
-                  },
-                ),
-              ],
-            ),
+              _buildSectionHeader('الصحة'),
+              Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_6.png",
+                    title: 'اسل عن مساعدة',
+                    color: Colors.red,
+                  ),
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_7.png",
+                    title: 'لقاح كورونا',
+                    color: Colors.red,
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => HealthPassportPage()),
+                      );
+                    },
+                  ),
+                ],
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            _buildSectionHeader('خدمات السفر'),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 12,
-              runSpacing: 12,
-              children: [
-                _buildServiceItem(
-                  context,
-                  icon: Icons.airplanemode_active,
-                  title: 'الجواز الصحي',
-                  color: Colors.purple,
-                ),
-              ],
-            ),
+              _buildSectionHeader('خدمات السفر'),
+              Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_8.png",
+                    title: 'الجواز الصحي',
+                    color: Colors.purple,
+                  ),
+                ],
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            _buildSectionHeader('أفراد الأسرة'),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 12,
-              runSpacing: 12,
-              children: [
-                _buildServiceItem(
-                  context,
-                  icon: Icons.family_restroom,
-                  title: 'رعاية أفراد الأسرة',
-                  color: Colors.orange,
-                ),
-                _buildServiceItem(
-                  context,
-                  icon: Icons.family_restroom,
-                  title: 'افراد الاسرة والعاملين',
-                  color: Colors.orange,
-                ),
-              ],
-            ),
+              _buildSectionHeader('أفراد الأسرة'),
+              Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_9.png",
+                    title: 'رعاية أفراد الأسرة',
+                    color: Colors.orange,
+                  ),
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_10.png",
+                    title: 'افراد الاسرة والعاملين',
+                    color: Colors.orange,
+                  ),
+                ],
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            _buildSectionHeader('الرقمية'),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 12,
-              runSpacing: 12,
-              children: [
-                _buildServiceItem(
-                  context,
-                  icon: Icons.dashboard,
-                  title: 'لوحة البيانات',
-                  color: Colors.teal,
-                ),
-              ],
-            ),
-          ],
+              _buildSectionHeader('الرقمية'),
+              Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_1.jpeg",
+                    title: 'لوحة البيانات',
+                    color: Colors.teal,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -181,7 +191,7 @@ class ServicesPage extends StatelessWidget {
 
   Widget _buildServiceItem(
     BuildContext context, {
-    required IconData icon,
+    required String name,
     required String title,
     required Color color,
     VoidCallback? onTap,
@@ -207,12 +217,7 @@ class ServicesPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/icons/icon_1.jpeg",
-                  width: 40,
-                  height: 40,
-                  fit: BoxFit.contain,
-                ),
+                Image.asset(name, width: 40, height: 40, fit: BoxFit.contain),
                 const SizedBox(height: 8),
                 Flexible(
                   child: Text(
@@ -243,7 +248,28 @@ class PdfViewerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("PDF Viewer")),
+      appBar: AppBar(
+        title: const Text("PDF Viewer"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () async {
+              try {
+                final file = File(path);
+                final bytes = await file.readAsBytes();
+                await Printing.sharePdf(
+                  bytes: bytes,
+                  filename: 'health_certificate.pdf',
+                );
+              } catch (e) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('فشل في المشاركة: $e')));
+              }
+            },
+          ),
+        ],
+      ),
       body: PDFView(
         filePath: path,
         enableSwipe: true,

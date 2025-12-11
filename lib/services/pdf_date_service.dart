@@ -37,24 +37,31 @@ class PdfDateService {
     const double textWidth = 200;
     const double lineHeight = 14;
     const double leftMargin = 20;
-    const double bottomMargin = 175; // Distance from bottom
+    const double bottomMargin = 165; // Distance from bottom
     final double yPosition = pageHeight - bottomMargin;
 
     // Gray color brush
     final PdfBrush grayBrush = PdfSolidBrush(PdfColor(128, 128, 128));
 
-    // Draw time on first line (smaller font, left-aligned, gray)
+    // Draw time on first line (smaller font, positioned above the month, gray)
+    // Offset to align time above the month part of the date (after "Friday, ")
+    const double monthOffset = 28; // Approximate position where month starts
     page.graphics.drawString(
       timeString,
-      PdfStandardFont(PdfFontFamily.helvetica, 9),
-      bounds: Rect.fromLTWH(leftMargin, yPosition, textWidth, lineHeight),
+      PdfStandardFont(PdfFontFamily.helvetica, 7),
+      bounds: Rect.fromLTWH(
+        leftMargin + monthOffset,
+        yPosition,
+        textWidth,
+        lineHeight,
+      ),
       brush: grayBrush,
     );
 
     // Draw date on second line (smaller font, left-aligned, gray)
     page.graphics.drawString(
       dateString,
-      PdfStandardFont(PdfFontFamily.helvetica, 9),
+      PdfStandardFont(PdfFontFamily.helvetica, 7),
       bounds: Rect.fromLTWH(
         leftMargin,
         yPosition + lineHeight,

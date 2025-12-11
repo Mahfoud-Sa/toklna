@@ -143,10 +143,49 @@ class HealthPassportPage extends StatelessWidget {
                         .end, // Align text to the right for Arabic
                     children: [
                       // Last update text
-                      const Center(
-                        child: Text(
-                          'آخر تحديث: الأربعاء 10 ديسمبر 11:01 ص', // "Last update: Wednesday 10 December 11:01 AM"
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                      Center(
+                        child: Builder(
+                          builder: (context) {
+                            final now = DateTime.now();
+                            final arabicDays = [
+                              'الإثنين',
+                              'الثلاثاء',
+                              'الأربعاء',
+                              'الخميس',
+                              'الجمعة',
+                              'السبت',
+                              'الأحد',
+                            ];
+                            final arabicMonths = [
+                              'يناير',
+                              'فبراير',
+                              'مارس',
+                              'أبريل',
+                              'مايو',
+                              'يونيو',
+                              'يوليو',
+                              'أغسطس',
+                              'سبتمبر',
+                              'أكتوبر',
+                              'نوفمبر',
+                              'ديسمبر',
+                            ];
+                            final dayName = arabicDays[now.weekday - 1];
+                            final monthName = arabicMonths[now.month - 1];
+                            final hour = now.hour > 12
+                                ? now.hour - 12
+                                : (now.hour == 0 ? 12 : now.hour);
+                            final period = now.hour >= 12 ? 'م' : 'ص';
+                            final formattedDate =
+                                'آخر تحديث: $dayName ${now.day} $monthName $hour:${now.minute.toString().padLeft(2, '0')} $period';
+                            return Text(
+                              formattedDate,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                              ),
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -161,7 +200,7 @@ class HealthPassportPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 15),
                       // Personal Information Rows
-                      _buildInfoRow('الجنسية', 'حصن ن'), // "Nationality"
+                      _buildInfoRow('الجنسية', '1 حصن ن'), // "Nationality"
                       _buildInfoRow('رقم الهوية', '2501502154'), // "ID Number"
                       _buildInfoRow(
                         'مكان الاصدار',
@@ -202,13 +241,13 @@ class HealthPassportPage extends StatelessWidget {
                       // Vaccine Doses Information
                       _buildVaccineInfoRow(
                         'الجرعة الأولى',
-                        '2021/06/30',
+                        '2021/10/5',
                         'فايزر-بيونتيك',
                       ), // "First Dose", Date, Vaccine Name
                       const SizedBox(height: 10),
                       _buildVaccineInfoRow(
                         'الجرعة الثانية',
-                        '2021/07/21',
+                        '2021/10/27',
                         'فايزر-بيونتيك',
                       ), // "Second Dose", Date, Vaccine Name
                       const SizedBox(height: 20),

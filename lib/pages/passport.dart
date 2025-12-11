@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/pages/services_page.dart';
 import 'package:toklna/services/pdf_date_service.dart';
 
@@ -79,7 +80,18 @@ class HealthPassportPage extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                _buildCircularIcon(Icons.qr_code),
+                                _buildCircularIcon(
+                                  Icons.qr_code,
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            const HealthStatusPage(),
+                                      ),
+                                    );
+                                  },
+                                ),
                                 const SizedBox(width: 10),
                                 _buildCircularIcon(Icons.translate),
                               ],
@@ -149,8 +161,8 @@ class HealthPassportPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 15),
                       // Personal Information Rows
-                      _buildInfoRow('الجنسية', 'حصن 1'), // "Nationality"
-                      _buildInfoRow('رقم الهوية', '1501502154'), // "ID Number"
+                      _buildInfoRow('الجنسية', 'حصن ن'), // "Nationality"
+                      _buildInfoRow('رقم الهوية', '2501502154'), // "ID Number"
                       _buildInfoRow(
                         'مكان الاصدار',
                         'وكالة الأمارة للشرون الأمنية',
@@ -199,80 +211,74 @@ class HealthPassportPage extends StatelessWidget {
                         '2021/07/21',
                         'فايزر-بيونتيك',
                       ), // "Second Dose", Date, Vaccine Name
+                      const SizedBox(height: 20),
+                      const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
+                      const SizedBox(height: 20),
+                      // 1. PCR Test Result Section
+                      Center(
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.analytics_outlined,
+                              size: 50,
+                              color: Colors.grey[300],
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'نتيجة فحص كورونا PCR غير متوفرة',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
+                      const SizedBox(height: 20),
+                      // 2. Travel Medical Insurance Section
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'التأمين طبي للسفر',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Center(
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.shield_outlined,
+                                  size: 60,
+                                  color: Colors.grey[300],
+                                ),
+                                const SizedBox(height: 15),
+                                const Text(
+                                  'حالتك الصحية لا تتطلب تأمين طبي للسفر',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20), // Extra space at the bottom
-            // --- START OF NEW SECTION ---
-            const SizedBox(height: 20),
-            const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
-            const SizedBox(height: 20),
-
-            // 1. PCR Test Result Section
-            Center(
-              child: Column(
-                children: [
-                  Icon(
-                    Icons
-                        .analytics_outlined, // Or use a custom SVG asset if you have one
-                    size: 50,
-                    color: Colors.grey[300],
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'نتيجة فحص كورونا PCR غير متوفرة',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-            const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
-            const SizedBox(height: 20),
-
-            // 2. Travel Medical Insurance Section
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'التأمين طبي للسفر',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Center(
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons
-                            .shield_outlined, // Placeholder for the shield/document icon
-                        size: 60,
-                        color: Colors.grey[300],
-                      ),
-                      const SizedBox(height: 15),
-                      const Text(
-                        'حالتك الصحية لا تتطلب تأمين طبي للسفر',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
 
             const SizedBox(height: 40),
 
@@ -333,14 +339,17 @@ class HealthPassportPage extends StatelessWidget {
   }
 
   // Helper widget for the top circular icons
-  Widget _buildCircularIcon(IconData icon) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
-        shape: BoxShape.circle,
+  Widget _buildCircularIcon(IconData icon, {VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.2),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: Colors.white, size: 20),
       ),
-      child: Icon(icon, color: Colors.white, size: 20),
     );
   }
 

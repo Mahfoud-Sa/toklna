@@ -73,10 +73,39 @@ class _DashboardPageState extends State<DashboardPage> {
                       backgroundColor: Colors.transparent,
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
-                        child: InteractiveViewer(
-                          child: Image.asset(
-                            'assets/user_photo.png',
-                            fit: BoxFit.contain,
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircleAvatar(
+                                radius: 60,
+                                backgroundImage: AssetImage(
+                                  'assets/user_photo.png',
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              const Text(
+                                'خليفة هود سالم المهري',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              const Text(
+                                '2501502154',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -86,8 +115,8 @@ class _DashboardPageState extends State<DashboardPage> {
               },
               child: Image(
                 image: AssetImage('assets/‏‏icon.jpeg'),
-                width: 400,
-                height: 400,
+                width: 300,
+                height: 300,
               ),
             ),
 

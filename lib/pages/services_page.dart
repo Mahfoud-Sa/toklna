@@ -44,14 +44,7 @@ class ServicesPage extends StatelessWidget {
                     name: "assets/icons/icon_1.jpeg",
                     title: 'رمز توكلنا',
                     color: Colors.blue,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const HealthStatusPage(),
-                        ),
-                      );
-                    },
+                    onTap: () {},
                   ),
                 ],
               ),

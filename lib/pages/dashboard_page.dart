@@ -64,74 +64,100 @@ class _DashboardPageState extends State<DashboardPage> {
             /// 🔵 PROGRESS SQUARE AT TOP OF COLUMN
             /// ------------------------------------
             const SizedBox(height: 20),
-            Image(
-              image: AssetImage('assets/‏‏icon.jpeg'),
-              width: 400,
-              height: 400,
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog(
+                      backgroundColor: Colors.transparent,
+                      child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: InteractiveViewer(
+                          child: Image.asset(
+                            'assets/user_photo.png',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: Image(
+                image: AssetImage('assets/‏‏icon.jpeg'),
+                width: 400,
+                height: 400,
+              ),
             ),
 
             const SizedBox(height: 16),
 
             /// Status + QR
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 23, 100, 26),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ProgressSquare(
-                    innerPadding: 4,
-                    progress: _value,
-                    size: 80,
-                    strokeWidth: 4,
-                    trackColor: Colors.transparent,
-                    progressColor: Colors.white,
-                    auto: _auto,
-                    duration: const Duration(seconds: 14),
-                    speed: 3.0,
-                    child: Image.asset(
-                      'assets/qr_code.png',
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.contain,
+            Center(
+              child: Container(
+                width: 375, // Fixed narrower width
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 5,
+                  vertical: 15,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 23, 100, 26),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ProgressSquare(
+                      innerPadding: 4,
+                      progress: _value,
+                      size: 80,
+                      strokeWidth: 4,
+                      trackColor: Colors.transparent,
+                      progressColor: Colors.white,
+                      auto: _auto,
+                      duration: const Duration(seconds: 14),
+                      speed: 3.0,
+                      child: Image.asset(
+                        'assets/qr_code.png',
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'محصن',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'محصَّن',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "كمل جرعات لقاح كورونا (كوفيد_19)",
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
+                        Text(
+                          "كمل جرعات لقاح كورونا (كوفيد_19)",
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        _getArabicDateTime(),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
+                        const SizedBox(height: 4),
+                        Text(
+                          _getArabicDateTime(),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 8),
-                  const Icon(color: Colors.white, Icons.refresh, size: 20),
-                ],
+                      ],
+                    ),
+                    const SizedBox(width: 5),
+                    const Icon(color: Colors.white, Icons.refresh, size: 20),
+                  ],
+                ),
               ),
             ),
 

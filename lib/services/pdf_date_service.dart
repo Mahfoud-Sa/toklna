@@ -24,23 +24,44 @@ class PdfDateService {
     // 4. Get page height to calculate vertical center position
     final double pageHeight = page.getClientSize().height;
 
-    // 5. Get today's date formatted
-    final String todayDate = DateFormat(
-      'yyyy/MM/dd - HH:mm',
-    ).format(DateTime.now());
+    // 5. Get today's date and time formatted
+    final DateTime now = DateTime.now();
+    final String timeString = DateFormat(
+      'h:mm a',
+    ).format(now); // e.g., "6:50 PM"
+    final String dateString = DateFormat(
+      'EEEE, MMMM d, yyyy',
+    ).format(now); // e.g., "Friday, January 5, 2024"
 
-    // 6. Add date text aligned to the left, near the bottom
+    // 6. Add date/time text left-aligned, near the bottom
     const double textWidth = 200;
-    const double textHeight = 20;
+    const double lineHeight = 14;
     const double leftMargin = 20;
     const double bottomMargin = 175; // Distance from bottom
     final double yPosition = pageHeight - bottomMargin;
 
+    // Gray color brush
+    final PdfBrush grayBrush = PdfSolidBrush(PdfColor(128, 128, 128));
+
+    // Draw time on first line (smaller font, left-aligned, gray)
     page.graphics.drawString(
-      todayDate,
-      PdfStandardFont(PdfFontFamily.helvetica, 12),
-      bounds: Rect.fromLTWH(leftMargin, yPosition, textWidth, textHeight),
-      brush: PdfSolidBrush(PdfColor(0, 0, 0)), // Black color
+      timeString,
+      PdfStandardFont(PdfFontFamily.helvetica, 9),
+      bounds: Rect.fromLTWH(leftMargin, yPosition, textWidth, lineHeight),
+      brush: grayBrush,
+    );
+
+    // Draw date on second line (smaller font, left-aligned, gray)
+    page.graphics.drawString(
+      dateString,
+      PdfStandardFont(PdfFontFamily.helvetica, 9),
+      bounds: Rect.fromLTWH(
+        leftMargin,
+        yPosition + lineHeight,
+        textWidth,
+        lineHeight,
+      ),
+      brush: grayBrush,
     );
 
     // 6. Save the modified PDF to bytes

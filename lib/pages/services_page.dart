@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:printing/printing.dart';
+import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/pages/passport.dart';
 import 'package:toklna/utils/pdf_generator.dart';
 import 'package:toklna/widgets/tawakkalna_certificate.dart';
@@ -43,6 +44,14 @@ class ServicesPage extends StatelessWidget {
                     name: "assets/icons/icon_1.jpeg",
                     title: 'رمز توكلنا',
                     color: Colors.blue,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const HealthStatusPage(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -102,10 +111,10 @@ class ServicesPage extends StatelessWidget {
                     title: 'لقاح كورونا',
                     color: Colors.red,
                     onTap: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => HealthPassportPage()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (_) => HealthPassportPage()),
+                      // );
                     },
                   ),
                 ],
@@ -124,6 +133,12 @@ class ServicesPage extends StatelessWidget {
                     name: "assets/icons/icon_8.png",
                     title: 'الجواز الصحي',
                     color: Colors.purple,
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => HealthPassportPage()),
+                      );
+                    },
                   ),
                 ],
               ),

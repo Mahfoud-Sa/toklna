@@ -101,11 +101,9 @@ class HealthPassportPage extends StatelessWidget {
                           backgroundColor: Colors.white,
                           child: CircleAvatar(
                             radius: 42,
-                            backgroundImage: userImage != null
-                                ? AssetImage(userImage!) as ImageProvider
-                                : const AssetImage(
-                                    'assets/images/profile_placeholder.png',
-                                  ),
+                            backgroundImage: AssetImage(
+                              'assets/user_photo.png',
+                            ),
                           ),
                         ),
                       ],
@@ -151,23 +149,26 @@ class HealthPassportPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 15),
                       // Personal Information Rows
+                      _buildInfoRow('الجنسية', 'حصن 1'), // "Nationality"
+                      _buildInfoRow('رقم الهوية', '1501502154'), // "ID Number"
                       _buildInfoRow(
-                        'الجنسية',
-                        'حصن 1',
-                      ), // "Nationality", "Fort 1"
+                        'مكان الاصدار',
+                        'وكالة الأمارة للشرون الأمنية',
+                      ), // "Place of Issue"
                       _buildInfoRow(
-                        'رقم الهوية',
-                        '2592112896',
-                      ), // "ID Number", "..."
-                      _buildInfoRow(
-                        'رقم جواز السفر',
-                        '-',
-                      ), // "Passport Number", "-"
+                        'تاريخ الاصدار',
+                        '1442/05/28',
+                      ), // "Issue Date"
                       _buildInfoRow(
                         'تاريخ الميلاد',
-                        '2000/10/05',
-                      ), // "Date of Birth", "..."
-                      _buildInfoRow('فصيلة الدم', '-'), // "Blood Type", "-"
+                        '1997/11/01',
+                      ), // "Date of Birth"
+                      _buildInfoRow('المهنة', 'عامل'), // "Profession"
+                      _buildInfoRow('الديانة', 'الاسلام'), // "Religion"
+                      _buildInfoRow(
+                        'صاحب العمل',
+                        'عيسى بن عمرون بن سليمان المهري',
+                      ), // "Employer"
                       const SizedBox(height: 20),
                       const Divider(),
                       const SizedBox(height: 15),

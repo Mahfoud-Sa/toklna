@@ -56,11 +56,11 @@ class VaccinationCertificate {
 
   /// Example factory for quick preview/testing
   factory VaccinationCertificate.example() => VaccinationCertificate(
-    idNo: '2501502154',
+    idNo: '2504253661',
     passportNo: 'P12345678',
-    nameArabic: 'خليفة هود سالم المهري',
-    nameEnglish: 'KHAIFAH HOOD SALEM ALMAHRI',
-    dateOfBirth: '1997/11/01',
+    nameArabic: 'خالد عبدالله سالم المهري',
+    nameEnglish: 'KHAIFAH ABDOULLAH SALEM ALMAHRI',
+    dateOfBirth: '2001/03/07',
     nationality: 'Saudi',
     bloodType: 'O+',
     insuranceStatus: 'Insured',

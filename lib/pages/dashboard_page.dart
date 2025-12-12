@@ -114,7 +114,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 );
               },
               child: Image(
-                image: AssetImage('assets/‏‏icon.jpeg'),
+                image: AssetImage('assets/‏‏‏‏icon.jpeg'),
                 width: 300,
                 height: 300,
               ),

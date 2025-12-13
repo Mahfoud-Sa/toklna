@@ -32,12 +32,16 @@ class _HomePageState extends State<HomePage> {
 
       case 2:
         // Data Dashboard (uses popup)
-        bodyContent = const DataPopup();
+        bodyContent = DataPopup(
+          onNavigateHome: () => setState(() => _currentIndex = 0),
+        );
         break;
 
       case 3:
         // Wallet (placeholder)
-        bodyContent = const DataPopup();
+        bodyContent = DataPopup(
+          onNavigateHome: () => setState(() => _currentIndex = 0),
+        );
         break;
 
       case 4:

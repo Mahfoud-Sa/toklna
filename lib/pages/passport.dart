@@ -24,7 +24,7 @@ class HealthPassportPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
-            // Add navigation back logic here
+            Navigator.pop(context);
           },
         ),
         centerTitle: true,
@@ -80,18 +80,7 @@ class HealthPassportPage extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                _buildCircularIcon(
-                                  Icons.qr_code,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            const HealthStatusPage(),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                _buildCircularIcon(Icons.qr_code, onTap: () {}),
                                 const SizedBox(width: 10),
                                 _buildCircularIcon(Icons.translate),
                               ],
@@ -200,11 +189,11 @@ class HealthPassportPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 15),
                       // Personal Information Rows
-                      _buildInfoRow('الجنسية', '1 حصن ن'), // "Nationality"
+                      _buildInfoRow('الجنسية', '1 حصر ن'), // "Nationality"
                       _buildInfoRow('رقم الهوية', '2501502154'), // "ID Number"
                       _buildInfoRow(
                         'مكان الاصدار',
-                        'وكالة الأمارة للشرون الأمنية',
+                        'وكالة الأمارة للشوؤن الأمنية',
                       ), // "Place of Issue"
                       _buildInfoRow(
                         'تاريخ الاصدار',

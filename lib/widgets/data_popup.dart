@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 ///
 /// Usage: place `const DataPopup()` where you want the card to appear.
 class DataPopup extends StatelessWidget {
-  const DataPopup({super.key});
+  const DataPopup({super.key, this.onNavigateHome});
+
+  /// Callback invoked when the user taps "العودة إلى الصفحة الرئيسية".
+  final VoidCallback? onNavigateHome;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +118,13 @@ class DataPopup extends StatelessWidget {
                       Directionality(
                         textDirection: TextDirection.rtl,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (onNavigateHome != null) {
+                              onNavigateHome!();
+                            } else {
+                              // Navigator.pop(context);
+                            }
+                          },
                           child: const Text(
                             'العودة إلى الصفحة الرئيسية',
                             style: TextStyle(color: Colors.black87),

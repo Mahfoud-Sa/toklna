@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/widgets/progress_square.dart';
 import 'package:toklna/widgets/twakilna_card_widget.dart';
+import 'package:toklna/widgets/user_profile_dialog.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -64,60 +66,9 @@ class _DashboardPageState extends State<DashboardPage> {
             /// 🔵 PROGRESS SQUARE AT TOP OF COLUMN
             /// ------------------------------------
             const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog(
-                      backgroundColor: Colors.transparent,
-                      child: GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CircleAvatar(
-                                radius: 60,
-                                backgroundImage: AssetImage(
-                                  'assets/user_photo.png',
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              const Text(
-                                'خليفة هود سالم المهري',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              const Text(
-                                '2501502154',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Image(
-                image: AssetImage('assets/‏‏icon.jpeg'),
-                width: 300,
-                height: 300,
-              ),
+            const UserProfileDialog(
+              triggerImagePath: 'assets/‏‏icon.jpeg',
+              profileImagePath: 'assets/user_photo.png',
             ),
 
             const SizedBox(height: 16),
@@ -139,6 +90,46 @@ class _DashboardPageState extends State<DashboardPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ProgressSquare(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          builder: (context) => DraggableScrollableSheet(
+                            initialChildSize: 0.9,
+                            minChildSize: 0.5,
+                            maxChildSize: 0.95,
+                            expand: false,
+                            builder: (context, scrollController) => Column(
+                              children: [
+                                // Drag handle
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
+                                  width: 40,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                ),
+                                // Content
+                                Expanded(
+                                  child: HealthStatusPage(
+                                    scrollController: scrollController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                       innerPadding: 4,
                       progress: _value,
                       size: 80,

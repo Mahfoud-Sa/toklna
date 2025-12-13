@@ -17,6 +17,7 @@ class ProgressSquare extends StatefulWidget {
   final double size;
   final double innerPadding; // space between child and progress stroke
   final Widget? child;
+  final VoidCallback? onTap;
 
   const ProgressSquare({
     super.key,
@@ -30,6 +31,7 @@ class ProgressSquare extends StatefulWidget {
     this.size = 150,
     this.innerPadding = 12.0,
     this.child,
+    this.onTap,
   });
 
   @override
@@ -97,7 +99,7 @@ class _ProgressSquareState extends State<ProgressSquare>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    Widget content = SizedBox(
       width: widget.size,
       height: widget.size,
       child: Stack(
@@ -124,6 +126,12 @@ class _ProgressSquareState extends State<ProgressSquare>
         ],
       ),
     );
+
+    if (widget.onTap != null) {
+      return GestureDetector(onTap: widget.onTap, child: content);
+    }
+
+    return content;
   }
 
   @override

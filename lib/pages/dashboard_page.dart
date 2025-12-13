@@ -85,12 +85,12 @@ class _DashboardPageState extends State<DashboardPage> {
                               CircleAvatar(
                                 radius: 60,
                                 backgroundImage: AssetImage(
-                                  'assets/user_photo.png',
+                                  'assets/user_photo_k.png',
                                 ),
                               ),
                               const SizedBox(height: 12),
                               const Text(
-                                'خليفة هود سالم المهري',
+                                'خالد عبدالله سالم المهري',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               ),
                               const SizedBox(height: 4),
                               const Text(
-                                '2501502154',
+                                '2504253661',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.black87,
@@ -114,7 +114,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 );
               },
               child: Image(
-                image: AssetImage('assets/‏‏icon.jpeg'),
+                image: AssetImage('assets/‏‏‏‏icon_k.jpeg'),
                 width: 300,
                 height: 300,
               ),

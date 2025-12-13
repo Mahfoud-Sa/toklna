@@ -1,26 +1,28 @@
 name: Build APK and Publish Release
 
 on:
-  push:
-    tags:
-      - 'v*'
   workflow_dispatch:
     inputs:
-      version:
-        description: "Release version (e.g., 1.3.2)"
-        required: false
-        default: ""
-      package_name:
-        description: "Android package name (e.g., com.company.app)"
+      apk_name:
+        description: "APK name (e.g. store-app)"
         required: true
+      version:
+        description: "Version name (e.g. v1.3.2)"
+        required: true
+      branch:
+        description: "Git branch to build from"
+        required: true
+        default: "main"
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout selected branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -29,7 +31,7 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Verify Flutter environment
+      - name: Verify Flutter
         run: |
           flutter --version
           flutter doctor
@@ -37,61 +39,35 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build APK (with package name)
-        shell: bash
-        run: |
-          if [ -z "${{ github.event.inputs.package_name }}" ]; then
-            PACKAGE_NAME="default.package.name"
-          else
-            PACKAGE_NAME="${{ github.event.inputs.package_name }}"
-          fi
-
-          flutter build apk --release \
-            --dart-define=PACKAGE_NAME=$PACKAGE_NAME
+      - name: Build release APK
+        run: flutter build apk --release
 
       - name: Find and rename APK
         id: rename_apk
         shell: pwsh
         run: |
-          # Find APK
           $apk = Get-ChildItem -Path "build" -Filter "*.apk" -Recurse | Select-Object -First 1
           if (-not $apk) {
-            Write-Host "APK file not found"
+            Write-Host "APK not found"
             exit 1
           }
 
-          # Determine version
-          if ("${{ github.event.inputs.version }}") {
-            $version = "v${{ github.event.inputs.version }}"
-          }
-          elseif ("${{ github.ref }}" -like "refs/tags/*") {
-            $version = "${{ github.ref }}".Replace("refs/tags/", "")
-          }
-          else {
-            $version = "v${{ github.run_number }}"
-          }
+          $apkName = "${{ github.event.inputs.apk_name }}"
+          $version = "${{ github.event.inputs.version }}"
+          $branch  = "${{ github.event.inputs.branch }}"
 
-          # Package name fallback
-          if ("${{ github.event.inputs.package_name }}") {
-            $package = "${{ github.event.inputs.package_name }}"
-          }
-          else {
-            $package = "default.package.name"
-          }
-
-          # Rename APK
-          $newName = "store-$version-$package.apk"
+          $newName = "$apkName-$version-$branch.apk"
           $newPath = Join-Path $apk.DirectoryName $newName
+
           Rename-Item $apk.FullName $newPath -Force
 
-          # Export outputs
           echo "APK_PATH=$newPath" >> $env:GITHUB_OUTPUT
-          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+          echo "APK_NAME=$newName" >> $env:GITHUB_OUTPUT
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
+          name: release-apk
           path: ${{ steps.rename_apk.outputs.APK_PATH }}
 
   publish-release:
@@ -102,32 +78,22 @@ jobs:
       contents: write
 
     steps:
-      - name: Resolve tag name
-        id: get_tag
-        run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" && -n "${{ github.event.inputs.version }}" ]]; then
-            echo "tag_name=v${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
-          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
-            echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-          else
-            echo "tag_name=v${{ github.run_number }}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Download APK artifact
+      - name: Download APK
         uses: actions/download-artifact@v4
         with:
-          name: app-release
+          name: release-apk
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.get_tag.outputs.tag_name }}
-          name: Release ${{ steps.get_tag.outputs.tag_name }}
+          tag_name: ${{ github.event.inputs.version }}
+          name: Release ${{ github.event.inputs.version }}
           body: |
-            🚀 Automated Flutter Release
-            
-            **Version:** ${{ steps.get_tag.outputs.tag_name }}
-            **Package:** ${{ github.event.inputs.package_name }}
+            🚀 Automated APK Release
+
+            **APK Name:** ${{ github.event.inputs.apk_name }}
+            **Version:** ${{ github.event.inputs.version }}
+            **Branch:** ${{ github.event.inputs.branch }}
           files: "*.apk"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -146,6 +146,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ProgressSquare(
+                      onTap: () {},
                       innerPadding: 4,
                       progress: _value,
                       size: 80,

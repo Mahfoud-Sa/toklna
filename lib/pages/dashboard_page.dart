@@ -85,7 +85,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               CircleAvatar(
                                 radius: 60,
                                 backgroundImage: AssetImage(
-                                  'assets/user_photo_1.png',
+                                  'assets/images/user_photo_s.png',
                                 ),
                               ),
                               const SizedBox(height: 12),
@@ -114,7 +114,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 );
               },
               child: Image(
-                image: AssetImage('assets/‏‏‏‏icon.jpeg'),
+                image: AssetImage('assets/images/‏‏‏‏icon_s.jpeg'),
                 width: 300,
                 height: 300,
               ),

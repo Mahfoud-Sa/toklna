@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toklna/widgets/progress_square.dart';
 import 'package:toklna/widgets/twakilna_card_widget.dart';
+import 'package:toklna/widgets/user_profile_dialog.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -64,62 +65,68 @@ class _DashboardPageState extends State<DashboardPage> {
             /// 🔵 PROGRESS SQUARE AT TOP OF COLUMN
             /// ------------------------------------
             const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog(
-                      backgroundColor: Colors.transparent,
-                      child: GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CircleAvatar(
-                                radius: 60,
-                                backgroundImage: AssetImage(
-                                  'assets/user_photo_k.png',
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              const Text(
-                                'خالد عبدالله سالم المهري',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              const Text(
-                                '2504253661',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Image(
-                image: AssetImage('assets/‏‏‏‏icon_k.jpeg'),
-                width: 300,
-                height: 300,
-              ),
+            UserProfileDialog(
+              triggerImagePath: 'assets/user_photo_k.png',
+              profileImagePath: 'assets/‏‏‏‏icon_k.jpeg',
+              userName: 'خالد عبدالله سالم المهري',
+              userId: '2504253661',
             ),
 
+            // GestureDetector(
+            //   onTap: () {
+            //     showDialog(
+            //       context: context,
+            //       builder: (BuildContext context) {
+            //         return Dialog(
+            //           backgroundColor: Colors.transparent,
+            //           child: GestureDetector(
+            //             onTap: () => Navigator.pop(context),
+            //             child: Container(
+            //               padding: const EdgeInsets.all(20),
+            //               decoration: BoxDecoration(
+            //                 color: Colors.white,
+            //                 borderRadius: BorderRadius.circular(16),
+            //               ),
+            //               child: Column(
+            //                 mainAxisSize: MainAxisSize.min,
+            //                 children: [
+            //                   CircleAvatar(
+            //                     radius: 60,
+            //                     backgroundImage: AssetImage(
+            //                       'assets/user_photo_k.png',
+            //                     ),
+            //                   ),
+            //                   const SizedBox(height: 12),
+            //                   const Text(
+            //                     'خالد عبدالله سالم المهري',
+            //                     style: TextStyle(
+            //                       fontSize: 18,
+            //                       fontWeight: FontWeight.bold,
+            //                       color: Colors.black,
+            //                     ),
+            //                   ),
+            //                   const SizedBox(height: 4),
+            //                   const Text(
+            //                     '2504253661',
+            //                     style: TextStyle(
+            //                       fontSize: 16,
+            //                       color: Colors.black87,
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //     );
+            //   },
+            //   child: Image(
+            //     image: AssetImage('assets/‏‏‏‏icon_k.jpeg'),
+            //     width: 300,
+            //     height: 300,
+            //   ),
+            // ),
             const SizedBox(height: 16),
 
             /// Status + QR

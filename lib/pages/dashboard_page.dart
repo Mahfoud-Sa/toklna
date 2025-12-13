@@ -3,7 +3,6 @@ import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/widgets/progress_square.dart';
 import 'package:toklna/widgets/twakilna_card_widget.dart';
 import 'package:toklna/widgets/user_profile.dart';
-import 'package:toklna/widgets/user_profile_dialog.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -68,8 +67,8 @@ class _DashboardPageState extends State<DashboardPage> {
             /// ------------------------------------
             const SizedBox(height: 20),
             UserProfileDialog(
-              triggerImagePath: 'assets/user_photo_k.png',
-              profileImagePath: 'assets/‏‏‏‏icon_k.jpeg',
+              triggerImagePath: 'assets/‏‏‏‏icon_k.jpeg',
+              profileImagePath: 'assets/user_photo_k.png',
               userName: 'خالد عبدالله سالم المهري',
               userId: '2504253661',
             ),

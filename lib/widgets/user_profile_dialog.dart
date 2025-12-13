@@ -64,7 +64,7 @@ class UserProfileDialog extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF389A90),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -72,7 +72,7 @@ class UserProfileDialog extends StatelessWidget {
                           userId,
                           style: const TextStyle(
                             fontSize: 16,
-                            color: Color(0xFF389A90),
+                            color: Colors.black,
                           ),
                         ),
                       ],

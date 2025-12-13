@@ -67,7 +67,7 @@ class _DashboardPageState extends State<DashboardPage> {
             /// ------------------------------------
             const SizedBox(height: 20),
             const UserProfileDialog(
-              triggerImagePath: 'assets/‏‏icon.jpeg',
+              triggerImagePath: 'assets/‏‏icon_1.jpeg',
               profileImagePath: 'assets/user_photo.png',
             ),
 

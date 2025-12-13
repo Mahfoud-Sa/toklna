@@ -103,7 +103,7 @@ class HealthPassportPage extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 42,
                             backgroundImage: AssetImage(
-                              'assets/user_photo_1.png',
+                              'assets/user_photo.png',
                             ),
                           ),
                         ),

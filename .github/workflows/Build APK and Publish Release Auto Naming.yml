@@ -1,4 +1,4 @@
-name: Build APK and Publish Release Auto Naming
+name: Build APK and Publish Release
 
 on:
   push:

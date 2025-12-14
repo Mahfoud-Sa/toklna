@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/pages/home_page.dart';
 
 /// A centered popup card that mimics the attached design for the Data Dashboard.
 ///
@@ -115,7 +116,15 @@ class DataPopup extends StatelessWidget {
                       Directionality(
                         textDirection: TextDirection.rtl,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                              (route) => false,
+                            );
+                          },
                           child: const Text(
                             'العودة إلى الصفحة الرئيسية',
                             style: TextStyle(color: Colors.black87),

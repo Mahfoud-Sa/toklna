@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toklna/widgets/progress_square.dart';
 import 'package:toklna/widgets/twakilna_card_widget.dart';
+import 'package:toklna/widgets/user_profile.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -64,60 +65,11 @@ class _DashboardPageState extends State<DashboardPage> {
             /// 🔵 PROGRESS SQUARE AT TOP OF COLUMN
             /// ------------------------------------
             const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog(
-                      backgroundColor: Colors.transparent,
-                      child: GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CircleAvatar(
-                                radius: 60,
-                                backgroundImage: AssetImage(
-                                  'assets/images/user_photo_s.png',
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              const Text(
-                                'صالح سالم عبدالله المهري',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              const Text(
-                                '2501136468',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Image(
-                image: AssetImage('assets/images/‏‏‏‏icon_s.jpeg'),
-                width: 300,
-                height: 300,
-              ),
+            const UserProfileDialog(
+              triggerImagePath: 'assets/images/‏‏‏‏icon_s.jpeg',
+              profileImagePath: 'assets/images/user_photo_s.png',
+              userName: 'صالح سالم عبدالله المهري',
+              userId: '2501136468',
             ),
 
             const SizedBox(height: 16),

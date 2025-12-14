@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/widgets/progress_square.dart';
 import 'package:toklna/widgets/twakilna_card_widget.dart';
 import 'package:toklna/widgets/user_profile.dart';
@@ -91,6 +92,46 @@ class _DashboardPageState extends State<DashboardPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ProgressSquare(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          builder: (context) => DraggableScrollableSheet(
+                            initialChildSize: 0.9,
+                            minChildSize: 0.5,
+                            maxChildSize: 0.95,
+                            expand: false,
+                            builder: (context, scrollController) => Column(
+                              children: [
+                                // Drag handle
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
+                                  width: 40,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                ),
+                                // Content
+                                Expanded(
+                                  child: HealthStatusPage(
+                                    //   scrollController: scrollController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                       innerPadding: 4,
                       progress: _value,
                       size: 80,

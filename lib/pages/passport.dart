@@ -204,7 +204,7 @@ class HealthPassportPage extends StatelessWidget {
                       _buildInfoRow('رقم الهوية', '2501136468'), // "ID Number"
                       _buildInfoRow(
                         'مكان الاصدار',
-                        'وكالة الأمارة للشرون الأمنية',
+                        'وكالة الأمارة للشؤون الأمنية',
                       ), // "Place of Issue"
                       _buildInfoRow(
                         'تاريخ الاصدار',

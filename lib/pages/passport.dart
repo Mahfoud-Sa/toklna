@@ -200,7 +200,7 @@ class HealthPassportPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 15),
                       // Personal Information Rows
-                      _buildInfoRow('الجنسية', '1 حصن ن'), // "Nationality"
+                      _buildInfoRow('الجنسية', '1 حصر ن'), // "Nationality"
                       _buildInfoRow('رقم الهوية', '2501136468'), // "ID Number"
                       _buildInfoRow(
                         'مكان الاصدار',

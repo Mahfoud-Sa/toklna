@@ -124,7 +124,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                 // Content
                                 Expanded(
                                   child: HealthStatusPage(
-                                    //   scrollController: scrollController,
+                                    scrollController: scrollController,
                                   ),
                                 ),
                               ],

@@ -24,7 +24,7 @@ class HealthPassportPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
-            // Add navigation back logic here
+            Navigator.pop(context);
           },
         ),
         centerTitle: true,
@@ -39,9 +39,7 @@ class HealthPassportPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert, color: Colors.white),
-            onPressed: () {
-              // Add menu action here
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -114,7 +112,7 @@ class HealthPassportPage extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 42,
                             backgroundImage: AssetImage(
-                              'assets/user_photo_1.png',
+                              'assets/user_photo_k.png',
                             ),
                           ),
                         ),
@@ -204,15 +202,15 @@ class HealthPassportPage extends StatelessWidget {
                       _buildInfoRow('رقم الهوية', '2504253661'), // "ID Number"
                       _buildInfoRow(
                         'مكان الاصدار',
-                        'وكالة الأمارة للشرون الأمنية',
+                        'وكالة الأمارة للشؤون الأمنية',
                       ), // "Place of Issue"
                       _buildInfoRow(
                         'تاريخ الاصدار',
-                        '1442/03/15',
+                        '1442/06/13',
                       ), // "Issue Date"
                       _buildInfoRow(
                         'تاريخ الميلاد',
-                        '2001/03/07',
+                        '2001/10/17',
                       ), // "Date of Birth"
                       _buildInfoRow('المهنة', 'عامل'), // "Profession"
                       _buildInfoRow('الديانة', 'الاسلام'), // "Religion"

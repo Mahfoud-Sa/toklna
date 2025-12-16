@@ -138,7 +138,7 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Colors.black,
             ),
           ),
         ),
@@ -150,7 +150,7 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
           alignment: Alignment.centerRight,
           child: Text(
             'تعتبر الأكواد الملونة طريقة لحفظ الخصوصية ومعرفة الوضع الصحي للمستخدم وفقاً للبيانات الرسمية التي تصلنا من وزارة الصحة، كما أنها تحفظ البيانات الشخصية بسفير عالي.',
-            style: TextStyle(fontSize: 14, color: Colors.grey, height: 1.5),
+            style: TextStyle(fontSize: 14, color: Colors.black, height: 1.5),
             textAlign: TextAlign.right,
             textDirection: TextDirection.rtl,
           ),
@@ -209,16 +209,7 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // QR Icon
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(Icons.qr_code_2, color: Colors.white, size: 40),
-          ),
-          const SizedBox(width: 16),
+
           // Text Content
           Expanded(
             child: Column(
@@ -229,7 +220,7 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: Colors.black,
                   ),
                   textDirection: TextDirection.rtl,
                 ),
@@ -238,7 +229,7 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
                   description,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Colors.grey,
+                    color: Colors.black,
                     height: 1.4,
                   ),
                   textAlign: TextAlign.right,
@@ -246,6 +237,16 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
                 ),
               ],
             ),
+          ),
+          const SizedBox(width: 16),
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(Icons.qr_code_2, color: Colors.white, size: 40),
           ),
         ],
       ),

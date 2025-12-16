@@ -105,238 +105,246 @@ class HealthPassportPage extends StatelessWidget {
           ),
           // White card that overlaps header - stays fixed with scrollable content inside
           Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(top: 0, left: 15, right: 15),
-              padding: const EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    // Last update text
-                    Center(
-                      child: Builder(
-                        builder: (context) {
-                          final now = DateTime.now();
-                          final arabicDays = [
-                            'الإثنين',
-                            'الثلاثاء',
-                            'الأربعاء',
-                            'الخميس',
-                            'الجمعة',
-                            'السبت',
-                            'الأحد',
-                          ];
-                          final arabicMonths = [
-                            'يناير',
-                            'فبراير',
-                            'مارس',
-                            'أبريل',
-                            'مايو',
-                            'يونيو',
-                            'يوليو',
-                            'أغسطس',
-                            'سبتمبر',
-                            'أكتوبر',
-                            'نوفمبر',
-                            'ديسمبر',
-                          ];
-                          final dayName = arabicDays[now.weekday - 1];
-                          final monthName = arabicMonths[now.month - 1];
-                          final hour = now.hour > 12
-                              ? now.hour - 12
-                              : (now.hour == 0 ? 12 : now.hour);
-                          final period = now.hour >= 12 ? 'م' : 'ص';
-                          final formattedDate =
-                              'آخر تحديث: $dayName ${now.day} $monthName $hour:${now.minute.toString().padLeft(2, '0')} $period';
-                          return Text(
-                            formattedDate,
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          );
-                        },
-                      ),
+            child: Transform.translate(
+              offset: const Offset(0, -15),
+              child: Container(
+                margin: const EdgeInsets.only(top: 0, left: 15, right: 15),
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2),
                     ),
-                    const SizedBox(height: 20),
-                    // Personal Information Section Title
-                    const Text(
-                      'المعلومات الشخصية',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    // Personal Information Rows
-                    _buildInfoRow('الجنسية', '1 حصر ن'),
-                    _buildInfoRow('رقم الهوية', '2501502154'),
-                    _buildInfoRow(
-                      'مكان الاصدار',
-                      'وكالة الأمارة للشوؤن الأمنية',
-                    ),
-                    _buildInfoRow('تاريخ الاصدار', '1442/03/15'),
-                    _buildInfoRow('تاريخ الميلاد', '2001/03/07'),
-                    _buildInfoRow('المهنة', 'عامل'),
-                    _buildInfoRow('الديانة', 'الاسلام'),
-                    _buildInfoRow(
-                      'صاحب العمل',
-                      'عيسى بن عمرون بن سليمان المهري',
-                    ),
-                    const SizedBox(height: 20),
-                    const Divider(),
-                    const SizedBox(height: 15),
-                    // Health Information Section Title
-                    const Text(
-                      'المعلومات الصحية',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'تفاصيل لقاح كورونا',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                    const SizedBox(height: 15),
-                    // Vaccine Doses Information
-                    _buildVaccineInfoRow(
-                      'الجرعة الأولى',
-                      '2021/06/13',
-                      'فايزر-بيونتيك',
-                    ),
-                    const SizedBox(height: 10),
-                    _buildVaccineInfoRow(
-                      'الجرعة الثانية',
-                      '2021/10/17',
-                      'فايزر-بيونتيك',
-                    ),
-                    const SizedBox(height: 20),
-                    const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
-                    const SizedBox(height: 20),
-                    // PCR Test Result Section
-                    Center(
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.analytics_outlined,
-                            size: 50,
-                            color: Colors.grey[300],
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'نتيجة فحص كورونا PCR غير متوفرة',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
-                    const SizedBox(height: 20),
-                    // Travel Medical Insurance Section
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'التأمين طبي للسفر',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Center(
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.shield_outlined,
-                                size: 60,
-                                color: Colors.grey[300],
-                              ),
-                              const SizedBox(height: 15),
-                              const Text(
-                                'حالتك الصحية لا تتطلب تأمين طبي للسفر',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    // Download Button
-                    SizedBox(
-                      width: double.infinity,
-                      height: 55,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF009688),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () async {
-                          try {
-                            final filePath =
-                                await PdfDateService.generatePdfWithDate();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => PdfViewerPage(path: filePath),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      // Last update text
+                      Center(
+                        child: Builder(
+                          builder: (context) {
+                            final now = DateTime.now();
+                            final arabicDays = [
+                              'الإثنين',
+                              'الثلاثاء',
+                              'الأربعاء',
+                              'الخميس',
+                              'الجمعة',
+                              'السبت',
+                              'الأحد',
+                            ];
+                            final arabicMonths = [
+                              'يناير',
+                              'فبراير',
+                              'مارس',
+                              'أبريل',
+                              'مايو',
+                              'يونيو',
+                              'يوليو',
+                              'أغسطس',
+                              'سبتمبر',
+                              'أكتوبر',
+                              'نوفمبر',
+                              'ديسمبر',
+                            ];
+                            final dayName = arabicDays[now.weekday - 1];
+                            final monthName = arabicMonths[now.month - 1];
+                            final hour = now.hour > 12
+                                ? now.hour - 12
+                                : (now.hour == 0 ? 12 : now.hour);
+                            final period = now.hour >= 12 ? 'م' : 'ص';
+                            final formattedDate =
+                                'آخر تحديث: $dayName ${now.day} $monthName $hour:${now.minute.toString().padLeft(2, '0')} $period';
+                            return Text(
+                              formattedDate,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
                               ),
                             );
-                          } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Failed to open PDF: $e')),
-                            );
-                          }
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      // Personal Information Section Title
+                      const Text(
+                        'المعلومات الشخصية',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      // Personal Information Rows
+                      _buildInfoRow('الجنسية', '1 حصر ن'),
+                      _buildInfoRow('رقم الهوية', '2501502154'),
+                      _buildInfoRow(
+                        'مكان الاصدار',
+                        'وكالة الأمارة للشوؤن الأمنية',
+                      ),
+                      _buildInfoRow('تاريخ الاصدار', '1442/03/15'),
+                      _buildInfoRow('تاريخ الميلاد', '2001/03/07'),
+                      _buildInfoRow('المهنة', 'عامل'),
+                      _buildInfoRow('الديانة', 'الاسلام'),
+                      _buildInfoRow(
+                        'صاحب العمل',
+                        'عيسى بن عمرون بن سليمان المهري',
+                      ),
+                      const SizedBox(height: 20),
+                      const Divider(),
+                      const SizedBox(height: 15),
+                      // Health Information Section Title
+                      const Text(
+                        'المعلومات الصحية',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'تفاصيل لقاح كورونا',
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                      const SizedBox(height: 15),
+                      // Vaccine Doses Information
+                      _buildVaccineInfoRow(
+                        'الجرعة الأولى',
+                        '2021/06/13',
+                        'فايزر-بيونتيك',
+                      ),
+                      const SizedBox(height: 10),
+                      _buildVaccineInfoRow(
+                        'الجرعة الثانية',
+                        '2021/10/17',
+                        'فايزر-بيونتيك',
+                      ),
+                      const SizedBox(height: 20),
+                      const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
+                      const SizedBox(height: 20),
+                      // PCR Test Result Section
+                      Center(
+                        child: Column(
                           children: [
                             Icon(
-                              Icons.picture_as_pdf,
-                              color: Colors.white,
-                              size: 28,
+                              Icons.analytics_outlined,
+                              size: 50,
+                              color: Colors.grey[300],
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              'تحميل الجواز الصحي',
+                            const SizedBox(height: 10),
+                            const Text(
+                              'نتيجة فحص كورونا PCR غير متوفرة',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
+                      const SizedBox(height: 20),
+                      const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
+                      const SizedBox(height: 20),
+                      // Travel Medical Insurance Section
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'التأمين طبي للسفر',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Center(
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.shield_outlined,
+                                  size: 60,
+                                  color: Colors.grey[300],
+                                ),
+                                const SizedBox(height: 15),
+                                const Text(
+                                  'حالتك الصحية لا تتطلب تأمين طبي للسفر',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      // Download Button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF009688),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            elevation: 0,
+                          ),
+                          onPressed: () async {
+                            try {
+                              final filePath =
+                                  await PdfDateService.generatePdfWithDate();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => PdfViewerPage(path: filePath),
+                                ),
+                              );
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Failed to open PDF: $e'),
+                                ),
+                              );
+                            }
+                          },
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.picture_as_pdf,
+                                color: Colors.white,
+                                size: 28,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'تحميل الجواز الصحي',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
             ),

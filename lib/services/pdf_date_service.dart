@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:toklna/data.dart';
 
 /// Service for generating and modifying PDF files
 class PdfDateService {
@@ -12,7 +12,7 @@ class PdfDateService {
   /// saves the modified PDF, and returns the file path.
   static Future<String> generatePdfWithDate() async {
     // 1. Load PDF from assets
-    final ByteData data = await rootBundle.load('assets/certificate.pdf');
+    final ByteData data = await rootBundle.load(Data.passportFile);
     final Uint8List bytes = data.buffer.asUint8List();
 
     // 2. Load the existing PDF document

@@ -1,14 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:printing/printing.dart';
-import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/pages/passport.dart';
-import 'package:toklna/utils/pdf_generator.dart';
-import 'package:toklna/widgets/tawakkalna_certificate.dart';
 
 class ServicesPage extends StatelessWidget {
   const ServicesPage({super.key});

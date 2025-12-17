@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/data.dart';
 import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/widgets/progress_square.dart';
-import 'package:toklna/widgets/twakilna_card_widget.dart';
 import 'package:toklna/widgets/user_profile_dialog.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -66,9 +66,9 @@ class _DashboardPageState extends State<DashboardPage> {
             /// 🔵 PROGRESS SQUARE AT TOP OF COLUMN
             /// ------------------------------------
             const SizedBox(height: 20),
-            const UserProfileDialog(
-              triggerImagePath: 'assets/‏‏icon_1.jpeg',
-              profileImagePath: 'assets/user_photo.png',
+            UserProfileDialog(
+              triggerImagePath: Data.cardImage,
+              profileImagePath: Data.personalImage,
             ),
 
             const SizedBox(height: 16),

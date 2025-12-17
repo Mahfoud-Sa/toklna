@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toklna/pages/health_status_page.dart';
+import 'package:toklna/data.dart';
 import 'package:toklna/pages/services_page.dart';
 import 'package:toklna/services/pdf_date_service.dart';
 
@@ -96,7 +96,7 @@ class HealthPassportPage extends StatelessWidget {
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
                       radius: 42,
-                      backgroundImage: AssetImage('assets/user_photo.png'),
+                      backgroundImage: AssetImage(Data.personalImage),
                     ),
                   ),
                 ],
@@ -185,13 +185,13 @@ class HealthPassportPage extends StatelessWidget {
                       const SizedBox(height: 15),
                       // Personal Information Rows
                       _buildInfoRow('الجنسية', '1 حصر ن'),
-                      _buildInfoRow('رقم الهوية', '2501502154'),
+                      _buildInfoRow('رقم الهوية', Data.passportNumber),
                       _buildInfoRow(
                         'مكان الاصدار',
                         'وكالة الأمارة للشوؤن الأمنية',
                       ),
-                      _buildInfoRow('تاريخ الاصدار', '1442/03/15'),
-                      _buildInfoRow('تاريخ الميلاد', '2001/03/07'),
+                      _buildInfoRow('تاريخ الاصدار', Data.startDate),
+                      _buildInfoRow('تاريخ الميلاد', Data.birthDate),
                       _buildInfoRow('المهنة', 'عامل'),
                       _buildInfoRow('الديانة', 'الاسلام'),
                       _buildInfoRow(
@@ -219,13 +219,13 @@ class HealthPassportPage extends StatelessWidget {
                       // Vaccine Doses Information
                       _buildVaccineInfoRow(
                         'الجرعة الأولى',
-                        '2021/06/13',
+                        Data.firstDoseDate,
                         'فايزر-بيونتيك',
                       ),
                       const SizedBox(height: 10),
                       _buildVaccineInfoRow(
                         'الجرعة الثانية',
-                        '2021/10/17',
+                        Data.secondDoseDate,
                         'فايزر-بيونتيك',
                       ),
                       const SizedBox(height: 20),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/data.dart';
 
 /// A widget that displays an image, and when tapped, shows a dialog
 /// with a user profile containing another image, name, and ID.
@@ -9,8 +10,8 @@ class UserProfileDialog extends StatelessWidget {
     required this.profileImagePath,
     this.triggerWidth = 300,
     this.triggerHeight = 300,
-    this.userName = 'خليفة هود سالم المهري',
-    this.userId = '2501502154',
+    this.userName = Data.userName,
+    this.userId = Data.passportNumber,
   });
 
   /// The image path for the trigger image (the one shown before tapping).
@@ -64,7 +65,7 @@ class UserProfileDialog extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Color(0xFF0D6E5A),
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -72,7 +73,7 @@ class UserProfileDialog extends StatelessWidget {
                           userId,
                           style: const TextStyle(
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Color(0xFF0D6E5A),
                           ),
                         ),
                       ],
@@ -87,7 +88,7 @@ class UserProfileDialog extends StatelessWidget {
                       child: const Icon(
                         Icons.close,
                         size: 20,
-                        color: Colors.black,
+                        color: Color(0xFF0D6E5A),
                       ),
                     ),
                   ),

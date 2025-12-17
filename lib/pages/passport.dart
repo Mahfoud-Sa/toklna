@@ -80,8 +80,8 @@ class HealthPassportPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      const Text(
-                        'خالد عبدالله سالم المهري',
+                      Text(
+                        Data.userName,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

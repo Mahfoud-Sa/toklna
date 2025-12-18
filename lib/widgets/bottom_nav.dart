@@ -40,6 +40,10 @@ class BottomNavBar extends StatelessWidget {
           ),
           label: 'الخدمات',
         ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.wallet_membership_outlined),
+          label: 'المحفظة الرقمية',
+        ),
 
         // Middle: Data Dashboard
         const BottomNavigationBarItem(
@@ -48,10 +52,6 @@ class BottomNavBar extends StatelessWidget {
         ),
 
         // Second from right: Wallet
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.wallet_membership_outlined),
-          label: 'المحفظة الرقمية',
-        ),
 
         // Right-most: My Account
         const BottomNavigationBarItem(

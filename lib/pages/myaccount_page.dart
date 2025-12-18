@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toklna/widgets/edit_user_data_dialog.dart';
 
 class MyAccountPage extends StatelessWidget {
   const MyAccountPage({super.key});
@@ -48,7 +49,11 @@ class MyAccountPage extends StatelessWidget {
                     _buildTile("شركاء النجاح", Icons.handshake_outlined),
                     _buildTile("الأسئلة الشائعة", Icons.help_outline),
                     _buildTile("سياسة استخدام الموقع", Icons.article_outlined),
-                    _buildTile("تواصل معنا", Icons.mail_outline),
+                    _buildTile(
+                      "تواصل معنا",
+                      Icons.mail_outline,
+                      onTap: () => EditUserDataDialog.show(context),
+                    ),
                   ],
                 ),
 
@@ -116,7 +121,7 @@ class MyAccountPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTile(String text, IconData icon) {
+  Widget _buildTile(String text, IconData icon, {VoidCallback? onTap}) {
     return Column(
       children: [
         ListTile(
@@ -124,6 +129,7 @@ class MyAccountPage extends StatelessWidget {
           leading: Icon(icon),
           title: Text(text),
           trailing: const Icon(Icons.keyboard_arrow_down),
+          onTap: onTap,
         ),
         const Divider(),
       ],

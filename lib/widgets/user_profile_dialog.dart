@@ -10,8 +10,8 @@ class UserProfileDialog extends StatelessWidget {
     required this.profileImagePath,
     this.triggerWidth = 300,
     this.triggerHeight = 300,
-    this.userName = Data.userName,
-    this.userId = Data.passportNumber,
+    this.userName,
+    this.userId,
   });
 
   /// The image path for the trigger image (the one shown before tapping).
@@ -26,11 +26,17 @@ class UserProfileDialog extends StatelessWidget {
   /// Height of the trigger image.
   final double triggerHeight;
 
-  /// User's name displayed in the dialog.
-  final String userName;
+  /// User's name displayed in the dialog. If null, reads from Data.userName.
+  final String? userName;
 
-  /// User's ID displayed in the dialog.
-  final String userId;
+  /// User's ID displayed in the dialog. If null, reads from Data.passportNumber.
+  final String? userId;
+
+  /// Gets the user name from parameter or from stored data.
+  String get _userName => userName ?? Data.userName;
+
+  /// Gets the user ID from parameter or from stored data.
+  String get _userId => userId ?? Data.passportNumber;
 
   void _showProfileDialog(BuildContext context) {
     showDialog(
@@ -61,7 +67,7 @@ class UserProfileDialog extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          userName,
+                          _userName,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -70,7 +76,7 @@ class UserProfileDialog extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          userId,
+                          _userId,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xFF0D6E5A),

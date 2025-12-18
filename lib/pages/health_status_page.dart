@@ -160,31 +160,72 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
 
         // Status Cards
         _buildStatusCard(
-          title: 'محصن',
+          title: 'محصّن',
           description:
               'اللون الاخضر الداكن يوضح أن المستفيد قد أكمل جرعات لقاح كورونا (كوفيد-19).',
-          color: const Color(0xFF1B5E20),
+          imagePath: 'assets/barcode_1.png',
         ),
 
         _buildStatusCard(
           title: 'مستثنى',
           description:
               'مستثنى لأسباب طبية:يوضح أن المستفيد أعتمد من قبل لجنة الاستثناءات الطبية في الصحة العامة,وأنه مستثنى من لقاح كورونا وفق لائحة الفئات المستثناة الخاضعة لوزارة الصحة.',
-          color: const Color(0xFF2E7D32),
+          imagePath: 'assets/barcode_1.png',
         ),
-
         _buildStatusCard(
-          title: 'لم تثبت إصابته',
+          title: 'لم تثبت اضابته',
           description:
-              'اللون الاخضر يوضح أن المستفيد ذو 12 سنة او أقل لم تثبت إصابته , ولم ينلق لقاح كورونا.',
-          color: const Color(0xFF43A047),
+              "اللون الاخضر يوضح ان المستفيد ذه 12 سنة أو اقل لم تثبت اصابته, ولم بتلق لقاح كورونا",
+          imagePath: 'assets/barcode_1.png',
         ),
-
         _buildStatusCard(
           title: 'زائر مؤمن',
           description:
-              'اللون الاخضر يوضح أن المستفيد زائر من خارج المملكة ولدية تأمين طبي فعال.',
-          color: const Color(0xFF66BB6A),
+              "اللون الأخضر يوضح أن المستفيد زائر من خارج المملكة ولدية تأمين طبي فعال.",
+          imagePath: 'assets/barcode_1.png',
+        ),
+
+        _buildStatusCard(
+          title: 'زائر غير مؤمن',
+          description:
+              "اللون الأبيض يوضح أن المستفيد زائر من خارج المملكة وليس لديه تأمين طبي فعال.",
+          imagePath: 'assets/barcode_3.png',
+        ),
+        _buildStatusCard(
+          title: 'غير مكتمل التحصين',
+          description:
+              "اللون الأبيض يوضح أن المستفيد قد حصل على جزء من اللقاحات ويتم عرضها بعد مرور 14 يوم من الحصول على الجرعة.",
+          imagePath: 'assets/barcode_3.png',
+        ),
+        _buildStatusCard(
+          title: "غير محصّن",
+          description:
+              'اللون الاخضر يوضح أن المستفيد ذو 12 سنة او أقل لم تثبت إصابته , ولم ينلق لقاح كورونا.',
+          imagePath: 'assets/barcode_3.png',
+        ),
+
+        _buildStatusCard(
+          title: 'مخالط',
+          description:
+              "اللون البرتقالي يوضح أن المستفيد تمت اكتشاف نحالطته لشخص مصاب او يسكن معه في نفس السكن ولا يسمح له بمغادرة المنزل أو طلب أي نوع من التصاريح وعليه الالتزام بالحجر لمدة 7أيام.",
+          imagePath: 'assets/barcode_4.png',
+        ),
+        _buildStatusCard(
+          title: 'مصاب',
+          description: "اللون البني يوضح أن المتفيد ثيتت إصابته بقيروس كورونا.",
+          imagePath: 'assets/barcode_5.png',
+        ),
+        _buildStatusCard(
+          title: 'الحالة الصحية غير معروفة',
+          description:
+              "اللون الرمادي يوضح أن المستفيد ليس لديه بيانات لدى وزراة الصحة",
+          imagePath: 'assets/barcode_6.png',
+        ),
+        _buildStatusCard(
+          title: 'غير معرّف',
+          description:
+              "اللون الرمادي يوضح أن المستفدم لا يوجد لديه اتصال بالإنترنت أو لم يحدد موقع سكنه,او أنه يستخدم شبكة افتراضية خاصة (VPN).",
+          imagePath: 'assets/barcode_6.png',
         ),
 
         const SizedBox(height: 20),
@@ -195,7 +236,7 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
   Widget _buildStatusCard({
     required String title,
     required String description,
-    required Color color,
+    required String imagePath,
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -239,15 +280,7 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
             ),
           ),
           const SizedBox(width: 16),
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(Icons.qr_code_2, color: Colors.white, size: 40),
-          ),
+          Image.asset(imagePath, width: 60, height: 60, fit: BoxFit.contain),
         ],
       ),
     );

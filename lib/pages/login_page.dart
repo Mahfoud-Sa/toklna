@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toklna/pages/home_page.dart';
+import 'package:toklna/widgets/otp_verification_sheet.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -50,10 +51,15 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // Navigate to home page
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
+    // Show OTP verification bottom sheet with notification
+    OtpVerificationSheet.showWithNotification(context).then((success) {
+      if (success == true && mounted) {
+        // Navigate to home page on successful verification
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      }
+    });
   }
 
   @override

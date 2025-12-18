@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:toklna/pages/splash_screen.dart';
+import 'package:toklna/services/notification_service.dart';
+import 'package:toklna/services/user_data_service.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize SharedPreferences for user data storage
+  await UserDataService.init();
+  // Initialize notification service
+  await NotificationService.init();
   runApp(const MyApp());
 }
 

@@ -1,5 +1,8 @@
 name: Build APK (Manual)
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
     inputs:
@@ -37,28 +40,32 @@ jobs:
         id: rename_apk
         shell: pwsh
         run: |
-          # Find APK
           $apk = Get-ChildItem -Path "build" -Filter "*.apk" -Recurse | Select-Object -First 1
           if (-not $apk) {
             Write-Host "APK file not found"
             exit 1
           }
 
-          # Branch name (always available)
           $branch = "${{ github.ref_name }}".Replace("/", "-")
-
-          # Version from dispatcher
           $version = "v${{ github.event.inputs.version }}"
 
-          # Rename APK
           $newName = "twaklina_${branch}_${version}.apk"
           $newPath = Join-Path $apk.DirectoryName $newName
           Rename-Item $apk.FullName $newPath -Force
 
           echo "APK_PATH=$newPath" >> $env:GITHUB_OUTPUT
+          echo "APK_NAME=$newName" >> $env:GITHUB_OUTPUT
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
         with:
-          name: twaklina-apk
-          path: ${{ steps.rename_apk.outputs.APK_PATH }}
+          tag_name: v${{ github.event.inputs.version }}
+          name: "Release v${{ github.event.inputs.version }}"
+          body: |
+            🚀 Flutter APK Release  
+            - Branch: `${{ github.ref_name }}`
+            - Version: `v${{ github.event.inputs.version }}`
+          draft: false
+          prerelease: false
+          files: ${{ steps.rename_apk.outputs.APK_PATH }}

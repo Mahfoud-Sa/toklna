@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/data.dart';
 import 'package:toklna/pages/home_page.dart';
+import 'package:toklna/services/user_data_service.dart';
 import 'package:toklna/widgets/otp_verification_sheet.dart';
 
 class LoginPage extends StatefulWidget {
@@ -51,13 +53,49 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
+    // Check if user exists in the users map
+    final passportNumber = _idController.text.trim();
+    final password = _passwordController.text.trim();
+    final userData = Data.users[passportNumber];
+
+    if (userData == null || userData['password'] != password) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'رقم الهوية أو كلمة المرور غير صحيحة',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16),
+          ),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 150,
+            left: 16,
+            right: 16,
+          ),
+        ),
+      );
+      return;
+    }
+
     // Show OTP verification bottom sheet with notification
-    OtpVerificationSheet.showWithNotification(context).then((success) {
+    OtpVerificationSheet.showWithNotification(context).then((success) async {
       if (success == true && mounted) {
-        // Navigate to home page on successful verification
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomePage()),
+        // Save user-specific data after successful login
+        await UserDataService.saveLoginUserData(
+          passportNumber: passportNumber,
+          cardImage: userData['cardImage']!,
+          userImage: userData['userImage']!,
+          passportFile: userData['pdfFile']!,
         );
+
+        if (mounted) {
+          // Navigate to home page on successful verification
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        }
       }
     });
   }

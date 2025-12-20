@@ -10,6 +10,8 @@ class UserDataService {
   static const String _keyBirthDate = 'birth_date';
   static const String _keyFirstDoseDate = 'first_dose_date';
   static const String _keySecondDoseDate = 'second_dose_date';
+  static const String _keyCardImage = 'card_image';
+  static const String _keyPassportFile = 'passport_file';
 
   static SharedPreferences? _prefs;
 
@@ -93,9 +95,26 @@ class UserDataService {
         return prefs.getString(_keyFirstDoseDate) ?? defaultValue;
       case 'secondDoseDate':
         return prefs.getString(_keySecondDoseDate) ?? defaultValue;
+      case 'cardImage':
+        return prefs.getString(_keyCardImage) ?? defaultValue;
+      case 'passportFile':
+        return prefs.getString(_keyPassportFile) ?? defaultValue;
       default:
         return defaultValue;
     }
+  }
+
+  /// Save user-specific data after login (images and files).
+  static Future<void> saveLoginUserData({
+    required String passportNumber,
+    required String cardImage,
+    required String userImage,
+    required String passportFile,
+  }) async {
+    await prefs.setString(_keyPassportNumber, passportNumber);
+    await prefs.setString(_keyCardImage, cardImage);
+    await prefs.setString(_keyPersonalImage, userImage);
+    await prefs.setString(_keyPassportFile, passportFile);
   }
 
   /// Clear all saved user data.

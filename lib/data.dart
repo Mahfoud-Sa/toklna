@@ -3,11 +3,32 @@ import 'package:toklna/services/user_data_service.dart';
 /// Data class providing user information.
 /// Loads from SharedPreferences if available, otherwise uses defaults.
 class Data {
+  /// Map of users: passport number -> user data
+  /// Contains password, pdfFile, cardImage, and userImage for each user
+  static const Map<String, Map<String, String>> users = {
+    '2493594598': {
+      'password': '123456',
+      'pdfFile': 'assets/certificate.pdf',
+      'cardImage': 'assets/‏‏‏‏icon_k.jpeg',
+      'userImage': 'assets/user_photo_k.png',
+    },
+    '1234567890': {
+      'password': 'password',
+      'pdfFile': 'assets/certificate.pdf',
+      'cardImage': 'assets/‏‏‏‏icon_s.jpeg',
+      'userImage': 'assets/user_photo_s.png',
+    },
+    '9876543210': {
+      'password': 'admin123',
+      'pdfFile': 'assets/certificate.pdf',
+      'cardImage': 'assets/‏‏icon_1.jpeg',
+      'userImage': 'assets/user_photo.png',
+    },
+  };
+
   // Default values (used when SharedPreferences has no data)
   static const String _defaultUserName = "عيسى سعيد صالح التميمي";
-  static const String _defaultCardImage = "assets/‏‏‏‏icon_k.jpeg";
-  static const String _defaultPersonalImage = "assets/user_photo_k.png";
-  static const String _defaultPassportNumber = '2493594598';
+  static const String _defaultPassportNumber = '';
   static const bool _defaultStatus = true;
   static const String _defaultStartDate = "1442/03/15";
   static const String _defaultBirthDate = "2007/07/03";
@@ -20,16 +41,13 @@ class Data {
       UserDataService.getValue('userName', defaultValue: _defaultUserName)
           as String;
 
-  /// Card image is always from assets.
-  static String get cardImage => _defaultCardImage;
+  /// Get card image from storage (set after login).
+  static String get cardImage =>
+      UserDataService.getValue('cardImage', defaultValue: '') as String;
 
-  /// Get personal image from storage or default.
+  /// Get personal image from storage (set after login).
   static String get personalImage =>
-      UserDataService.getValue(
-            'personalImage',
-            defaultValue: _defaultPersonalImage,
-          )
-          as String;
+      UserDataService.getValue('personalImage', defaultValue: '') as String;
 
   /// Get passport number from storage or default.
   static String get passportNumber =>
@@ -72,8 +90,13 @@ class Data {
           )
           as String;
 
-  /// Passport file is always from assets.
-  static String get passportFile => _defaultPassportFile;
+  /// Get passport file from storage or default.
+  static String get passportFile =>
+      UserDataService.getValue(
+            'passportFile',
+            defaultValue: _defaultPassportFile,
+          )
+          as String;
 
   /// Get all user data as a Map.
   static Map<String, dynamic> getAllData() {
@@ -118,8 +141,8 @@ class Data {
   static Map<String, dynamic> getDefaults() {
     return {
       'userName': _defaultUserName,
-      'cardImage': _defaultCardImage,
-      'personalImage': _defaultPersonalImage,
+      'cardImage': '',
+      'personalImage': '',
       'passportNumber': _defaultPassportNumber,
       'status': _defaultStatus,
       'startDate': _defaultStartDate,

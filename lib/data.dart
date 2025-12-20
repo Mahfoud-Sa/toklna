@@ -8,12 +8,12 @@ class Data {
   static const Map<String, Map<String, String>> users = {
     '2493594598': {
       'password': '123456',
-      'pdfFile': 'assets/certificate.pdf',
+      'pdfFile': 'assets/certificate_k.pdf',
       'cardImage': 'assets/‏‏‏‏icon_k.jpeg',
       'userImage': 'assets/user_photo_k.png',
     },
-    '1234567890': {
-      'password': 'password',
+    '2382722680': {
+      'password': '123456789',
       'pdfFile': 'assets/certificate.pdf',
       'cardImage': 'assets/‏‏‏‏icon_s.jpeg',
       'userImage': 'assets/user_photo_s.png',

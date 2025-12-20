@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/pages/home_page.dart';
 import 'package:toklna/pages/login_page.dart';
+import 'package:toklna/services/user_data_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,16 +14,25 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToHome();
+    _navigateToNextScreen();
   }
 
-  Future<void> _navigateToHome() async {
-    // Wait for 20 milliseconds (change to 2000 for 2 seconds)
+  Future<void> _navigateToNextScreen() async {
+    // Wait for splash display
     await Future.delayed(const Duration(seconds: 1));
     if (mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
+      // Check if user is already logged in
+      if (UserDataService.isLoggedIn()) {
+        // User is logged in, navigate to home page
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      } else {
+        // User is not logged in, navigate to login page
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      }
     }
   }
 

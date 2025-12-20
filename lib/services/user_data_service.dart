@@ -12,6 +12,7 @@ class UserDataService {
   static const String _keySecondDoseDate = 'second_dose_date';
   static const String _keyCardImage = 'card_image';
   static const String _keyPassportFile = 'passport_file';
+  static const String _keyIsLogin = 'is_login';
 
   static SharedPreferences? _prefs;
 
@@ -132,5 +133,24 @@ class UserDataService {
   /// Check if user data has been saved before.
   static bool hasUserData() {
     return prefs.containsKey(_keyUserName);
+  }
+
+  /// Save login state (set isLogin = true).
+  static Future<void> saveLogin() async {
+    await prefs.setBool(_keyIsLogin, true);
+  }
+
+  /// Check if user is logged in.
+  static bool isLoggedIn() {
+    return prefs.getBool(_keyIsLogin) ?? false;
+  }
+
+  /// Logout: clear login state and all user data.
+  static Future<void> logout() async {
+    await prefs.setBool(_keyIsLogin, false);
+    await prefs.remove(_keyCardImage);
+    await prefs.remove(_keyPersonalImage);
+    await prefs.remove(_keyPassportNumber);
+    await prefs.remove(_keyPassportFile);
   }
 }

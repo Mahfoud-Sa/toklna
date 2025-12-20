@@ -90,6 +90,9 @@ class _LoginPageState extends State<LoginPage> {
           passportFile: userData['pdfFile']!,
         );
 
+        // Save login state
+        await UserDataService.saveLogin();
+
         if (mounted) {
           // Navigate to home page on successful verification
           Navigator.of(context).pushReplacement(

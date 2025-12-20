@@ -130,6 +130,16 @@ class _OtpVerificationSheetState extends State<OtpVerificationSheet> {
       // Move to previous field on backspace
       _focusNodes[index - 1].requestFocus();
     }
+
+    // Auto-verify when 4th digit is entered
+    if (value.length == 1 && index == 3) {
+      // Small delay to allow the UI to update
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (mounted && _enteredCode.length == 4) {
+          _verifyCode();
+        }
+      });
+    }
   }
 
   Future<void> _verifyCode() async {

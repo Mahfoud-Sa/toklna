@@ -13,6 +13,7 @@ class UserDataService {
   static const String _keyCardImage = 'card_image';
   static const String _keyPassportFile = 'passport_file';
   static const String _keyIsLogin = 'is_login';
+  static const String _keyWorkOwnerName = 'work_owner_name';
 
   static SharedPreferences? _prefs;
 
@@ -39,6 +40,7 @@ class UserDataService {
     required String birthDate,
     required String firstDoseDate,
     required String secondDoseDate,
+    required String workOwnerName,
   }) async {
     await prefs.setString(_keyUserName, userName);
     await prefs.setString(_keyPersonalImage, personalImage);
@@ -48,6 +50,7 @@ class UserDataService {
     await prefs.setString(_keyBirthDate, birthDate);
     await prefs.setString(_keyFirstDoseDate, firstDoseDate);
     await prefs.setString(_keySecondDoseDate, secondDoseDate);
+    await prefs.setString(_keyWorkOwnerName, workOwnerName);
   }
 
   /// Get stored user data as a Map. Returns default values if not set.
@@ -60,6 +63,7 @@ class UserDataService {
     String defaultBirthDate = '',
     String defaultFirstDoseDate = '',
     String defaultSecondDoseDate = '',
+    String defaultWorkOwnerName = '',
   }) {
     return {
       'userName': prefs.getString(_keyUserName) ?? defaultUserName,
@@ -74,6 +78,8 @@ class UserDataService {
           prefs.getString(_keyFirstDoseDate) ?? defaultFirstDoseDate,
       'secondDoseDate':
           prefs.getString(_keySecondDoseDate) ?? defaultSecondDoseDate,
+      'workOwnerName':
+          prefs.getString(_keyWorkOwnerName) ?? defaultWorkOwnerName,
     };
   }
 
@@ -100,6 +106,8 @@ class UserDataService {
         return prefs.getString(_keyCardImage) ?? defaultValue;
       case 'passportFile':
         return prefs.getString(_keyPassportFile) ?? defaultValue;
+      case 'workOwnerName':
+        return prefs.getString(_keyWorkOwnerName) ?? defaultValue;
       default:
         return defaultValue;
     }

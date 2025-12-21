@@ -194,10 +194,7 @@ class HealthPassportPage extends StatelessWidget {
                       _buildInfoRow('تاريخ الميلاد', Data.birthDate),
                       _buildInfoRow('المهنة', 'عامل'),
                       _buildInfoRow('الديانة', 'الاسلام'),
-                      _buildInfoRow(
-                        'صاحب العمل',
-                        'عيسى بن عمرون بن سليمان المهري',
-                      ),
+                      _buildInfoRow('صاحب العمل', Data.workOwnerName),
                       const SizedBox(height: 20),
                       const Divider(),
                       const SizedBox(height: 15),

@@ -14,7 +14,7 @@ class Data {
     },
     '2382722680': {
       'password': '123456789',
-      'pdfFile': 'assets/certificate.pdf',
+      'pdfFile': 'assets/certificate_s.pdf',
       'cardImage': 'assets/‏‏‏‏icon_s.jpeg',
       'userImage': 'assets/user_photo_s.png',
     },
@@ -35,6 +35,7 @@ class Data {
   static const String _defaultFirstDoseDate = "2021/06/13";
   static const String _defaultSecondDoseDate = "2021/10/17";
   static const String _defaultPassportFile = "assets/certificate.pdf";
+  static const String _defaultWorkOwnerName = "عيسى بن عمرون بن سليمان المهري";
 
   /// Get user name from storage or default.
   static String get userName =>
@@ -98,6 +99,14 @@ class Data {
           )
           as String;
 
+  /// Get work owner name from storage or default.
+  static String get workOwnerName =>
+      UserDataService.getValue(
+            'workOwnerName',
+            defaultValue: _defaultWorkOwnerName,
+          )
+          as String;
+
   /// Get all user data as a Map.
   static Map<String, dynamic> getAllData() {
     return {
@@ -111,6 +120,7 @@ class Data {
       'firstDoseDate': firstDoseDate,
       'secondDoseDate': secondDoseDate,
       'passportFile': passportFile,
+      'workOwnerName': workOwnerName,
     };
   }
 
@@ -124,6 +134,7 @@ class Data {
     required String birthDate,
     required String firstDoseDate,
     required String secondDoseDate,
+    required String workOwnerName,
   }) async {
     await UserDataService.saveUserData(
       userName: userName,
@@ -134,6 +145,7 @@ class Data {
       birthDate: birthDate,
       firstDoseDate: firstDoseDate,
       secondDoseDate: secondDoseDate,
+      workOwnerName: workOwnerName,
     );
   }
 
@@ -150,6 +162,7 @@ class Data {
       'firstDoseDate': _defaultFirstDoseDate,
       'secondDoseDate': _defaultSecondDoseDate,
       'passportFile': _defaultPassportFile,
+      'workOwnerName': _defaultWorkOwnerName,
     };
   }
 }

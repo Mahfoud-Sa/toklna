@@ -26,6 +26,7 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
   late TextEditingController _birthDateController;
   late TextEditingController _firstDoseDateController;
   late TextEditingController _secondDoseDateController;
+  late TextEditingController _workOwnerNameController;
   late bool _status;
 
   bool _isSaving = false;
@@ -44,6 +45,7 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
     _secondDoseDateController = TextEditingController(
       text: Data.secondDoseDate,
     );
+    _workOwnerNameController = TextEditingController(text: Data.workOwnerName);
     _status = Data.status;
   }
 
@@ -55,6 +57,7 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
     _birthDateController.dispose();
     _firstDoseDateController.dispose();
     _secondDoseDateController.dispose();
+    _workOwnerNameController.dispose();
     super.dispose();
   }
 
@@ -73,6 +76,7 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
         birthDate: _birthDateController.text,
         firstDoseDate: _firstDoseDateController.text,
         secondDoseDate: _secondDoseDateController.text,
+        workOwnerName: _workOwnerNameController.text,
       );
 
       if (mounted) {
@@ -233,6 +237,13 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
                           label: 'تاريخ الجرعة الثانية',
                           icon: Icons.vaccines_outlined,
                           hint: 'مثال: 2021/10/17',
+                        ),
+                        const SizedBox(height: 16),
+
+                        _buildTextField(
+                          controller: _workOwnerNameController,
+                          label: 'صاحب العمل',
+                          icon: Icons.business,
                         ),
                       ],
                     ),

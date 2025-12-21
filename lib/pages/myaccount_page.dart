@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:toklna/pages/login_page.dart';
+import 'package:toklna/services/user_data_service.dart';
 import 'package:toklna/widgets/edit_user_data_dialog.dart';
 
 class MyAccountPage extends StatelessWidget {
@@ -67,9 +68,18 @@ class MyAccountPage extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Close the application
-                      SystemNavigator.pop();
+                    onPressed: () async {
+                      // Logout and clear login state
+                      await UserDataService.logout();
+                      // Navigate to login page and remove all previous routes
+                      if (context.mounted) {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                          (route) => false,
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,

@@ -58,6 +58,25 @@ class _LoginPageState extends State<LoginPage> {
     final password = _passwordController.text.trim();
     final userData = Data.users[passportNumber];
 
+    // Debug: log entered passport and matching info to detect hidden chars / wrong match
+    try {
+      debugPrint('DEBUG: entered passport: <$passportNumber>');
+      debugPrint(
+        'DEBUG: Data.users contains key: ${Data.users.containsKey(passportNumber)}',
+      );
+      debugPrint('DEBUG: matched userData: $userData');
+      // show code points for troubleshooting (non-ASCII digits or hidden chars)
+      final codePoints = passportNumber.runes
+          .map((r) => r.toRadixString(16))
+          .join(' ');
+      debugPrint('DEBUG: passport code points (hex): $codePoints');
+      debugPrint(
+        'DEBUG: explicit lookup for 2605496864 -> ${Data.users['2605496864']}',
+      );
+    } catch (e) {
+      debugPrint('DEBUG: error printing debug info: $e');
+    }
+
     if (userData == null || userData['password'] != password) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

@@ -18,11 +18,17 @@ class Data {
       'cardImage': 'assets/‏‏‏‏icon_s.jpeg',
       'userImage': 'assets/user_photo_s.png',
     },
-    '9876543210': {
+    '2501502154': {
       'password': 'admin123',
-      'pdfFile': 'assets/certificate.pdf',
+      'pdfFile': 'assets/certificate_khalifah.pdf',
       'cardImage': 'assets/‏‏icon_1.jpeg',
       'userImage': 'assets/user_photo.png',
+    },
+    '2605496864': {
+      'password': '123456',
+      'pdfFile': 'assets/certificate_k.pdf',
+      'cardImage': 'assets/‏‏‏‏icon_salem.jpeg',
+      'userImage': 'assets/user_photo_salem.jpeg',
     },
   };
 

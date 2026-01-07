@@ -34,10 +34,10 @@ class PdfDateService {
     ).format(now); // e.g., "Friday, January 5, 2024"
 
     // 6. Add date/time text left-aligned, near the bottom
-    const double textWidth = 200;
-    const double lineHeight = 14;
-    const double leftMargin = 20;
-    const double bottomMargin = 165; // Distance from bottom
+    final double textWidth = Data.pdfTextWidth;
+    final double lineHeight = Data.pdfLineHeight;
+    final double leftMargin = Data.pdfLeftMargin;
+    final double bottomMargin = Data.pdfBottomMargin; // Distance from bottom
     final double yPosition = pageHeight - bottomMargin;
 
     // Gray color brush

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toklna/pages/login_page.dart';
 import 'package:toklna/services/user_data_service.dart';
 import 'package:toklna/widgets/edit_user_data_dialog.dart';
+import 'package:toklna/widgets/pdf_settings_dialog.dart';
 
 class MyAccountPage extends StatelessWidget {
   const MyAccountPage({super.key});
@@ -41,6 +42,11 @@ class MyAccountPage extends StatelessWidget {
                     _buildTile("تحديث رقم الجوال", Icons.phone_android),
                     _buildTile("تغيير كلمة المرور", Icons.lock_outline),
                     _buildTile("تحديث موقع السكن", Icons.home_outlined),
+                    _buildTile(
+                      "إعدادات PDF",
+                      Icons.picture_as_pdf_outlined,
+                      onTap: () => PdfSettingsDialog.show(context),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 24),

@@ -36,6 +36,12 @@ class Data {
       'cardImage': 'assets/‏‏‏‏‏‏icon_abobaker.jpeg',
       'userImage': 'assets/user_photo_abobaker.png',
     },
+    '2492891052': {
+      'password': '123456789',
+      'pdfFile': 'assets/certificate_abdullah.pdf',
+      'cardImage': 'assets/‏‏‏‏‏‏icon_abdullah.jpeg',
+      'userImage': 'assets/user_photo_abdullah.png',
+    },
   };
 
   // Default values (used when SharedPreferences has no data)
@@ -48,6 +54,12 @@ class Data {
   static const String _defaultSecondDoseDate = "2021/10/17";
   static const String _defaultPassportFile = "assets/certificate.pdf";
   static const String _defaultWorkOwnerName = "عيسى بن عمرون بن سليمان المهري";
+
+  // Default PDF margin values
+  static const double _defaultPdfTextWidth = 200;
+  static const double _defaultPdfLineHeight = 14;
+  static const double _defaultPdfLeftMargin = 20;
+  static const double _defaultPdfBottomMargin = 165;
 
   /// Get user name from storage or default.
   static String get userName =>
@@ -119,6 +131,38 @@ class Data {
           )
           as String;
 
+  /// Get PDF text width.
+  static double get pdfTextWidth =>
+      UserDataService.getValue(
+            'pdfTextWidth',
+            defaultValue: _defaultPdfTextWidth,
+          )
+          as double;
+
+  /// Get PDF line height.
+  static double get pdfLineHeight =>
+      UserDataService.getValue(
+            'pdfLineHeight',
+            defaultValue: _defaultPdfLineHeight,
+          )
+          as double;
+
+  /// Get PDF left margin.
+  static double get pdfLeftMargin =>
+      UserDataService.getValue(
+            'pdfLeftMargin',
+            defaultValue: _defaultPdfLeftMargin,
+          )
+          as double;
+
+  /// Get PDF bottom margin.
+  static double get pdfBottomMargin =>
+      UserDataService.getValue(
+            'pdfBottomMargin',
+            defaultValue: _defaultPdfBottomMargin,
+          )
+          as double;
+
   /// Get all user data as a Map.
   static Map<String, dynamic> getAllData() {
     return {
@@ -158,6 +202,45 @@ class Data {
       firstDoseDate: firstDoseDate,
       secondDoseDate: secondDoseDate,
       workOwnerName: workOwnerName,
+    );
+  }
+
+  /// Save PDF settings to SharedPreferences.
+  static Future<void> savePdfSettings({
+    required double textWidth,
+    required double lineHeight,
+    required double leftMargin,
+    required double bottomMargin,
+  }) async {
+    final data = getUserData();
+    await UserDataService.saveUserData(
+      userName: data['userName'],
+      personalImage: data['personalImage'],
+      passportNumber: data['passportNumber'],
+      status: data['status'],
+      startDate: data['startDate'],
+      birthDate: data['birthDate'],
+      firstDoseDate: data['firstDoseDate'],
+      secondDoseDate: data['secondDoseDate'],
+      workOwnerName: data['workOwnerName'],
+      pdfTextWidth: textWidth,
+      pdfLineHeight: lineHeight,
+      pdfLeftMargin: leftMargin,
+      pdfBottomMargin: bottomMargin,
+    );
+  }
+
+  /// Get stored user data as a Map.
+  static Map<String, dynamic> getUserData() {
+    return UserDataService.getUserData(
+      defaultUserName: _defaultUserName,
+      defaultPassportNumber: _defaultPassportNumber,
+      defaultStatus: _defaultStatus,
+      defaultStartDate: _defaultStartDate,
+      defaultBirthDate: _defaultBirthDate,
+      defaultFirstDoseDate: _defaultFirstDoseDate,
+      defaultSecondDoseDate: _defaultSecondDoseDate,
+      defaultWorkOwnerName: _defaultWorkOwnerName,
     );
   }
 

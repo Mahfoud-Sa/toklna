@@ -14,6 +14,10 @@ class UserDataService {
   static const String _keyPassportFile = 'passport_file';
   static const String _keyIsLogin = 'is_login';
   static const String _keyWorkOwnerName = 'work_owner_name';
+  static const String _keyPdfTextWidth = 'pdf_text_width';
+  static const String _keyPdfLineHeight = 'pdf_line_height';
+  static const String _keyPdfLeftMargin = 'pdf_left_margin';
+  static const String _keyPdfBottomMargin = 'pdf_bottom_margin';
 
   static SharedPreferences? _prefs;
 
@@ -41,6 +45,10 @@ class UserDataService {
     required String firstDoseDate,
     required String secondDoseDate,
     required String workOwnerName,
+    double? pdfTextWidth,
+    double? pdfLineHeight,
+    double? pdfLeftMargin,
+    double? pdfBottomMargin,
   }) async {
     await prefs.setString(_keyUserName, userName);
     await prefs.setString(_keyPersonalImage, personalImage);
@@ -51,6 +59,14 @@ class UserDataService {
     await prefs.setString(_keyFirstDoseDate, firstDoseDate);
     await prefs.setString(_keySecondDoseDate, secondDoseDate);
     await prefs.setString(_keyWorkOwnerName, workOwnerName);
+    if (pdfTextWidth != null)
+      await prefs.setDouble(_keyPdfTextWidth, pdfTextWidth);
+    if (pdfLineHeight != null)
+      await prefs.setDouble(_keyPdfLineHeight, pdfLineHeight);
+    if (pdfLeftMargin != null)
+      await prefs.setDouble(_keyPdfLeftMargin, pdfLeftMargin);
+    if (pdfBottomMargin != null)
+      await prefs.setDouble(_keyPdfBottomMargin, pdfBottomMargin);
   }
 
   /// Get stored user data as a Map. Returns default values if not set.
@@ -108,6 +124,14 @@ class UserDataService {
         return prefs.getString(_keyPassportFile) ?? defaultValue;
       case 'workOwnerName':
         return prefs.getString(_keyWorkOwnerName) ?? defaultValue;
+      case 'pdfTextWidth':
+        return prefs.getDouble(_keyPdfTextWidth) ?? defaultValue;
+      case 'pdfLineHeight':
+        return prefs.getDouble(_keyPdfLineHeight) ?? defaultValue;
+      case 'pdfLeftMargin':
+        return prefs.getDouble(_keyPdfLeftMargin) ?? defaultValue;
+      case 'pdfBottomMargin':
+        return prefs.getDouble(_keyPdfBottomMargin) ?? defaultValue;
       default:
         return defaultValue;
     }

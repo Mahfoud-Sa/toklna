@@ -74,6 +74,9 @@ flutter:
     - assets/
     - assets/icons/
     - assets/certificate.pdf
+    - assets/certificate_salim.pdf
+    - assets/certificate_abobaker.pdf
+    
   #   - images/a_dot_ham.jpeg
 flutter_native_splash:
   background_image: "assets/full_splash_screen.jpeg"

@@ -26,9 +26,15 @@ class Data {
     },
     '2605496864': {
       'password': '123456',
-      'pdfFile': 'assets/certificate_k.pdf',
+      'pdfFile': 'assets/certificate_salim.pdf',
       'cardImage': 'assets/‏‏‏‏icon_salem.jpeg',
       'userImage': 'assets/user_photo_salem.jpeg',
+    },
+    '2502140193': {
+      'password': '123456',
+      'pdfFile': 'assets/certificate_abobaker.pdf',
+      'cardImage': 'assets/‏‏‏‏‏‏icon_abobaker.jpeg',
+      'userImage': 'assets/user_photo_abobaker.png',
     },
   };
 

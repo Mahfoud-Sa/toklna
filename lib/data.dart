@@ -42,6 +42,30 @@ class Data {
       'cardImage': 'assets/‏‏‏‏‏‏icon_abdullah.jpeg',
       'userImage': 'assets/user_photo_abdullah.png',
     },
+    '2501273859': {
+      'password': '123456789',
+      'pdfFile': 'assets/certificate_saeed.pdf',
+      'cardImage': 'assets/‏‏‏‏icon_saeed.jpeg',
+      'userImage': 'assets/user_photo_saeed.png',
+    },
+    '2502584219': {
+      'password': '123456789',
+      'pdfFile': 'assets/certificate_mostafa.pdf',
+      'cardImage': 'assets/‏‏‏‏icon_mostafa.jpeg',
+      'userImage': 'assets/user_photo_mostafa.jpeg',
+    },
+    '2463993127': {
+      'password': '123456789',
+      'pdfFile': 'assets/certificate_abdullah_1.pdf',
+      'cardImage': 'assets/‏‏‏‏icon_abdullah_1.jpeg',
+      'userImage': 'assets/user_photo_abdullah_1.jpeg',
+    },
+    '2501732895': {
+      'password': '123456789',
+      'pdfFile': 'assets/certificate_omer',
+      'cardImage': 'assets/‏‏‏‏icon_omer.jpeg',
+      'userImage': 'assets/user_photo_omer.jpeg',
+    },
   };
 
   // Default values (used when SharedPreferences has no data)

@@ -62,9 +62,21 @@ class Data {
     },
     '2501732895': {
       'password': '123456789',
-      'pdfFile': 'assets/certificate_omer',
+      'pdfFile': 'assets/certificate_mhmmed.pdf',
       'cardImage': 'assets/‏‏‏‏icon_omer.jpeg',
       'userImage': 'assets/user_photo_omer.jpeg',
+    },
+    '2578047843': {
+      'password': '123456789',
+      'pdfFile': 'assets/certificate_mhmmed.pdf',
+      'cardImage': 'assets/‏‏‏‏icon_mohmmed.jpeg',
+      'userImage': 'assets/‏‏‏‏user_photo_mohmmed.jpeg',
+    },
+    '2465973902': {
+      'password': '123456789',
+      'pdfFile': 'assets/certificate_hamed.pdf',
+      'cardImage': 'assets/‏‏‏‏‏‏icon_hamed.jpeg',
+      'userImage': 'assets/‏‏‏‏user_photo_hamed.jpeg',
     },
   };
 

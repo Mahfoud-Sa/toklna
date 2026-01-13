@@ -1,11 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:toklna/data.dart';
 import 'package:toklna/pages/login_page.dart';
 import 'package:toklna/services/user_data_service.dart';
 import 'package:toklna/widgets/edit_user_data_dialog.dart';
 import 'package:toklna/widgets/pdf_settings_dialog.dart';
 
-class MyAccountPage extends StatelessWidget {
+class MyAccountPage extends StatefulWidget {
   const MyAccountPage({super.key});
+
+  @override
+  State<MyAccountPage> createState() => _MyAccountPageState();
+}
+
+class _MyAccountPageState extends State<MyAccountPage> {
+  bool _isUploading = false;
+
+  Future<void> _pickPdf() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf'],
+      );
+
+      if (result != null && result.files.single.path != null) {
+        setState(() {
+          _isUploading = true;
+        });
+        await Data.savePassportFile(result.files.single.path!);
+        setState(() {
+          _isUploading = false;
+        });
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('تم رفع الملف بنجاح')));
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('فشل رفع الملف: $e')));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +85,11 @@ class MyAccountPage extends StatelessWidget {
                       "إعدادات PDF",
                       Icons.picture_as_pdf_outlined,
                       onTap: () => PdfSettingsDialog.show(context),
+                    ),
+                    _buildTile(
+                      "تحديث الجواز الصحي",
+                      _isUploading ? Icons.hourglass_empty : Icons.upload,
+                      onTap: _isUploading ? null : _pickPdf,
                     ),
                   ],
                 ),

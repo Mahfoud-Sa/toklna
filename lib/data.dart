@@ -266,6 +266,11 @@ class Data {
     );
   }
 
+  /// Save the passport file path.
+  static Future<void> savePassportFile(String path) async {
+    await UserDataService.savePassportFile(path);
+  }
+
   /// Get stored user data as a Map.
   static Map<String, dynamic> getUserData() {
     return UserDataService.getUserData(

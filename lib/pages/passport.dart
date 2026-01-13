@@ -4,11 +4,16 @@ import 'package:toklna/pages/services_page.dart';
 import 'package:toklna/services/pdf_date_service.dart';
 
 // Main widget for the health passport page
-class HealthPassportPage extends StatelessWidget {
+class HealthPassportPage extends StatefulWidget {
   final String? userImage; // User image path from assets or file
 
   const HealthPassportPage({super.key, this.userImage});
 
+  @override
+  State<HealthPassportPage> createState() => _HealthPassportPageState();
+}
+
+class _HealthPassportPageState extends State<HealthPassportPage> {
   @override
   Widget build(BuildContext context) {
     // Using a Scaffold for basic page layout with an AppBar
@@ -82,7 +87,7 @@ class HealthPassportPage extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         Data.userName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -164,7 +169,7 @@ class HealthPassportPage extends StatelessWidget {
                                 'آخر تحديث: $dayName ${now.day} $monthName $hour:${now.minute.toString().padLeft(2, '0')} $period';
                             return Text(
                               formattedDate,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 12,
                               ),
@@ -301,21 +306,34 @@ class HealthPassportPage extends StatelessWidget {
                             elevation: 0,
                           ),
                           onPressed: () async {
+                            if (Data.passportFile.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('ارفع ملف pdf الخاص فيك'),
+                                ),
+                              );
+                              return;
+                            }
                             try {
                               final filePath =
                                   await PdfDateService.generatePdfWithDate();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => PdfViewerPage(path: filePath),
-                                ),
-                              );
+                              if (mounted) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        PdfViewerPage(path: filePath),
+                                  ),
+                                );
+                              }
                             } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Failed to open PDF: $e'),
-                                ),
-                              );
+                              if (mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Failed to open PDF: $e'),
+                                  ),
+                                );
+                              }
                             }
                           },
                           child: const Row(

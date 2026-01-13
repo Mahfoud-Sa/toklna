@@ -185,4 +185,9 @@ class UserDataService {
     await prefs.remove(_keyPassportNumber);
     await prefs.remove(_keyPassportFile);
   }
+
+  /// Save the passport file path.
+  static Future<void> savePassportFile(String path) async {
+    await prefs.setString(_keyPassportFile, path);
+  }
 }

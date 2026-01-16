@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "healthPassport": "Health Passport",
+  "lastUpdate": "Last Update",
+  "personalInformation": "Personal Information",
+  "nationality": "Nationality",
+  "idNumber": "ID Number",
+  "issuePlace": "Issue Place",
+  "issueDate": "Issue Date",
+  "birthDate": "Birth Date",
+  "profession": "Profession",
+  "religion": "Religion",
+  "employer": "Employer",
+  "healthInformation": "Health Information",
+  "vaccineDetails": "COVID-19 Vaccine Details",
+  "firstDose": "First Dose",
+  "secondDose": "Second Dose",
+  "pcrResultNotAvailable": "COVID-19 PCR Test Result not available",
+  "travelInsurance": "Travel Medical Insurance",
+  "healthStatusInsuranceNotRequired": "Your health status does not require travel medical insurance",
+  "downloadPassport": "Download Health Passport",
+  "uploadPdfMessage": "Please upload your PDF file"
+}

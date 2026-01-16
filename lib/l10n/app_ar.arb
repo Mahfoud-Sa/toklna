@@ -1,0 +1,23 @@
+{
+  "@@locale": "ar",
+  "healthPassport": "الجواز الصحي",
+  "lastUpdate": "آخر تحديث",
+  "personalInformation": "المعلومات الشخصية",
+  "nationality": "الجنسية",
+  "idNumber": "رقم الهوية",
+  "issuePlace": "مكان الاصدار",
+  "issueDate": "تاريخ الاصدار",
+  "birthDate": "تاريخ الميلاد",
+  "profession": "المهنة",
+  "religion": "الديانة",
+  "employer": "صاحب العمل",
+  "healthInformation": "المعلومات الصحية",
+  "vaccineDetails": "تفاصيل لقاح كورونا",
+  "firstDose": "الجرعة الأولى",
+  "secondDose": "الجرعة الثانية",
+  "pcrResultNotAvailable": "نتيجة فحص كورونا PCR غير متوفرة",
+  "travelInsurance": "التأمين طبي للسفر",
+  "healthStatusInsuranceNotRequired": "حالتك الصحية لا تتطلب تأمين طبي للسفر",
+  "downloadPassport": "تحميل الجواز الصحي",
+  "uploadPdfMessage": "ارفع ملف pdf الخاص فيك"
+}

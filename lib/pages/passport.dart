@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toklna/data.dart';
+import 'package:toklna/l10n/app_localizations.dart';
+import 'package:toklna/main.dart';
 import 'package:toklna/pages/services_page.dart';
 import 'package:toklna/services/pdf_date_service.dart';
 
@@ -16,6 +18,9 @@ class HealthPassportPage extends StatefulWidget {
 class _HealthPassportPageState extends State<HealthPassportPage> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+
     // Using a Scaffold for basic page layout with an AppBar
     return Scaffold(
       backgroundColor: const Color(
@@ -27,15 +32,18 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
         ), // Teal green color for the app bar
         elevation: 0, // Remove shadow
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          icon: Icon(
+            isArabic ? Icons.arrow_back_ios : Icons.arrow_back,
+            color: Colors.white,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         centerTitle: true,
-        title: const Text(
-          'الجواز الصحي', // "Health Passport" in Arabic
-          style: TextStyle(
+        title: Text(
+          l10n.healthPassport,
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -81,7 +89,15 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                         children: [
                           _buildCircularIcon(Icons.qr_code, onTap: () {}),
                           const SizedBox(width: 10),
-                          _buildCircularIcon(Icons.translate),
+                          _buildCircularIcon(
+                            Icons.translate,
+                            onTap: () {
+                              appLocale.value =
+                                  appLocale.value.languageCode == 'ar'
+                                  ? const Locale('en')
+                                  : const Locale('ar');
+                            },
+                          ),
                         ],
                       ),
                       const SizedBox(height: 16),
@@ -129,59 +145,98 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                 ),
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: isArabic
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                     children: [
                       // Last update text
                       Center(
                         child: Builder(
                           builder: (context) {
                             final now = DateTime.now();
-                            final arabicDays = [
-                              'الإثنين',
-                              'الثلاثاء',
-                              'الأربعاء',
-                              'الخميس',
-                              'الجمعة',
-                              'السبت',
-                              'الأحد',
-                            ];
-                            final arabicMonths = [
-                              'يناير',
-                              'فبراير',
-                              'مارس',
-                              'أبريل',
-                              'مايو',
-                              'يونيو',
-                              'يوليو',
-                              'أغسطس',
-                              'سبتمبر',
-                              'أكتوبر',
-                              'نوفمبر',
-                              'ديسمبر',
-                            ];
-                            final dayName = arabicDays[now.weekday - 1];
-                            final monthName = arabicMonths[now.month - 1];
-                            final hour = now.hour > 12
-                                ? now.hour - 12
-                                : (now.hour == 0 ? 12 : now.hour);
-                            final period = now.hour >= 12 ? 'م' : 'ص';
-                            final formattedDate =
-                                'آخر تحديث: $dayName ${now.day} $monthName $hour:${now.minute.toString().padLeft(2, '0')} $period';
-                            return Text(
-                              formattedDate,
-                              style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
-                              ),
-                            );
+                            if (isArabic) {
+                              final arabicDays = [
+                                'الإثنين',
+                                'الثلاثاء',
+                                'الأربعاء',
+                                'الخميس',
+                                'الجمعة',
+                                'السبت',
+                                'الأحد',
+                              ];
+                              final arabicMonths = [
+                                'يناير',
+                                'فبراير',
+                                'مارس',
+                                'أبريل',
+                                'مايو',
+                                'يونيو',
+                                'يوليو',
+                                'أغسطس',
+                                'سبتمبر',
+                                'أكتوبر',
+                                'نوفمبر',
+                                'ديسمبر',
+                              ];
+                              final dayName = arabicDays[now.weekday - 1];
+                              final monthName = arabicMonths[now.month - 1];
+                              final hour = now.hour > 12
+                                  ? now.hour - 12
+                                  : (now.hour == 0 ? 12 : now.hour);
+                              final period = now.hour >= 12 ? 'م' : 'ص';
+                              return Text(
+                                '${l10n.lastUpdate}: $dayName ${now.day} $monthName $hour:${now.minute.toString().padLeft(2, '0')} $period',
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
+                              );
+                            } else {
+                              final englishDays = [
+                                'Monday',
+                                'Tuesday',
+                                'Wednesday',
+                                'Thursday',
+                                'Friday',
+                                'Saturday',
+                                'Sunday',
+                              ];
+                              final englishMonths = [
+                                'January',
+                                'February',
+                                'March',
+                                'April',
+                                'May',
+                                'June',
+                                'July',
+                                'August',
+                                'September',
+                                'October',
+                                'November',
+                                'December',
+                              ];
+                              final dayName = englishDays[now.weekday - 1];
+                              final monthName = englishMonths[now.month - 1];
+                              final hour = now.hour > 12
+                                  ? now.hour - 12
+                                  : (now.hour == 0 ? 12 : now.hour);
+                              final period = now.hour >= 12 ? 'PM' : 'AM';
+                              return Text(
+                                '${l10n.lastUpdate}: $dayName ${now.day} $monthName $hour:${now.minute.toString().padLeft(2, '0')} $period',
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
+                              );
+                            }
                           },
                         ),
                       ),
                       const SizedBox(height: 20),
                       // Personal Information Section Title
-                      const Text(
-                        'المعلومات الشخصية',
-                        style: TextStyle(
+                      Text(
+                        l10n.personalInformation,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -189,46 +244,72 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       ),
                       const SizedBox(height: 15),
                       // Personal Information Rows
-                      _buildInfoRow('الجنسية', '1 حصر ن'),
-                      _buildInfoRow('رقم الهوية', Data.passportNumber),
                       _buildInfoRow(
-                        'مكان الاصدار',
-                        'وكالة الأمارة للشوؤن الأمنية',
+                        l10n.nationality,
+                        isArabic ? '1 حصر ن' : '1 HSR N',
+                        isArabic,
                       ),
-                      _buildInfoRow('تاريخ الاصدار', Data.startDate),
-                      _buildInfoRow('تاريخ الميلاد', Data.birthDate),
-                      _buildInfoRow('المهنة', 'عامل'),
-                      _buildInfoRow('الديانة', 'الاسلام'),
-                      _buildInfoRow('صاحب العمل', Data.workOwnerName),
+                      _buildInfoRow(
+                        l10n.idNumber,
+                        Data.passportNumber,
+                        isArabic,
+                      ),
+                      _buildInfoRow(
+                        l10n.issuePlace,
+                        isArabic ? 'وكالة الأمارة للشوؤن الأمنية' : 'EA for SA',
+                        isArabic,
+                      ),
+                      _buildInfoRow(l10n.issueDate, Data.startDate, isArabic),
+                      _buildInfoRow(l10n.birthDate, Data.birthDate, isArabic),
+                      _buildInfoRow(
+                        l10n.profession,
+                        isArabic ? 'عامل' : 'Worker',
+                        isArabic,
+                      ),
+                      _buildInfoRow(
+                        l10n.religion,
+                        isArabic ? 'الاسلام' : 'Islam',
+                        isArabic,
+                      ),
+                      _buildInfoRow(
+                        l10n.employer,
+                        Data.workOwnerName,
+                        isArabic,
+                      ),
                       const SizedBox(height: 20),
                       const Divider(),
                       const SizedBox(height: 15),
                       // Health Information Section Title
-                      const Text(
-                        'المعلومات الصحية',
-                        style: TextStyle(
+                      Text(
+                        l10n.healthInformation,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Text(
-                        'تفاصيل لقاح كورونا',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      Text(
+                        l10n.vaccineDetails,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
                       ),
                       const SizedBox(height: 15),
                       // Vaccine Doses Information
                       _buildVaccineInfoRow(
-                        'الجرعة الأولى',
+                        l10n.firstDose,
                         Data.firstDoseDate,
-                        'فايزر-بيونتيك',
+                        isArabic ? 'فايزر-بيونتيك' : 'Pfizer-BioNTech',
+                        isArabic,
                       ),
                       const SizedBox(height: 10),
                       _buildVaccineInfoRow(
-                        'الجرعة الثانية',
+                        l10n.secondDose,
                         Data.secondDoseDate,
-                        'فايزر-بيونتيك',
+                        isArabic ? 'فايزر-بيونتيك' : 'Pfizer-BioNTech',
+                        isArabic,
                       ),
                       const SizedBox(height: 20),
                       const Divider(thickness: 1, color: Color(0xFFEEEEEE)),
@@ -243,9 +324,9 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                               color: Colors.grey[300],
                             ),
                             const SizedBox(height: 10),
-                            const Text(
-                              'نتيجة فحص كورونا PCR غير متوفرة',
-                              style: TextStyle(
+                            Text(
+                              l10n.pcrResultNotAvailable,
+                              style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
@@ -259,11 +340,13 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       const SizedBox(height: 20),
                       // Travel Medical Insurance Section
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: isArabic
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'التأمين طبي للسفر',
-                            style: TextStyle(
+                          Text(
+                            l10n.travelInsurance,
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Colors.black87,
@@ -279,9 +362,9 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                                   color: Colors.grey[300],
                                 ),
                                 const SizedBox(height: 15),
-                                const Text(
-                                  'حالتك الصحية لا تتطلب تأمين طبي للسفر',
-                                  style: TextStyle(
+                                Text(
+                                  l10n.healthStatusInsuranceNotRequired,
+                                  style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -308,9 +391,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                           onPressed: () async {
                             if (Data.passportFile.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('ارفع ملف pdf الخاص فيك'),
-                                ),
+                                SnackBar(content: Text(l10n.uploadPdfMessage)),
                               );
                               return;
                             }
@@ -336,18 +417,18 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                               }
                             }
                           },
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.picture_as_pdf,
                                 color: Colors.white,
                                 size: 28,
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
-                                'تحميل الجواز الصحي',
-                                style: TextStyle(
+                                l10n.downloadPassport,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -375,55 +456,101 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-        child: Icon(icon, color: Color(0xFF009688), size: 20),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: const Color(0xFF009688), size: 20),
       ),
     );
   }
 
   // Helper widget for a single row of personal information
-  Widget _buildInfoRow(String label, String value) {
+  Widget _buildInfoRow(String label, String value, bool isArabic) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            value,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          ),
-          Text(label, style: const TextStyle(fontSize: 16, color: Colors.grey)),
-        ],
+        children: isArabic
+            ? [
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  label,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+              ]
+            : [
+                Text(
+                  label,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
       ),
     );
   }
 
   // Helper widget for vaccine information rows
-  Widget _buildVaccineInfoRow(String dose, String date, String vaccine) {
+  Widget _buildVaccineInfoRow(
+    String dose,
+    String date,
+    String vaccine,
+    bool isArabic,
+  ) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              date,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-            Text(
-              dose,
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-          ],
+          children: isArabic
+              ? [
+                  Text(
+                    date,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    dose,
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                ]
+              : [
+                  Text(
+                    dose,
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                  Text(
+                    date,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
         ),
         const SizedBox(height: 4),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: isArabic
+              ? MainAxisAlignment.end
+              : MainAxisAlignment.start,
           children: [
             Text(
               vaccine,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            // You can add more details here like lot number if needed
           ],
         ),
       ],

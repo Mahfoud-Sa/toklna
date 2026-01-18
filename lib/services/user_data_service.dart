@@ -14,6 +14,8 @@ class UserDataService {
   static const String _keyPassportFile = 'passport_file';
   static const String _keyIsLogin = 'is_login';
   static const String _keyWorkOwnerName = 'work_owner_name';
+  static const String _keyUserNameEn = 'user_name_en';
+  static const String _keyWorkOwnerNameEn = 'work_owner_name_en';
   static const String _keyPdfTextWidth = 'pdf_text_width';
   static const String _keyPdfLineHeight = 'pdf_line_height';
   static const String _keyPdfLeftMargin = 'pdf_left_margin';
@@ -45,6 +47,8 @@ class UserDataService {
     required String firstDoseDate,
     required String secondDoseDate,
     required String workOwnerName,
+    String? userNameEn,
+    String? workOwnerNameEn,
     double? pdfTextWidth,
     double? pdfLineHeight,
     double? pdfLeftMargin,
@@ -59,14 +63,22 @@ class UserDataService {
     await prefs.setString(_keyFirstDoseDate, firstDoseDate);
     await prefs.setString(_keySecondDoseDate, secondDoseDate);
     await prefs.setString(_keyWorkOwnerName, workOwnerName);
-    if (pdfTextWidth != null)
+    if (userNameEn != null) await prefs.setString(_keyUserNameEn, userNameEn);
+    if (workOwnerNameEn != null) {
+      await prefs.setString(_keyWorkOwnerNameEn, workOwnerNameEn);
+    }
+    if (pdfTextWidth != null) {
       await prefs.setDouble(_keyPdfTextWidth, pdfTextWidth);
-    if (pdfLineHeight != null)
+    }
+    if (pdfLineHeight != null) {
       await prefs.setDouble(_keyPdfLineHeight, pdfLineHeight);
-    if (pdfLeftMargin != null)
+    }
+    if (pdfLeftMargin != null) {
       await prefs.setDouble(_keyPdfLeftMargin, pdfLeftMargin);
-    if (pdfBottomMargin != null)
+    }
+    if (pdfBottomMargin != null) {
       await prefs.setDouble(_keyPdfBottomMargin, pdfBottomMargin);
+    }
   }
 
   /// Get stored user data as a Map. Returns default values if not set.
@@ -80,6 +92,8 @@ class UserDataService {
     String defaultFirstDoseDate = '',
     String defaultSecondDoseDate = '',
     String defaultWorkOwnerName = '',
+    String defaultUserNameEn = '',
+    String defaultWorkOwnerNameEn = '',
   }) {
     return {
       'userName': prefs.getString(_keyUserName) ?? defaultUserName,
@@ -96,6 +110,9 @@ class UserDataService {
           prefs.getString(_keySecondDoseDate) ?? defaultSecondDoseDate,
       'workOwnerName':
           prefs.getString(_keyWorkOwnerName) ?? defaultWorkOwnerName,
+      'userNameEn': prefs.getString(_keyUserNameEn) ?? defaultUserNameEn,
+      'workOwnerNameEn':
+          prefs.getString(_keyWorkOwnerNameEn) ?? defaultWorkOwnerNameEn,
     };
   }
 
@@ -124,6 +141,10 @@ class UserDataService {
         return prefs.getString(_keyPassportFile) ?? defaultValue;
       case 'workOwnerName':
         return prefs.getString(_keyWorkOwnerName) ?? defaultValue;
+      case 'userNameEn':
+        return prefs.getString(_keyUserNameEn) ?? defaultValue;
+      case 'workOwnerNameEn':
+        return prefs.getString(_keyWorkOwnerNameEn) ?? defaultValue;
       case 'pdfTextWidth':
         return prefs.getDouble(_keyPdfTextWidth) ?? defaultValue;
       case 'pdfLineHeight':
@@ -160,6 +181,9 @@ class UserDataService {
     await prefs.remove(_keyBirthDate);
     await prefs.remove(_keyFirstDoseDate);
     await prefs.remove(_keySecondDoseDate);
+    await prefs.remove(_keyWorkOwnerName);
+    await prefs.remove(_keyUserNameEn);
+    await prefs.remove(_keyWorkOwnerNameEn);
   }
 
   /// Check if user data has been saved before.

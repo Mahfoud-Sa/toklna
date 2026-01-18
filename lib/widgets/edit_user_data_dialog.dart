@@ -21,12 +21,14 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
   final _formKey = GlobalKey<FormState>();
 
   late TextEditingController _userNameController;
+  late TextEditingController _userNameEnController;
   late TextEditingController _passportNumberController;
   late TextEditingController _startDateController;
   late TextEditingController _birthDateController;
   late TextEditingController _firstDoseDateController;
   late TextEditingController _secondDoseDateController;
   late TextEditingController _workOwnerNameController;
+  late TextEditingController _workOwnerNameEnController;
   late bool _status;
 
   bool _isSaving = false;
@@ -36,6 +38,7 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
     super.initState();
     // Initialize controllers with current data
     _userNameController = TextEditingController(text: Data.userName);
+    _userNameEnController = TextEditingController(text: Data.userNameEn);
     _passportNumberController = TextEditingController(
       text: Data.passportNumber,
     );
@@ -46,18 +49,23 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
       text: Data.secondDoseDate,
     );
     _workOwnerNameController = TextEditingController(text: Data.workOwnerName);
+    _workOwnerNameEnController = TextEditingController(
+      text: Data.workOwnerNameEn,
+    );
     _status = Data.status;
   }
 
   @override
   void dispose() {
     _userNameController.dispose();
+    _userNameEnController.dispose();
     _passportNumberController.dispose();
     _startDateController.dispose();
     _birthDateController.dispose();
     _firstDoseDateController.dispose();
     _secondDoseDateController.dispose();
     _workOwnerNameController.dispose();
+    _workOwnerNameEnController.dispose();
     super.dispose();
   }
 
@@ -77,6 +85,8 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
         firstDoseDate: _firstDoseDateController.text,
         secondDoseDate: _secondDoseDateController.text,
         workOwnerName: _workOwnerNameController.text,
+        userNameEn: _userNameEnController.text,
+        workOwnerNameEn: _workOwnerNameEnController.text,
       );
 
       if (mounted) {
@@ -150,6 +160,13 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
                           controller: _userNameController,
                           label: 'الاسم',
                           icon: Icons.person,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _userNameEnController,
+                          label: 'Name (English)',
+                          icon: Icons.person_outline,
+                          isRtl: false,
                         ),
                         const SizedBox(height: 16),
 
@@ -245,6 +262,13 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
                           label: 'صاحب العمل',
                           icon: Icons.business,
                         ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _workOwnerNameEnController,
+                          label: 'Employer (English)',
+                          icon: Icons.business_outlined,
+                          isRtl: false,
+                        ),
                       ],
                     ),
                   ),
@@ -310,14 +334,18 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
     required IconData icon,
     String? hint,
     TextInputType keyboardType = TextInputType.text,
+    bool isRtl = true,
   }) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      textDirection: TextDirection.rtl,
+      textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
+        floatingLabelAlignment: isRtl
+            ? FloatingLabelAlignment.start
+            : FloatingLabelAlignment.start,
         prefixIcon: Icon(icon, color: Colors.grey),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         focusedBorder: OutlineInputBorder(

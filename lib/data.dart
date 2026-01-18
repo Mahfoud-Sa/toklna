@@ -90,6 +90,9 @@ class Data {
   static const String _defaultSecondDoseDate = "2021/10/17";
   static const String _defaultPassportFile = "assets/certificate.pdf";
   static const String _defaultWorkOwnerName = "عيسى بن عمرون بن سليمان المهري";
+  static const String _defaultUserNameEn = "ESSA SAEED SALEH AL-TAMIMI";
+  static const String _defaultWorkOwnerNameEn =
+      "ESSA BIN AMROON BIN SULAIMAN AL-MAHRI";
 
   // Default PDF margin values
   static const double _defaultPdfTextWidth = 200;
@@ -166,6 +169,15 @@ class Data {
             defaultValue: _defaultWorkOwnerName,
           )
           as String;
+  static String get userNameEn =>
+      UserDataService.getValue('userNameEn', defaultValue: _defaultUserNameEn)
+          as String;
+  static String get workOwnerNameEn =>
+      UserDataService.getValue(
+            'workOwnerNameEn',
+            defaultValue: _defaultWorkOwnerNameEn,
+          )
+          as String;
 
   /// Get PDF text width.
   static double get pdfTextWidth =>
@@ -213,6 +225,8 @@ class Data {
       'secondDoseDate': secondDoseDate,
       'passportFile': passportFile,
       'workOwnerName': workOwnerName,
+      'userNameEn': userNameEn,
+      'workOwnerNameEn': workOwnerNameEn,
     };
   }
 
@@ -227,6 +241,8 @@ class Data {
     required String firstDoseDate,
     required String secondDoseDate,
     required String workOwnerName,
+    String? userNameEn,
+    String? workOwnerNameEn,
   }) async {
     await UserDataService.saveUserData(
       userName: userName,
@@ -238,6 +254,8 @@ class Data {
       firstDoseDate: firstDoseDate,
       secondDoseDate: secondDoseDate,
       workOwnerName: workOwnerName,
+      userNameEn: userNameEn,
+      workOwnerNameEn: workOwnerNameEn,
     );
   }
 
@@ -259,6 +277,8 @@ class Data {
       firstDoseDate: data['firstDoseDate'],
       secondDoseDate: data['secondDoseDate'],
       workOwnerName: data['workOwnerName'],
+      userNameEn: data['userNameEn'],
+      workOwnerNameEn: data['workOwnerNameEn'],
       pdfTextWidth: textWidth,
       pdfLineHeight: lineHeight,
       pdfLeftMargin: leftMargin,
@@ -282,6 +302,8 @@ class Data {
       defaultFirstDoseDate: _defaultFirstDoseDate,
       defaultSecondDoseDate: _defaultSecondDoseDate,
       defaultWorkOwnerName: _defaultWorkOwnerName,
+      defaultUserNameEn: _defaultUserNameEn,
+      defaultWorkOwnerNameEn: _defaultWorkOwnerNameEn,
     );
   }
 
@@ -299,6 +321,8 @@ class Data {
       'secondDoseDate': _defaultSecondDoseDate,
       'passportFile': _defaultPassportFile,
       'workOwnerName': _defaultWorkOwnerName,
+      'userNameEn': _defaultUserNameEn,
+      'workOwnerNameEn': _defaultWorkOwnerNameEn,
     };
   }
 }

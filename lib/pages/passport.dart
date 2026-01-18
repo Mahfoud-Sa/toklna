@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:toklna/data.dart';
 import 'package:toklna/l10n/app_localizations.dart';
@@ -80,38 +81,6 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Left side - Icons and text
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          _buildCircularIcon(Icons.qr_code, onTap: () {}),
-                          const SizedBox(width: 10),
-                          _buildCircularIcon(
-                            Icons.translate,
-                            onTap: () {
-                              appLocale.value =
-                                  appLocale.value.languageCode == 'ar'
-                                  ? const Locale('en')
-                                  : const Locale('ar');
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        Data.userName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Right side - Profile picture (centered vertically)
                   CircleAvatar(
                     radius: 45,
                     backgroundColor: Colors.white,
@@ -120,6 +89,52 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       backgroundImage: AssetImage(Data.personalImage),
                     ),
                   ),
+                  const SizedBox(width: 16),
+
+                  // Left side - Icons and text
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            _buildCircularIcon(
+                              Icons.qr_code,
+                              onTap: () {
+                                _showBarcodeDialog();
+                              },
+                            ),
+                            const SizedBox(width: 10),
+                            _buildCircularIcon(
+                              Icons.translate,
+                              onTap: () {
+                                appLocale.value =
+                                    appLocale.value.languageCode == 'ar'
+                                    ? const Locale('en')
+                                    : const Locale('ar');
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          isArabic ? Data.userName : Data.userNameEn,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          softWrap: true,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Right side - Profile picture (centered vertically)
                 ],
               ),
             ),
@@ -273,7 +288,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       ),
                       _buildInfoRow(
                         l10n.employer,
-                        Data.workOwnerName,
+                        isArabic ? Data.workOwnerName : Data.workOwnerNameEn,
                         isArabic,
                       ),
                       const SizedBox(height: 20),
@@ -450,6 +465,53 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
     );
   }
 
+  void _showBarcodeDialog() {
+    final barcodes = [
+      'assets/barcode_1.png',
+      'assets/barcode_3.png',
+      'assets/barcode_4.png',
+      'assets/barcode_5.png',
+      'assets/barcode_6.png',
+      'assets/qr_code.png',
+    ];
+    final randomBarcode = barcodes[Random().nextInt(barcodes.length)];
+
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Barcode / QR Code',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              Image.asset(randomBarcode, height: 200, fit: BoxFit.contain),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF009688),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  'Close',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   // Helper widget for the top circular icons
   Widget _buildCircularIcon(IconData icon, {VoidCallback? onTap}) {
     return GestureDetector(
@@ -473,13 +535,17 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: isArabic
             ? [
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                Expanded(
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.left,
                   ),
                 ),
+                const SizedBox(width: 10),
                 Text(
                   label,
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
@@ -490,11 +556,15 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                   label,
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.right,
                   ),
                 ),
               ],
@@ -547,9 +617,15 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
               ? MainAxisAlignment.end
               : MainAxisAlignment.start,
           children: [
-            Text(
-              vaccine,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            Expanded(
+              child: Text(
+                vaccine,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: isArabic ? TextAlign.right : TextAlign.left,
+              ),
             ),
           ],
         ),

@@ -29,6 +29,14 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
   late TextEditingController _secondDoseDateController;
   late TextEditingController _workOwnerNameController;
   late TextEditingController _workOwnerNameEnController;
+  late TextEditingController _nationalityController;
+  late TextEditingController _nationalityEnController;
+  late TextEditingController _issuePlaceController;
+  late TextEditingController _issuePlaceEnController;
+  late TextEditingController _professionController;
+  late TextEditingController _professionEnController;
+  late TextEditingController _religionController;
+  late TextEditingController _religionEnController;
   late bool _status;
 
   bool _isSaving = false;
@@ -52,6 +60,14 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
     _workOwnerNameEnController = TextEditingController(
       text: Data.workOwnerNameEn,
     );
+    _nationalityController = TextEditingController(text: Data.nationality);
+    _nationalityEnController = TextEditingController(text: Data.nationalityEn);
+    _issuePlaceController = TextEditingController(text: Data.issuePlace);
+    _issuePlaceEnController = TextEditingController(text: Data.issuePlaceEn);
+    _professionController = TextEditingController(text: Data.profession);
+    _professionEnController = TextEditingController(text: Data.professionEn);
+    _religionController = TextEditingController(text: Data.religion);
+    _religionEnController = TextEditingController(text: Data.religionEn);
     _status = Data.status;
   }
 
@@ -66,6 +82,14 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
     _secondDoseDateController.dispose();
     _workOwnerNameController.dispose();
     _workOwnerNameEnController.dispose();
+    _nationalityController.dispose();
+    _nationalityEnController.dispose();
+    _issuePlaceController.dispose();
+    _issuePlaceEnController.dispose();
+    _professionController.dispose();
+    _professionEnController.dispose();
+    _religionController.dispose();
+    _religionEnController.dispose();
     super.dispose();
   }
 
@@ -87,6 +111,14 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
         workOwnerName: _workOwnerNameController.text,
         userNameEn: _userNameEnController.text,
         workOwnerNameEn: _workOwnerNameEnController.text,
+        nationality: _nationalityController.text,
+        nationalityEn: _nationalityEnController.text,
+        issuePlace: _issuePlaceController.text,
+        issuePlaceEn: _issuePlaceEnController.text,
+        profession: _professionController.text,
+        professionEn: _professionEnController.text,
+        religion: _religionController.text,
+        religionEn: _religionEnController.text,
       );
 
       if (mounted) {
@@ -214,10 +246,8 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
                                 trackColor: WidgetStateProperty.resolveWith(
                                   (states) =>
                                       states.contains(WidgetState.selected)
-                                      ? const Color(
-                                          0xFF1B5E20,
-                                        ).withValues(alpha: 0.5)
-                                      : Colors.grey.withValues(alpha: 0.3),
+                                      ? const Color(0xFF1B5E20).withOpacity(0.5)
+                                      : Colors.grey.withOpacity(0.3),
                                 ),
                               ),
                             ],
@@ -267,6 +297,58 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
                           controller: _workOwnerNameEnController,
                           label: 'Employer (English)',
                           icon: Icons.business_outlined,
+                          isRtl: false,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _nationalityController,
+                          label: 'الجنسية',
+                          icon: Icons.flag,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _nationalityEnController,
+                          label: 'Nationality (English)',
+                          icon: Icons.flag_outlined,
+                          isRtl: false,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _issuePlaceController,
+                          label: 'مكان الإصدار',
+                          icon: Icons.location_on,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _issuePlaceEnController,
+                          label: 'Issue Place (English)',
+                          icon: Icons.location_on_outlined,
+                          isRtl: false,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _professionController,
+                          label: 'المهنة',
+                          icon: Icons.work,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _professionEnController,
+                          label: 'Profession (English)',
+                          icon: Icons.work_outline,
+                          isRtl: false,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _religionController,
+                          label: 'الديانة',
+                          icon: Icons.security,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: _religionEnController,
+                          label: 'Religion (English)',
+                          icon: Icons.security_outlined,
                           isRtl: false,
                         ),
                       ],

@@ -260,7 +260,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       // Personal Information Rows
                       _buildInfoRow(
                         l10n.nationality,
-                        isArabic ? '\u200E1 حصر ن' : '1 HSR N',
+                        isArabic ? Data.nationality : Data.nationalityEn,
                         isArabic,
                       ),
                       _buildInfoRow(
@@ -277,12 +277,12 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       _buildInfoRow(l10n.birthDate, Data.birthDate, isArabic),
                       _buildInfoRow(
                         l10n.profession,
-                        isArabic ? 'عامل' : 'Worker',
+                        isArabic ? Data.profession : Data.professionEn,
                         isArabic,
                       ),
                       _buildInfoRow(
                         l10n.religion,
-                        isArabic ? 'الاسلام' : 'Islam',
+                        isArabic ? Data.religion : Data.religionEn,
                         isArabic,
                       ),
                       _buildInfoRow(

@@ -3,6 +3,7 @@ import 'package:toklna/data.dart';
 import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/widgets/progress_square.dart';
 import 'package:toklna/widgets/user_profile_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -184,13 +185,26 @@ class _DashboardPageState extends State<DashboardPage> {
             const SizedBox(height: 16),
 
             /// Promo Banner — fill full width with fixed height
-            SizedBox(
-              //  height: 48,
-              width: double.infinity,
-              child: Image.asset(
-                'assets/toklna_band.png',
-                fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () async {
+                final Uri url = Uri.parse(
+                  'https://play.google.com/store/apps/details?id=sa.gov.nic.twkhayat',
+                );
+                if (!await launchUrl(
+                  url,
+                  mode: LaunchMode.externalApplication,
+                )) {
+                  throw Exception('Could not launch $url');
+                }
+              },
+              child: SizedBox(
+                //  height: 48,
                 width: double.infinity,
+                child: Image.asset(
+                  'assets/toklna_band.png',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
               ),
             ),
             const SizedBox(height: 120),

@@ -20,6 +20,14 @@ class UserDataService {
   static const String _keyPdfLineHeight = 'pdf_line_height';
   static const String _keyPdfLeftMargin = 'pdf_left_margin';
   static const String _keyPdfBottomMargin = 'pdf_bottom_margin';
+  static const String _keyNationality = 'nationality';
+  static const String _keyNationalityEn = 'nationality_en';
+  static const String _keyIssuePlace = 'issue_place';
+  static const String _keyIssuePlaceEn = 'issue_place_en';
+  static const String _keyProfession = 'profession';
+  static const String _keyProfessionEn = 'profession_en';
+  static const String _keyReligion = 'religion';
+  static const String _keyReligionEn = 'religion_en';
 
   static SharedPreferences? _prefs;
 
@@ -53,6 +61,14 @@ class UserDataService {
     double? pdfLineHeight,
     double? pdfLeftMargin,
     double? pdfBottomMargin,
+    String? nationality,
+    String? nationalityEn,
+    String? issuePlace,
+    String? issuePlaceEn,
+    String? profession,
+    String? professionEn,
+    String? religion,
+    String? religionEn,
   }) async {
     await prefs.setString(_keyUserName, userName);
     await prefs.setString(_keyPersonalImage, personalImage);
@@ -79,6 +95,21 @@ class UserDataService {
     if (pdfBottomMargin != null) {
       await prefs.setDouble(_keyPdfBottomMargin, pdfBottomMargin);
     }
+    if (nationality != null)
+      await prefs.setString(_keyNationality, nationality);
+    if (nationalityEn != null) {
+      await prefs.setString(_keyNationalityEn, nationalityEn);
+    }
+    if (issuePlace != null) await prefs.setString(_keyIssuePlace, issuePlace);
+    if (issuePlaceEn != null) {
+      await prefs.setString(_keyIssuePlaceEn, issuePlaceEn);
+    }
+    if (profession != null) await prefs.setString(_keyProfession, profession);
+    if (professionEn != null) {
+      await prefs.setString(_keyProfessionEn, professionEn);
+    }
+    if (religion != null) await prefs.setString(_keyReligion, religion);
+    if (religionEn != null) await prefs.setString(_keyReligionEn, religionEn);
   }
 
   /// Get stored user data as a Map. Returns default values if not set.
@@ -93,7 +124,15 @@ class UserDataService {
     String defaultSecondDoseDate = '',
     String defaultWorkOwnerName = '',
     String defaultUserNameEn = '',
-    String defaultWorkOwnerNameEn = '',
+    String? defaultWorkOwnerNameEn,
+    String? defaultNationality = '',
+    String? defaultNationalityEn = '',
+    String? defaultIssuePlace = '',
+    String? defaultIssuePlaceEn = '',
+    String? defaultProfession = '',
+    String? defaultProfessionEn = '',
+    String? defaultReligion = '',
+    String? defaultReligionEn = '',
   }) {
     return {
       'userName': prefs.getString(_keyUserName) ?? defaultUserName,
@@ -113,6 +152,15 @@ class UserDataService {
       'userNameEn': prefs.getString(_keyUserNameEn) ?? defaultUserNameEn,
       'workOwnerNameEn':
           prefs.getString(_keyWorkOwnerNameEn) ?? defaultWorkOwnerNameEn,
+      'nationality': prefs.getString(_keyNationality) ?? defaultNationality,
+      'nationalityEn':
+          prefs.getString(_keyNationalityEn) ?? defaultNationalityEn,
+      'issuePlace': prefs.getString(_keyIssuePlace) ?? defaultIssuePlace,
+      'issuePlaceEn': prefs.getString(_keyIssuePlaceEn) ?? defaultIssuePlaceEn,
+      'profession': prefs.getString(_keyProfession) ?? defaultProfession,
+      'professionEn': prefs.getString(_keyProfessionEn) ?? defaultProfessionEn,
+      'religion': prefs.getString(_keyReligion) ?? defaultReligion,
+      'religionEn': prefs.getString(_keyReligionEn) ?? defaultReligionEn,
     };
   }
 
@@ -153,6 +201,22 @@ class UserDataService {
         return prefs.getDouble(_keyPdfLeftMargin) ?? defaultValue;
       case 'pdfBottomMargin':
         return prefs.getDouble(_keyPdfBottomMargin) ?? defaultValue;
+      case 'nationality':
+        return prefs.getString(_keyNationality) ?? defaultValue;
+      case 'nationalityEn':
+        return prefs.getString(_keyNationalityEn) ?? defaultValue;
+      case 'issuePlace':
+        return prefs.getString(_keyIssuePlace) ?? defaultValue;
+      case 'issuePlaceEn':
+        return prefs.getString(_keyIssuePlaceEn) ?? defaultValue;
+      case 'profession':
+        return prefs.getString(_keyProfession) ?? defaultValue;
+      case 'professionEn':
+        return prefs.getString(_keyProfessionEn) ?? defaultValue;
+      case 'religion':
+        return prefs.getString(_keyReligion) ?? defaultValue;
+      case 'religionEn':
+        return prefs.getString(_keyReligionEn) ?? defaultValue;
       default:
         return defaultValue;
     }
@@ -184,6 +248,13 @@ class UserDataService {
     await prefs.remove(_keyWorkOwnerName);
     await prefs.remove(_keyUserNameEn);
     await prefs.remove(_keyWorkOwnerNameEn);
+    await prefs.remove(_keyNationality);
+    await prefs.remove(_keyNationalityEn);
+    await prefs.remove(_keyIssuePlace);
+    await prefs.remove(_keyIssuePlaceEn);
+    await prefs.remove(_keyProfession);
+    await prefs.remove(_keyProfessionEn);
+    await prefs.remove(_keyReligionEn);
   }
 
   /// Check if user data has been saved before.

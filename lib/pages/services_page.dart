@@ -156,7 +156,7 @@ class ServicesPage extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              _buildSectionHeader('الرقمية'),
+              _buildSectionHeader('خدمة البلاغات والمخالفات'),
               Wrap(
                 alignment: WrapAlignment.start,
                 spacing: 12,
@@ -164,8 +164,14 @@ class ServicesPage extends StatelessWidget {
                 children: [
                   _buildServiceItem(
                     context,
-                    name: "assets/icons/icon_1.jpeg",
-                    title: 'لوحة البيانات',
+                    name: "assets/icons/icon_11.png",
+                    title: 'الابلاغ عن مخالفة',
+                    color: Colors.teal,
+                  ),
+                  _buildServiceItem(
+                    context,
+                    name: "assets/icons/icon_12.png",
+                    title: "مخالفاتي",
                     color: Colors.teal,
                   ),
                 ],

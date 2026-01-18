@@ -81,16 +81,16 @@ class _MyAccountPageState extends State<MyAccountPage> {
                     _buildTile("تحديث رقم الجوال", Icons.phone_android),
                     _buildTile("تغيير كلمة المرور", Icons.lock_outline),
                     _buildTile("تحديث موقع السكن", Icons.home_outlined),
-                    _buildTile(
-                      "إعدادات PDF",
-                      Icons.picture_as_pdf_outlined,
-                      onTap: () => PdfSettingsDialog.show(context),
-                    ),
-                    _buildTile(
-                      "تحديث الجواز الصحي",
-                      _isUploading ? Icons.hourglass_empty : Icons.upload,
-                      onTap: _isUploading ? null : _pickPdf,
-                    ),
+                    // _buildTile(
+                    //   "إعدادات PDF",
+                    //   Icons.picture_as_pdf_outlined,
+
+                    // ),
+                    // _buildTile(
+                    //   "تحديث الجواز الصحي",
+                    //   _isUploading ? Icons.hourglass_empty : Icons.upload,
+                    //   onTap: _isUploading ? null : _pickPdf,
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -98,8 +98,16 @@ class _MyAccountPageState extends State<MyAccountPage> {
                   title: "حول التطبيق",
                   items: [
                     _buildTile("شركاء النجاح", Icons.handshake_outlined),
-                    _buildTile("الأسئلة الشائعة", Icons.help_outline),
-                    _buildTile("سياسة استخدام الموقع", Icons.article_outlined),
+                    _buildTile(
+                      "الأسئلة الشائعة",
+                      Icons.help_outline,
+                      onTap: () => PdfSettingsDialog.show(context),
+                    ),
+                    _buildTile(
+                      "سياسة استخدام الموقع",
+                      Icons.article_outlined,
+                      onTap: _isUploading ? null : _pickPdf,
+                    ),
                     _buildTile(
                       "تواصل معنا",
                       Icons.mail_outline,

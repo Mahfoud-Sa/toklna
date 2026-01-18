@@ -252,9 +252,12 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
           // QR Icon
 
           // Text Content
+          Image.asset(imagePath, width: 60, height: 60, fit: BoxFit.contain),
+          const SizedBox(width: 16),
+
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
@@ -279,8 +282,6 @@ class _HealthStatusPageState extends State<HealthStatusPage> {
               ],
             ),
           ),
-          const SizedBox(width: 16),
-          Image.asset(imagePath, width: 60, height: 60, fit: BoxFit.contain),
         ],
       ),
     );

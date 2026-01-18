@@ -72,7 +72,7 @@ class Data {
       'cardImage': 'assets/‏‏‏‏icon_mohmmed.jpeg',
       'userImage': 'assets/‏‏‏‏user_photo_mohmmed.jpeg',
     },
-    '2465973902': {
+    '2507004526': {
       'password': '123456789',
       'pdfFile': 'assets/certificate_saddam.pdf',
       'cardImage': 'assets/‏‏‏‏icon_saddem.jpeg',
@@ -84,7 +84,7 @@ class Data {
       'cardImage': 'assets/‏‏‏‏icon_mohammed.jpeg',
       'userImage': 'assets/user_photo_mohammed.jpeg',
     },
-    '2507004526': {
+    '2502479286': {
       'password': '123456789',
       'pdfFile': 'assets/certificate_abdullahman.pdf',
       'cardImage': 'assets/‏‏‏‏icon_abdullah.jpeg',
@@ -105,6 +105,15 @@ class Data {
   static const String _defaultUserNameEn = "ESSA SAEED SALEH AL-TAMIMI";
   static const String _defaultWorkOwnerNameEn =
       "ESSA BIN AMROON BIN SULAIMAN AL-MAHRI";
+
+  static const String _defaultNationality = "حصر ن 1";
+  static const String _defaultNationalityEn = "HSR N 1";
+  static const String _defaultIssuePlace = "وكالة الأمارة للشوؤن الأمنية";
+  static const String _defaultIssuePlaceEn = "EA for SA";
+  static const String _defaultProfession = "عامل";
+  static const String _defaultProfessionEn = "Worker";
+  static const String _defaultReligion = "الاسلام";
+  static const String _defaultReligionEn = "Islam";
 
   // Default PDF margin values
   static const double _defaultPdfTextWidth = 200;
@@ -191,6 +200,40 @@ class Data {
           )
           as String;
 
+  static String get nationality =>
+      UserDataService.getValue('nationality', defaultValue: _defaultNationality)
+          as String;
+  static String get nationalityEn =>
+      UserDataService.getValue(
+            'nationalityEn',
+            defaultValue: _defaultNationalityEn,
+          )
+          as String;
+  static String get issuePlace =>
+      UserDataService.getValue('issuePlace', defaultValue: _defaultIssuePlace)
+          as String;
+  static String get issuePlaceEn =>
+      UserDataService.getValue(
+            'issuePlaceEn',
+            defaultValue: _defaultIssuePlaceEn,
+          )
+          as String;
+  static String get profession =>
+      UserDataService.getValue('profession', defaultValue: _defaultProfession)
+          as String;
+  static String get professionEn =>
+      UserDataService.getValue(
+            'professionEn',
+            defaultValue: _defaultProfessionEn,
+          )
+          as String;
+  static String get religion =>
+      UserDataService.getValue('religion', defaultValue: _defaultReligion)
+          as String;
+  static String get religionEn =>
+      UserDataService.getValue('religionEn', defaultValue: _defaultReligionEn)
+          as String;
+
   /// Get PDF text width.
   static double get pdfTextWidth =>
       UserDataService.getValue(
@@ -239,6 +282,14 @@ class Data {
       'workOwnerName': workOwnerName,
       'userNameEn': userNameEn,
       'workOwnerNameEn': workOwnerNameEn,
+      'nationality': nationality,
+      'nationalityEn': nationalityEn,
+      'issuePlace': issuePlace,
+      'issuePlaceEn': issuePlaceEn,
+      'profession': profession,
+      'professionEn': professionEn,
+      'religion': religion,
+      'religionEn': religionEn,
     };
   }
 
@@ -255,6 +306,14 @@ class Data {
     required String workOwnerName,
     String? userNameEn,
     String? workOwnerNameEn,
+    String? nationality,
+    String? nationalityEn,
+    String? issuePlace,
+    String? issuePlaceEn,
+    String? profession,
+    String? professionEn,
+    String? religion,
+    String? religionEn,
   }) async {
     await UserDataService.saveUserData(
       userName: userName,
@@ -268,6 +327,14 @@ class Data {
       workOwnerName: workOwnerName,
       userNameEn: userNameEn,
       workOwnerNameEn: workOwnerNameEn,
+      nationality: nationality,
+      nationalityEn: nationalityEn,
+      issuePlace: issuePlace,
+      issuePlaceEn: issuePlaceEn,
+      profession: profession,
+      professionEn: professionEn,
+      religion: religion,
+      religionEn: religionEn,
     );
   }
 
@@ -291,6 +358,14 @@ class Data {
       workOwnerName: data['workOwnerName'],
       userNameEn: data['userNameEn'],
       workOwnerNameEn: data['workOwnerNameEn'],
+      nationality: data['nationality'],
+      nationalityEn: data['nationalityEn'],
+      issuePlace: data['issuePlace'],
+      issuePlaceEn: data['issuePlaceEn'],
+      profession: data['profession'],
+      professionEn: data['professionEn'],
+      religion: data['religion'],
+      religionEn: data['religionEn'],
       pdfTextWidth: textWidth,
       pdfLineHeight: lineHeight,
       pdfLeftMargin: leftMargin,
@@ -298,7 +373,6 @@ class Data {
     );
   }
 
-  /// Save the passport file path.
   static Future<void> savePassportFile(String path) async {
     await UserDataService.savePassportFile(path);
   }
@@ -316,6 +390,14 @@ class Data {
       defaultWorkOwnerName: _defaultWorkOwnerName,
       defaultUserNameEn: _defaultUserNameEn,
       defaultWorkOwnerNameEn: _defaultWorkOwnerNameEn,
+      defaultNationality: _defaultNationality,
+      defaultNationalityEn: _defaultNationalityEn,
+      defaultIssuePlace: _defaultIssuePlace,
+      defaultIssuePlaceEn: _defaultIssuePlaceEn,
+      defaultProfession: _defaultProfession,
+      defaultProfessionEn: _defaultProfessionEn,
+      defaultReligion: _defaultReligion,
+      defaultReligionEn: _defaultReligionEn,
     );
   }
 
@@ -335,6 +417,14 @@ class Data {
       'workOwnerName': _defaultWorkOwnerName,
       'userNameEn': _defaultUserNameEn,
       'workOwnerNameEn': _defaultWorkOwnerNameEn,
+      'nationality': _defaultNationality,
+      'nationalityEn': _defaultNationalityEn,
+      'issuePlace': _defaultIssuePlace,
+      'issuePlaceEn': _defaultIssuePlaceEn,
+      'profession': _defaultProfession,
+      'professionEn': _defaultProfessionEn,
+      'religion': _defaultReligion,
+      'religionEn': _defaultReligionEn,
     };
   }
 }

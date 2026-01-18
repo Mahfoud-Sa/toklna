@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:toklna/data.dart';
 import 'package:toklna/l10n/app_localizations.dart';
@@ -261,7 +260,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       // Personal Information Rows
                       _buildInfoRow(
                         l10n.nationality,
-                        isArabic ? '1 حصر ن' : '1 HSR N',
+                        isArabic ? '\u200E1 حصر ن' : '1 HSR N',
                         isArabic,
                       ),
                       _buildInfoRow(
@@ -466,47 +465,56 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
   }
 
   void _showBarcodeDialog() {
-    final barcodes = [
-      'assets/barcode_1.png',
-      'assets/barcode_3.png',
-      'assets/barcode_4.png',
-      'assets/barcode_5.png',
-      'assets/barcode_6.png',
-      'assets/qr_code.png',
-    ];
-    final randomBarcode = barcodes[Random().nextInt(barcodes.length)];
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+    final userName = isArabic ? Data.userName : Data.userNameEn;
+    const qrImagePath = 'assets/qr_code_example.jpeg';
 
     showDialog(
       context: context,
       builder: (context) => Dialog(
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Barcode / QR Code',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              Image.asset(randomBarcode, height: 200, fit: BoxFit.contain),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF009688),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      // vertical: 12,
+                      horizontal: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 196, 196, 196),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                    child: Text(
+                      userName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                child: const Text(
-                  'Close',
-                  style: TextStyle(color: Colors.white),
-                ),
+                  const SizedBox(height: 25),
+                  Image.asset(qrImagePath, height: 200, fit: BoxFit.contain),
+                ],
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              right: 8,
+              top: 8,
+              child: IconButton(
+                icon: const Icon(Icons.close, color: Colors.grey, size: 24),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -532,6 +540,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: isArabic
             ? [
@@ -542,19 +551,21 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
-                    textAlign: TextAlign.left,
+                    //  textAlign: TextAlign.right,
                   ),
                 ),
                 const SizedBox(width: 10),
                 Text(
                   label,
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  // textAlign: TextAlign.right,
                 ),
               ]
             : [
                 Text(
                   label,
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  //   textAlign: TextAlign.left,
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -564,7 +575,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
-                    textAlign: TextAlign.right,
+                    //  textAlign: TextAlign.left,
                   ),
                 ),
               ],

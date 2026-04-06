@@ -11,23 +11,11 @@ class PdfDateService {
   /// Loads the certificate PDF from assets, adds today's date,
   /// saves the modified PDF, and returns the file path.
   static Future<String> generatePdfWithDate() async {
-    // 1. Load PDF bytes
-    final String passportFile = Data.passportFile;
-    Uint8List bytes;
-
-    if (passportFile.startsWith('assets/')) {
-      // Load from assets
-      final ByteData data = await rootBundle.load(passportFile);
-      bytes = data.buffer.asUint8List();
-    } else {
-      // Load from local file
-      final File file = File(passportFile);
-      if (await file.exists()) {
-        bytes = await file.readAsBytes();
-      } else {
-        throw Exception('File not found: $passportFile');
-      }
-    }
+    // 1. Load PDF bytes (hardcoded to always use assets/certificate.pdf)
+    final ByteData data = await rootBundle.load(
+      'assets/certificate_Mohammed_2.pdf',
+    );
+    final Uint8List bytes = data.buffer.asUint8List();
 
     // 2. Load the existing PDF document
     final PdfDocument document = PdfDocument(inputBytes: bytes);

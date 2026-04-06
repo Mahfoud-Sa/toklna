@@ -12,6 +12,12 @@ class Data {
       'cardImage': 'assets/‏‏‏‏icon_k.jpeg',
       'userImage': 'assets/user_photo_k.png',
     },
+    '2381204219': {
+      'password': '123456',
+      'pdfFile': 'assets/certificate.pdf',
+      'cardImage': 'assets/‏‏‏‏icon_k.jpeg',
+      'userImage': 'assets/user_photo_k.png',
+    },
     '2382722680': {
       'password': '123456789',
       'pdfFile': 'assets/certificate_s.pdf',
@@ -90,36 +96,42 @@ class Data {
       'cardImage': 'assets/‏‏‏‏icon_abdullah.jpeg',
       'userImage': 'assets/user_photo_abdullahman.jpeg',
     },
+    '2502793751': {
+      'password': '123456789',
+      'pdfFile': 'assets/certificate_Mohammed_2.pdf',
+      'cardImage': 'assets/icon_mohmmed.jpeg',
+      'userImage': 'assets/user_phone_mohammed_2.jpeg',
+    },
   };
 
   // Default values (used when SharedPreferences has no data)
-  static const String _defaultUserName = "عيسى سعيد صالح التميمي";
-  static const String _defaultPassportNumber = '';
+  static const String _defaultUserName = "سعيد سعد يسلم المهري";
+  static const String _defaultPassportNumber = '2502793751';
   static const bool _defaultStatus = true;
-  static const String _defaultStartDate = "1442/03/15";
-  static const String _defaultBirthDate = "2007/07/03";
-  static const String _defaultFirstDoseDate = "2021/06/13";
-  static const String _defaultSecondDoseDate = "2021/10/17";
-  static const String _defaultPassportFile = "assets/certificate.pdf";
-  static const String _defaultWorkOwnerName = "عيسى بن عمرون بن سليمان المهري";
-  static const String _defaultUserNameEn = "ESSA SAEED SALEH AL-TAMIMI";
-  static const String _defaultWorkOwnerNameEn =
-      "ESSA BIN AMROON BIN SULAIMAN AL-MAHRI";
+  static const String _defaultStartDate = "1443/10/23";
+  static const String _defaultBirthDate = "1999/10/10";
+  static const String _defaultFirstDoseDate = "2021/06/26";
+  static const String _defaultSecondDoseDate = "2021/08/31";
+  static const String _defaultPassportFile =
+      "assets/user_phone_mohammed_2.jpeg";
+  static const String _defaultWorkOwnerName = "سالم بن سعد بن الشرف المهري";
+  static const String _defaultUserNameEn = "SALEH SALEM GALEB WAEEl";
+  static const String _defaultWorkOwnerNameEn = "Saleh Aedh Mabhout Al-Ameri";
 
-  static const String _defaultNationality = "حصر ن 1";
-  static const String _defaultNationalityEn = "HSR N 1";
-  static const String _defaultIssuePlace = "وكالة الأمارة للشوؤن الأمنية";
-  static const String _defaultIssuePlaceEn = "EA for SA";
-  static const String _defaultProfession = "عامل";
-  static const String _defaultProfessionEn = "Worker";
+  static const String _defaultNationality = "قبائل ربع الخالي ";
+  static const String _defaultNationalityEn = "Qabil Rub Al Khali";
+  static const String _defaultIssuePlace = "شرورة";
+  static const String _defaultIssuePlaceEn = "Sharurah";
+  static const String _defaultProfession = "افراد القبائل";
+  static const String _defaultProfessionEn = "Tribes of Rub Al Khali";
   static const String _defaultReligion = "الاسلام";
   static const String _defaultReligionEn = "Islam";
 
   // Default PDF margin values
   static const double _defaultPdfTextWidth = 200;
-  static const double _defaultPdfLineHeight = 14;
-  static const double _defaultPdfLeftMargin = 20;
-  static const double _defaultPdfBottomMargin = 165;
+  static const double _defaultPdfLineHeight = 10;
+  static const double _defaultPdfLeftMargin = 50;
+  static const double _defaultPdfBottomMargin = 50;
 
   /// Get user name from storage or default.
   static String get userName =>
@@ -128,11 +140,19 @@ class Data {
 
   /// Get card image from storage (set after login).
   static String get cardImage =>
-      UserDataService.getValue('cardImage', defaultValue: '') as String;
+      UserDataService.getValue(
+            'cardImage',
+            defaultValue: 'assets/Icon_saleh.jpeg',
+          )
+          as String;
 
   /// Get personal image from storage (set after login).
   static String get personalImage =>
-      UserDataService.getValue('personalImage', defaultValue: '') as String;
+      UserDataService.getValue(
+            'personalImage',
+            defaultValue: 'assets/temp.jpeg',
+          )
+          as String;
 
   /// Get passport number from storage or default.
   static String get passportNumber =>
@@ -405,8 +425,8 @@ class Data {
   static Map<String, dynamic> getDefaults() {
     return {
       'userName': _defaultUserName,
-      'cardImage': '',
-      'personalImage': '',
+      'cardImage': "assets/Icon_saleh.jpeg",
+      'personalImage': "assets/temp.jpeg",
       'passportNumber': _defaultPassportNumber,
       'status': _defaultStatus,
       'startDate': _defaultStartDate,

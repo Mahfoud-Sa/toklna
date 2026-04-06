@@ -85,7 +85,9 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
                       radius: 42,
-                      backgroundImage: AssetImage(Data.personalImage),
+                      backgroundImage: const AssetImage(
+                        'assets/user_phone_mohammed_2.jpeg',
+                      ),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -263,14 +265,10 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                         isArabic ? Data.nationality : Data.nationalityEn,
                         isArabic,
                       ),
-                      _buildInfoRow(
-                        l10n.idNumber,
-                        Data.passportNumber,
-                        isArabic,
-                      ),
+                      _buildInfoRow(l10n.idNumber, "2502793751", isArabic),
                       _buildInfoRow(
                         l10n.issuePlace,
-                        isArabic ? 'وكالة الأمارة للشوؤن الأمنية' : 'EA for SA',
+                        isArabic ? Data.issuePlace : Data.issuePlaceEn,
                         isArabic,
                       ),
                       _buildInfoRow(l10n.issueDate, Data.startDate, isArabic),

@@ -105,8 +105,8 @@ class Data {
   };
 
   // Default values (used when SharedPreferences has no data)
-  static const String _defaultUserName = "سعيد سعد يسلم المهري";
-  static const String _defaultPassportNumber = '2502793751';
+  static const String _defaultUserName = "سالم نصيب عبيد المهري";
+  static const String _defaultPassportNumber = '2507754816';
   static const bool _defaultStatus = true;
   static const String _defaultStartDate = "1443/10/23";
   static const String _defaultBirthDate = "1999/10/10";

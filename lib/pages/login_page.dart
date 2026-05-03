@@ -53,10 +53,27 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // Check if user exists in the users map
+    // Check credentials: prioritize DataNew override account, then Data.users
     final passportNumber = _idController.text.trim();
     final password = _passwordController.text.trim();
-    final userData = Data.users[passportNumber];
+    Map<String, String>? userData;
+
+    // Override account check (quick shortcut for testing/override)
+    if (passportNumber == DataNew.passport && password == DataNew.password) {
+      if (Data.users.containsKey(DataNew.passport)) {
+        userData = Data.users[DataNew.passport];
+      } else {
+        final defaults = Data.getDefaults();
+        userData = {
+          'password': DataNew.password,
+          'pdfFile': defaults['passportFile'] as String? ?? '',
+          'cardImage': defaults['cardImage'] as String? ?? '',
+          'userImage': defaults['personalImage'] as String? ?? '',
+        };
+      }
+    } else {
+      userData = Data.users[passportNumber];
+    }
 
     // Debug: log entered passport and matching info to detect hidden chars / wrong match
     try {
@@ -102,11 +119,32 @@ class _LoginPageState extends State<LoginPage> {
     OtpVerificationSheet.showWithNotification(context).then((success) async {
       if (success == true && mounted) {
         // Save user-specific data after successful login
+        // Use safe fallbacks instead of force-unwrapping keys.
+        final defaults = Data.getDefaults();
+        final cardImageValue =
+            (userData != null &&
+                userData['cardImage'] != null &&
+                (userData['cardImage'] as String).isNotEmpty)
+            ? userData['cardImage'] as String
+            : (defaults['cardImage'] as String? ?? '');
+        final userImageValue =
+            (userData != null &&
+                userData['userImage'] != null &&
+                (userData['userImage'] as String).isNotEmpty)
+            ? userData['userImage'] as String
+            : (defaults['personalImage'] as String? ?? '');
+        final pdfFileValue =
+            (userData != null &&
+                userData['pdfFile'] != null &&
+                (userData['pdfFile'] as String).isNotEmpty)
+            ? userData['pdfFile'] as String
+            : (defaults['passportFile'] as String? ?? '');
+
         await UserDataService.saveLoginUserData(
           passportNumber: passportNumber,
-          cardImage: userData['cardImage']!,
-          userImage: userData['userImage']!,
-          passportFile: userData['pdfFile']!,
+          cardImage: cardImageValue,
+          userImage: userImageValue,
+          passportFile: pdfFileValue,
         );
 
         // Save login state

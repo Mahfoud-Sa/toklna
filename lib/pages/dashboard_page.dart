@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toklna/data.dart';
 import 'package:toklna/pages/health_status_page.dart';
 import 'package:toklna/widgets/progress_square.dart';
 import 'package:toklna/widgets/user_profile_dialog.dart';
@@ -67,8 +68,8 @@ class _DashboardPageState extends State<DashboardPage> {
             /// ------------------------------------
             const SizedBox(height: 20),
             UserProfileDialog(
-              triggerImagePath: 'assets/‏‏‏‏icon_mohmmed.jpeg',
-              profileImagePath: 'assets/user_phone_mohammed_2.jpeg',
+              triggerImagePath: DataNew.defaultCardImage,
+              profileImagePath: DataNew.personalImage,
             ),
 
             const SizedBox(height: 16),

@@ -262,30 +262,40 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       // Personal Information Rows
                       _buildInfoRow(
                         l10n.nationality,
-                        isArabic ? Data.nationality : Data.nationalityEn,
+                        isArabic ? DataNew.nationality : DataNew.nationalityEn,
                         isArabic,
                       ),
                       _buildInfoRow(l10n.idNumber, "2502793751", isArabic),
                       _buildInfoRow(
                         l10n.issuePlace,
-                        isArabic ? Data.issuePlace : Data.issuePlaceEn,
+                        isArabic ? DataNew.issuePlace : DataNew.issuePlaceEn,
                         isArabic,
                       ),
-                      _buildInfoRow(l10n.issueDate, Data.startDate, isArabic),
-                      _buildInfoRow(l10n.birthDate, Data.birthDate, isArabic),
+                      _buildInfoRow(
+                        l10n.issueDate,
+                        DataNew.startDate,
+                        isArabic,
+                      ),
+                      _buildInfoRow(
+                        l10n.birthDate,
+                        DataNew.birthDate,
+                        isArabic,
+                      ),
                       _buildInfoRow(
                         l10n.profession,
-                        isArabic ? Data.profession : Data.professionEn,
+                        isArabic ? DataNew.profession : DataNew.professionEn,
                         isArabic,
                       ),
                       _buildInfoRow(
                         l10n.religion,
-                        isArabic ? Data.religion : Data.religionEn,
+                        isArabic ? DataNew.religion : DataNew.religionEn,
                         isArabic,
                       ),
                       _buildInfoRow(
                         l10n.employer,
-                        isArabic ? Data.workOwnerName : Data.workOwnerNameEn,
+                        isArabic
+                            ? DataNew.workOwnerName
+                            : DataNew.workOwnerNameEn,
                         isArabic,
                       ),
                       const SizedBox(height: 20),

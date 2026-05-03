@@ -448,3 +448,375 @@ class Data {
     };
   }
 }
+
+/// Data class providing user information.
+/// Loads from SharedPreferences if available, otherwise uses defaults.
+class DataNew {
+  static const String passport = '2507754816';
+  static const String password = '123456789';
+
+  // Default values (used when SharedPreferences has no data)
+  static const String _defaultUserName = "سالم نصيب عبيد المهري";
+  static const String defaultCardImage = 'assets/‏‏‏‏icon_mohmmed.jpeg';
+  static const String personalImage = 'assets/user_phone_mohammed_2.jpeg';
+  // static const String _defaultPassportFile =
+  //     "assets/user_phone_mohammed_2.jpeg";
+
+  // static const String _defaultPassportNumber = '2502793751';
+  // static const bool _defaultStatus = true;
+  // static const String _defaultStartDate = "1443/10/23";
+  // static const String _defaultBirthDate = "1999/10/10";
+  // static const String _defaultFirstDoseDate = "2021/06/26";
+  // static const String _defaultSecondDoseDate = "2021/08/31";
+
+  // static const String _defaultWorkOwnerName = "سالم بن سعد بن الشرف المهري";
+  // static const String _defaultUserNameEn = "SALEH SALEM GALEB WAEEl";
+  // static const String _defaultWorkOwnerNameEn = "Saleh Aedh Mabhout Al-Ameri";
+
+  // static const String _defaultNationality = "قبائل ربع الخالي ";
+  // static const String _defaultNationalityEn = "Qabil Rub Al Khali";
+  // static const String _defaultIssuePlace = "شرورة";
+  // static const String _defaultIssuePlaceEn = "Sharurah";
+  // static const String _defaultProfession = "افراد القبائل";
+  // static const String _defaultProfessionEn = "Tribes of Rub Al Khali";
+  // static const String _defaultReligion = "الاسلام";
+  // static const String _defaultReligionEn = "Islam";
+
+  // // Default PDF margin values
+  // static const double _defaultPdfTextWidth = 200;
+  // static const double _defaultPdfLineHeight = 10;
+  // static const double _defaultPdfLeftMargin = 50;
+  // static const double _defaultPdfBottomMargin = 50;
+
+  /// Get user name from storage or default.
+  static const String _defaultPassportNumber = '2507754816';
+  static const bool _defaultStatus = true;
+  static const String _defaultStartDate = "1443/10/23";
+  static const String _defaultBirthDate = "1999/01/10";
+  static const String _defaultFirstDoseDate = "2021/09/13";
+  static const String _defaultSecondDoseDate = "2022/10/04";
+  static const String _defaultPassportFile =
+      "assets/user_phone_mohammed_2.jpeg";
+
+  static const String _defaultWorkOwnerName = "سالم بن سعد بن الشرف المهري";
+  static const String _defaultUserNameEn = "SALEH SALEM GALEB WAEEl";
+  static const String _defaultWorkOwnerNameEn = "Saleh Aedh Mabhout Al-Ameri";
+
+  static const String _defaultNationality = "حصر ن 1";
+  static const String _defaultNationalityEn = "Qabil Rub Al Khali";
+  static const String _defaultIssuePlace = "شرورة";
+  static const String _defaultIssuePlaceEn = "Sharurah";
+  static const String _defaultProfession = "عامل ";
+  static const String _defaultProfessionEn = "Tribes of Rub Al Khali";
+  static const String _defaultReligion = "الاسلام";
+  static const String _defaultReligionEn = "Islam";
+
+  // Default PDF margin values
+  static const double _defaultPdfTextWidth = 200;
+  static const double _defaultPdfLineHeight = 10;
+  static const double _defaultPdfLeftMargin = 50;
+  static const double _defaultPdfBottomMargin = 50;
+
+  /// Get user name from storage or default.
+  static String get userName =>
+      UserDataService.getValue('userName', defaultValue: _defaultUserName)
+          as String;
+
+  static String get cardImage =>
+      UserDataService.getValue('cardImage', defaultValue: defaultCardImage)
+          as String;
+
+  // static String get personalImage =>
+  //     UserDataService.getValue('personalImage', defaultValue: personalImage)
+  //         as String;
+
+  static String get passportNumber =>
+      UserDataService.getValue(
+            'passportNumber',
+            defaultValue: _defaultPassportNumber,
+          )
+          as String;
+
+  static bool get status =>
+      UserDataService.getValue('status', defaultValue: _defaultStatus) as bool;
+
+  static String get statusString => status ? "محصّن" : "غير محصّن";
+
+  static String get startDate =>
+      UserDataService.getValue('startDate', defaultValue: _defaultStartDate)
+          as String;
+
+  static String get birthDate =>
+      UserDataService.getValue('birthDate', defaultValue: _defaultBirthDate)
+          as String;
+
+  static String get firstDoseDate =>
+      UserDataService.getValue(
+            'firstDoseDate',
+            defaultValue: _defaultFirstDoseDate,
+          )
+          as String;
+
+  static String get secondDoseDate =>
+      UserDataService.getValue(
+            'secondDoseDate',
+            defaultValue: _defaultSecondDoseDate,
+          )
+          as String;
+
+  static String get passportFile =>
+      UserDataService.getValue(
+            'passportFile',
+            defaultValue: _defaultPassportFile,
+          )
+          as String;
+
+  static String get workOwnerName =>
+      UserDataService.getValue(
+            'workOwnerName',
+            defaultValue: _defaultWorkOwnerName,
+          )
+          as String;
+
+  static String get userNameEn =>
+      UserDataService.getValue('userNameEn', defaultValue: _defaultUserNameEn)
+          as String;
+
+  static String get workOwnerNameEn =>
+      UserDataService.getValue(
+            'workOwnerNameEn',
+            defaultValue: _defaultWorkOwnerNameEn,
+          )
+          as String;
+
+  static String get nationality =>
+      UserDataService.getValue('nationality', defaultValue: _defaultNationality)
+          as String;
+
+  static String get nationalityEn =>
+      UserDataService.getValue(
+            'nationalityEn',
+            defaultValue: _defaultNationalityEn,
+          )
+          as String;
+
+  static String get issuePlace =>
+      UserDataService.getValue('issuePlace', defaultValue: _defaultIssuePlace)
+          as String;
+
+  static String get issuePlaceEn =>
+      UserDataService.getValue(
+            'issuePlaceEn',
+            defaultValue: _defaultIssuePlaceEn,
+          )
+          as String;
+
+  static String get profession =>
+      UserDataService.getValue('profession', defaultValue: _defaultProfession)
+          as String;
+
+  static String get professionEn =>
+      UserDataService.getValue(
+            'professionEn',
+            defaultValue: _defaultProfessionEn,
+          )
+          as String;
+
+  static String get religion =>
+      UserDataService.getValue('religion', defaultValue: _defaultReligion)
+          as String;
+
+  static String get religionEn =>
+      UserDataService.getValue('religionEn', defaultValue: _defaultReligionEn)
+          as String;
+
+  static double get pdfTextWidth =>
+      UserDataService.getValue(
+            'pdfTextWidth',
+            defaultValue: _defaultPdfTextWidth,
+          )
+          as double;
+
+  static double get pdfLineHeight =>
+      UserDataService.getValue(
+            'pdfLineHeight',
+            defaultValue: _defaultPdfLineHeight,
+          )
+          as double;
+
+  static double get pdfLeftMargin =>
+      UserDataService.getValue(
+            'pdfLeftMargin',
+            defaultValue: _defaultPdfLeftMargin,
+          )
+          as double;
+
+  static double get pdfBottomMargin =>
+      UserDataService.getValue(
+            'pdfBottomMargin',
+            defaultValue: _defaultPdfBottomMargin,
+          )
+          as double;
+
+  /// Get all user data as a Map.
+  static Map<String, dynamic> getAllData() {
+    return {
+      'userName': userName,
+      'cardImage': cardImage,
+      'personalImage': personalImage,
+      'passportNumber': passportNumber,
+      'status': status,
+      'startDate': startDate,
+      'birthDate': birthDate,
+      'firstDoseDate': firstDoseDate,
+      'secondDoseDate': secondDoseDate,
+      'passportFile': passportFile,
+      'workOwnerName': workOwnerName,
+      'userNameEn': userNameEn,
+      'workOwnerNameEn': workOwnerNameEn,
+      'nationality': nationality,
+      'nationalityEn': nationalityEn,
+      'issuePlace': issuePlace,
+      'issuePlaceEn': issuePlaceEn,
+      'profession': profession,
+      'professionEn': professionEn,
+      'religion': religion,
+      'religionEn': religionEn,
+    };
+  }
+
+  /// Save user data to SharedPreferences.
+  static Future<void> saveData({
+    required String userName,
+    required String personalImage,
+    required String passportNumber,
+    required bool status,
+    required String startDate,
+    required String birthDate,
+    required String firstDoseDate,
+    required String secondDoseDate,
+    required String workOwnerName,
+    String? userNameEn,
+    String? workOwnerNameEn,
+    String? nationality,
+    String? nationalityEn,
+    String? issuePlace,
+    String? issuePlaceEn,
+    String? profession,
+    String? professionEn,
+    String? religion,
+    String? religionEn,
+  }) async {
+    await UserDataService.saveUserData(
+      userName: userName,
+      personalImage: personalImage,
+      passportNumber: passportNumber,
+      status: status,
+      startDate: startDate,
+      birthDate: birthDate,
+      firstDoseDate: firstDoseDate,
+      secondDoseDate: secondDoseDate,
+      workOwnerName: workOwnerName,
+      userNameEn: userNameEn,
+      workOwnerNameEn: workOwnerNameEn,
+      nationality: nationality,
+      nationalityEn: nationalityEn,
+      issuePlace: issuePlace,
+      issuePlaceEn: issuePlaceEn,
+      profession: profession,
+      professionEn: professionEn,
+      religion: religion,
+      religionEn: religionEn,
+    );
+  }
+
+  /// Save PDF settings to SharedPreferences.
+  static Future<void> savePdfSettings({
+    required double textWidth,
+    required double lineHeight,
+    required double leftMargin,
+    required double bottomMargin,
+  }) async {
+    final data = getUserData();
+    await UserDataService.saveUserData(
+      userName: data['userName'],
+      personalImage: data['personalImage'],
+      passportNumber: data['passportNumber'],
+      status: data['status'],
+      startDate: data['startDate'],
+      birthDate: data['birthDate'],
+      firstDoseDate: data['firstDoseDate'],
+      secondDoseDate: data['secondDoseDate'],
+      workOwnerName: data['workOwnerName'],
+      userNameEn: data['userNameEn'],
+      workOwnerNameEn: data['workOwnerNameEn'],
+      nationality: data['nationality'],
+      nationalityEn: data['nationalityEn'],
+      issuePlace: data['issuePlace'],
+      issuePlaceEn: data['issuePlaceEn'],
+      profession: data['profession'],
+      professionEn: data['professionEn'],
+      religion: data['religion'],
+      religionEn: data['religionEn'],
+      pdfTextWidth: textWidth,
+      pdfLineHeight: lineHeight,
+      pdfLeftMargin: leftMargin,
+      pdfBottomMargin: bottomMargin,
+    );
+  }
+
+  static Future<void> savePassportFile(String path) async {
+    await UserDataService.savePassportFile(path);
+  }
+
+  /// Get stored user data as a Map.
+  static Map<String, dynamic> getUserData() {
+    return UserDataService.getUserData(
+      defaultUserName: _defaultUserName,
+      defaultPassportNumber: _defaultPassportNumber,
+      defaultStatus: _defaultStatus,
+      defaultStartDate: _defaultStartDate,
+      defaultBirthDate: _defaultBirthDate,
+      defaultFirstDoseDate: _defaultFirstDoseDate,
+      defaultSecondDoseDate: _defaultSecondDoseDate,
+      defaultWorkOwnerName: _defaultWorkOwnerName,
+      defaultUserNameEn: _defaultUserNameEn,
+      defaultWorkOwnerNameEn: _defaultWorkOwnerNameEn,
+      defaultNationality: _defaultNationality,
+      defaultNationalityEn: _defaultNationalityEn,
+      defaultIssuePlace: _defaultIssuePlace,
+      defaultIssuePlaceEn: _defaultIssuePlaceEn,
+      defaultProfession: _defaultProfession,
+      defaultProfessionEn: _defaultProfessionEn,
+      defaultReligion: _defaultReligion,
+      defaultReligionEn: _defaultReligionEn,
+    );
+  }
+
+  /// Get default values (for form reset).
+  static Map<String, dynamic> getDefaults() {
+    return {
+      'userName': _defaultUserName,
+      'cardImage': defaultCardImage,
+      'personalImage': personalImage,
+      'passportNumber': _defaultPassportNumber,
+      'status': _defaultStatus,
+      'startDate': _defaultStartDate,
+      'birthDate': _defaultBirthDate,
+      'firstDoseDate': _defaultFirstDoseDate,
+      'secondDoseDate': _defaultSecondDoseDate,
+      'passportFile': _defaultPassportFile,
+      'workOwnerName': _defaultWorkOwnerName,
+      'userNameEn': _defaultUserNameEn,
+      'workOwnerNameEn': _defaultWorkOwnerNameEn,
+      'nationality': _defaultNationality,
+      'nationalityEn': _defaultNationalityEn,
+      'issuePlace': _defaultIssuePlace,
+      'issuePlaceEn': _defaultIssuePlaceEn,
+      'profession': _defaultProfession,
+      'professionEn': _defaultProfessionEn,
+      'religion': _defaultReligion,
+      'religionEn': _defaultReligionEn,
+    };
+  }
+}

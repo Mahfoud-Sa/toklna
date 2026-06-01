@@ -33,10 +33,10 @@ class UserProfileDialog extends StatelessWidget {
   final String? userId;
 
   /// Gets the user name from parameter or from stored data.
-  String get _userName => userName ?? Data.userName;
+  String get _userName => userName ?? DataNew.userName;
 
   /// Gets the user ID from parameter or from stored data.
-  String get _userId => userId ?? Data.passportNumber;
+  String get _userId => userId ?? DataNew.passportNumber;
 
   void _showProfileDialog(BuildContext context) {
     showDialog(

@@ -456,9 +456,10 @@ class DataNew {
   static const String password = '123456789';
 
   // Default values (used when SharedPreferences has no data)
-  static const String _defaultUserName = "سالم نصيب عبيد المهري";
-  static const String defaultCardImage = 'assets/‏‏‏‏icon_mohmmed.jpeg';
-  static const String personalImage = 'assets/user_phone_mohammed_2.jpeg';
+  static const String _defaultUserName = "عبدالله احمد علي المهري";
+  static const String defaultCardImage = 'assets/new_user_photo_banner.jpeg';
+  static const String personalImage = 'assets/new_user_photo.jpeg';
+
   // static const String _defaultPassportFile =
   //     "assets/user_phone_mohammed_2.jpeg";
 
@@ -492,7 +493,7 @@ class DataNew {
   static const String _defaultPassportNumber = '2507754816';
   static const bool _defaultStatus = true;
   static const String _defaultStartDate = "1443/10/23";
-  static const String _defaultBirthDate = "1999/01/10";
+  static const String _defaultBirthDate = "1999/05/22";
   static const String _defaultFirstDoseDate = "2021/09/13";
   static const String _defaultSecondDoseDate = "2022/10/04";
   static const String _defaultPassportFile =

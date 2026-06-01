@@ -12,9 +12,7 @@ class PdfDateService {
   /// saves the modified PDF, and returns the file path.
   static Future<String> generatePdfWithDate() async {
     // 1. Load PDF bytes (hardcoded to always use assets/certificate.pdf)
-    final ByteData data = await rootBundle.load(
-      'assets/certificate_Mohammed_2.pdf',
-    );
+    final ByteData data = await rootBundle.load('assets/passport_file.pdf');
     final Uint8List bytes = data.buffer.asUint8List();
 
     // 2. Load the existing PDF document
@@ -79,7 +77,7 @@ class PdfDateService {
 
     // 7. Get the temporary directory and save the file
     final Directory tempDir = await getTemporaryDirectory();
-    final String filePath = '${tempDir.path}/certificate_with_date.pdf';
+    final String filePath = '${tempDir.path}/passport_file_with_date.pdf';
     final File file = File(filePath);
     await file.writeAsBytes(modifiedBytes);
 

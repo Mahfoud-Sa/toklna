@@ -31,16 +31,16 @@ class _PdfSettingsDialogState extends State<PdfSettingsDialog> {
   void initState() {
     super.initState();
     _textWidthController = TextEditingController(
-      text: Data.pdfTextWidth.toString(),
+      text: DataNew.pdfTextWidth.toString(),
     );
     _lineHeightController = TextEditingController(
-      text: Data.pdfLineHeight.toString(),
+      text: DataNew.pdfLineHeight.toString(),
     );
     _leftMarginController = TextEditingController(
-      text: Data.pdfLeftMargin.toString(),
+      text: DataNew.pdfLeftMargin.toString(),
     );
     _bottomMarginController = TextEditingController(
-      text: Data.pdfBottomMargin.toString(),
+      text: DataNew.pdfBottomMargin.toString(),
     );
   }
 
@@ -59,7 +59,7 @@ class _PdfSettingsDialogState extends State<PdfSettingsDialog> {
     setState(() => _isSaving = true);
 
     try {
-      await Data.savePdfSettings(
+      await DataNew.savePdfSettings(
         textWidth: double.parse(_textWidthController.text),
         lineHeight: double.parse(_lineHeightController.text),
         leftMargin: double.parse(_leftMarginController.text),

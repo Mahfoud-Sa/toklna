@@ -31,7 +31,7 @@ class UserDefaultData {
 
   /// Load values from storage (uses `Data.getUserData()` to include defaults).
   static void load() {
-    final map = Data.getUserData();
+    final map = DataNew.getUserData();
     userName = map['userName'] as String? ?? '';
     cardImage = map['cardImage'] as String? ?? '';
     personalImage = map['personalImage'] as String? ?? '';

@@ -86,7 +86,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                     child: CircleAvatar(
                       radius: 42,
                       backgroundImage: const AssetImage(
-                        'assets/user_phone_mohammed_2.jpeg',
+                        'assets/new_user_photo.jpeg',
                       ),
                     ),
                   ),
@@ -121,7 +121,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          isArabic ? Data.userName : Data.userNameEn,
+                          isArabic ? DataNew.userName : DataNew.userNameEn,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -265,7 +265,11 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                         isArabic ? DataNew.nationality : DataNew.nationalityEn,
                         isArabic,
                       ),
-                      _buildInfoRow(l10n.idNumber, "2502793751", isArabic),
+                      _buildInfoRow(
+                        l10n.idNumber,
+                        "2493596379", //DataNew.passportNumber,
+                        isArabic,
+                      ),
                       _buildInfoRow(
                         l10n.issuePlace,
                         isArabic ? DataNew.issuePlace : DataNew.issuePlaceEn,
@@ -322,14 +326,14 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       // Vaccine Doses Information
                       _buildVaccineInfoRow(
                         l10n.firstDose,
-                        Data.firstDoseDate,
+                        DataNew.firstDoseDate,
                         isArabic ? 'فايزر-بيونتيك' : 'Pfizer-BioNTech',
                         isArabic,
                       ),
                       const SizedBox(height: 10),
                       _buildVaccineInfoRow(
                         l10n.secondDose,
-                        Data.secondDoseDate,
+                        DataNew.secondDoseDate,
                         isArabic ? 'فايزر-بيونتيك' : 'Pfizer-BioNTech',
                         isArabic,
                       ),
@@ -411,7 +415,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                             elevation: 0,
                           ),
                           onPressed: () async {
-                            if (Data.passportFile.isEmpty) {
+                            if (DataNew.passportFile.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(l10n.uploadPdfMessage)),
                               );
@@ -474,7 +478,7 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
 
   void _showBarcodeDialog() {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
-    final userName = isArabic ? Data.userName : Data.userNameEn;
+    final userName = isArabic ? DataNew.userName : DataNew.userNameEn;
     const qrImagePath = 'assets/qr_code_example.jpeg';
 
     showDialog(

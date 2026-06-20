@@ -17,33 +17,34 @@ class _MyAccountPageState extends State<MyAccountPage> {
   bool _isUploading = false;
 
   Future<void> _pickPdf() async {
-    try {
-      final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['pdf'],
-      );
+    // try {
+    // final result = await FilePicker().pickFiles(
+    //   type: FileType.custom,
+    //   allowedExtensions: ['pdf'],
+    // );
+    //   final result = await FilePicker().pickFiles(type: FileType.any);
 
-      if (result != null && result.files.single.path != null) {
-        setState(() {
-          _isUploading = true;
-        });
-        await Data.savePassportFile(result.files.single.path!);
-        setState(() {
-          _isUploading = false;
-        });
-        if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('تم رفع الملف بنجاح')));
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('فشل رفع الملف: $e')));
-      }
-    }
+    //   if (result != null && result.files.single.path != null) {
+    //     setState(() {
+    //       _isUploading = true;
+    //     });
+    //     await Data.savePassportFile(result.files.single.path!);
+    //     setState(() {
+    //       _isUploading = false;
+    //     });
+    //     if (mounted) {
+    //       ScaffoldMessenger.of(
+    //         context,
+    //       ).showSnackBar(const SnackBar(content: Text('تم رفع الملف بنجاح')));
+    //     }
+    //   }
+    // } catch (e) {
+    //   if (mounted) {
+    //     ScaffoldMessenger.of(
+    //       context,
+    //     ).showSnackBar(SnackBar(content: Text('فشل رفع الملف: $e')));
+    //   }
+    // }
   }
 
   @override

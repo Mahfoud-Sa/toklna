@@ -34,10 +34,10 @@ class PdfDateService {
     ).format(now); // e.g., "Friday, January 5, 2024"
 
     // 6. Add date/time text left-aligned, near the bottom
-    final double textWidth = Data.pdfTextWidth;
-    final double lineHeight = Data.pdfLineHeight;
-    final double leftMargin = Data.pdfLeftMargin;
-    final double bottomMargin = Data.pdfBottomMargin; // Distance from bottom
+    final double textWidth = DataNew.pdfTextWidth;
+    final double lineHeight = DataNew.pdfLineHeight;
+    final double leftMargin = DataNew.pdfLeftMargin;
+    final double bottomMargin = DataNew.pdfBottomMargin; // Distance from bottom
     final double yPosition = pageHeight - bottomMargin;
 
     // Gray color brush
@@ -48,9 +48,9 @@ class PdfDateService {
     const double monthOffset = 28; // Approximate position where month starts
     page.graphics.drawString(
       timeString,
-      PdfStandardFont(PdfFontFamily.helvetica, 7),
+      PdfStandardFont(PdfFontFamily.helvetica, 5),
       bounds: Rect.fromLTWH(
-        leftMargin + monthOffset,
+        (leftMargin + monthOffset) - 13,
         yPosition,
         textWidth,
         lineHeight,
@@ -61,7 +61,7 @@ class PdfDateService {
     // Draw date on second line (smaller font, left-aligned, gray)
     page.graphics.drawString(
       dateString,
-      PdfStandardFont(PdfFontFamily.helvetica, 7),
+      PdfStandardFont(PdfFontFamily.helvetica, 5),
       bounds: Rect.fromLTWH(
         leftMargin,
         yPosition + lineHeight,

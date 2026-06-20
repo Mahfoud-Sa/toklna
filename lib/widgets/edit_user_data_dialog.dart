@@ -45,30 +45,36 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
   void initState() {
     super.initState();
     // Initialize controllers with current data
-    _userNameController = TextEditingController(text: Data.userName);
-    _userNameEnController = TextEditingController(text: Data.userNameEn);
+    _userNameController = TextEditingController(text: DataNew.userName);
+    _userNameEnController = TextEditingController(text: DataNew.userNameEn);
     _passportNumberController = TextEditingController(
-      text: Data.passportNumber,
+      text: DataNew.passportNumber,
     );
-    _startDateController = TextEditingController(text: Data.startDate);
-    _birthDateController = TextEditingController(text: Data.birthDate);
-    _firstDoseDateController = TextEditingController(text: Data.firstDoseDate);
+    _startDateController = TextEditingController(text: DataNew.startDate);
+    _birthDateController = TextEditingController(text: DataNew.birthDate);
+    _firstDoseDateController = TextEditingController(
+      text: DataNew.firstDoseDate,
+    );
     _secondDoseDateController = TextEditingController(
-      text: Data.secondDoseDate,
+      text: DataNew.secondDoseDate,
     );
-    _workOwnerNameController = TextEditingController(text: Data.workOwnerName);
+    _workOwnerNameController = TextEditingController(
+      text: DataNew.workOwnerName,
+    );
     _workOwnerNameEnController = TextEditingController(
-      text: Data.workOwnerNameEn,
+      text: DataNew.workOwnerNameEn,
     );
-    _nationalityController = TextEditingController(text: Data.nationality);
-    _nationalityEnController = TextEditingController(text: Data.nationalityEn);
-    _issuePlaceController = TextEditingController(text: Data.issuePlace);
-    _issuePlaceEnController = TextEditingController(text: Data.issuePlaceEn);
-    _professionController = TextEditingController(text: Data.profession);
-    _professionEnController = TextEditingController(text: Data.professionEn);
-    _religionController = TextEditingController(text: Data.religion);
-    _religionEnController = TextEditingController(text: Data.religionEn);
-    _status = Data.status;
+    _nationalityController = TextEditingController(text: DataNew.nationality);
+    _nationalityEnController = TextEditingController(
+      text: DataNew.nationalityEn,
+    );
+    _issuePlaceController = TextEditingController(text: DataNew.issuePlace);
+    _issuePlaceEnController = TextEditingController(text: DataNew.issuePlaceEn);
+    _professionController = TextEditingController(text: DataNew.profession);
+    _professionEnController = TextEditingController(text: DataNew.professionEn);
+    _religionController = TextEditingController(text: DataNew.religion);
+    _religionEnController = TextEditingController(text: DataNew.religionEn);
+    _status = DataNew.status;
   }
 
   @override
@@ -99,9 +105,9 @@ class _EditUserDataDialogState extends State<EditUserDataDialog> {
     setState(() => _isSaving = true);
 
     try {
-      await Data.saveData(
+      await DataNew.saveData(
         userName: _userNameController.text,
-        personalImage: Data.personalImage, // Keep current value
+        personalImage: DataNew.personalImage, // Keep current value
         passportNumber: _passportNumberController.text,
         status: _status,
         startDate: _startDateController.text,

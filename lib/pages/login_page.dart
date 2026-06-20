@@ -53,45 +53,19 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // Check credentials: prioritize DataNew override account, then Data.users
+    // Check credentials against the configured default account.
     final passportNumber = _idController.text.trim();
     final password = _passwordController.text.trim();
     Map<String, String>? userData;
 
-    // Override account check (quick shortcut for testing/override)
     if (passportNumber == DataNew.passport && password == DataNew.password) {
-      if (Data.users.containsKey(DataNew.passport)) {
-        userData = Data.users[DataNew.passport];
-      } else {
-        final defaults = Data.getDefaults();
-        userData = {
-          'password': DataNew.password,
-          'pdfFile': defaults['passportFile'] as String? ?? '',
-          'cardImage': defaults['cardImage'] as String? ?? '',
-          'userImage': defaults['personalImage'] as String? ?? '',
-        };
-      }
-    } else {
-      userData = Data.users[passportNumber];
-    }
-
-    // Debug: log entered passport and matching info to detect hidden chars / wrong match
-    try {
-      debugPrint('DEBUG: entered passport: <$passportNumber>');
-      debugPrint(
-        'DEBUG: Data.users contains key: ${Data.users.containsKey(passportNumber)}',
-      );
-      debugPrint('DEBUG: matched userData: $userData');
-      // show code points for troubleshooting (non-ASCII digits or hidden chars)
-      final codePoints = passportNumber.runes
-          .map((r) => r.toRadixString(16))
-          .join(' ');
-      debugPrint('DEBUG: passport code points (hex): $codePoints');
-      debugPrint(
-        'DEBUG: explicit lookup for 2605496864 -> ${Data.users['2605496864']}',
-      );
-    } catch (e) {
-      debugPrint('DEBUG: error printing debug info: $e');
+      final defaults = DataNew.getDefaults();
+      userData = {
+        'password': DataNew.password,
+        'pdfFile': defaults['passportFile'] as String? ?? '',
+        'cardImage': defaults['cardImage'] as String? ?? '',
+        'userImage': defaults['personalImage'] as String? ?? '',
+      };
     }
 
     if (userData == null || userData['password'] != password) {
@@ -120,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
       if (success == true && mounted) {
         // Save user-specific data after successful login
         // Use safe fallbacks instead of force-unwrapping keys.
-        final defaults = Data.getDefaults();
+        final defaults = DataNew.getDefaults();
         final cardImageValue =
             (userData != null &&
                 userData['cardImage'] != null &&

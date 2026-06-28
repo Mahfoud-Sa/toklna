@@ -452,11 +452,11 @@ import 'package:toklna/services/user_data_service.dart';
 // /// Data class providing user information.
 /// Loads from SharedPreferences if available, otherwise uses defaults.
 class DataNew {
-  static const String passport = '2493596379';
+  static const String passport = '2492920570';
   static const String password = '123456789';
 
   // Default values (used when SharedPreferences has no data)
-  static const String _defaultUserName = "سالم أنور سالم التميمي";
+  static const String _defaultUserName = "جمعان سعيد جمعان المهري";
   static const String defaultCardImage = 'assets/new_user_photo_banner.jpeg';
   static const String personalImage = 'assets/new_user_photo.jpeg';
 
@@ -490,33 +490,35 @@ class DataNew {
   // static const double _defaultPdfBottomMargin = 50;
 
   /// Get user name from storage or default.
-  static const String _defaultPassportNumber = '2493596379';
+  static const String _defaultPassportNumber = '2492920570';
   static const bool _defaultStatus = true;
-  static const String _defaultStartDate = "1439/04/13";
-  static const String _defaultBirthDate = "1442/06/20";
-  static const String _defaultFirstDoseDate = "2021/06/04";
-  static const String _defaultSecondDoseDate = "2021/07/25";
+  static const String _defaultStartDate = "1442/05/29";
+  static const String _defaultBirthDate = "1994/12/03";
+  static const String _defaultFirstDoseDate = "2021/06/14";
+  static const String _defaultSecondDoseDate = "2021/07/30";
   static const String _defaultPassportFile =
       "assets/user_phone_mohammed_2.jpeg";
 
-  static const String _defaultWorkOwnerName = "حمد بن محمد بن سعيد المهري";
-  static const String _defaultUserNameEn = "SALEH SALEM GALEB WAEEl";
-  static const String _defaultWorkOwnerNameEn = "Saleh Aedh Mabhout Al-Ameri";
+  static const String _defaultWorkOwnerName = "عيسى بن عمرون بن سليمان المهري";
+  static const String _defaultUserNameEn = "ALBARK OBAID MUBARAK ALTAMAI";
+  static const String _defaultWorkOwnerNameEn =
+      "Ahmed bin Mohammed bin Saeed Al-Mahri";
 
   static const String _defaultNationality = "حصر ن 1";
-  static const String _defaultNationalityEn = "Qabil Rub Al Khali";
-  static const String _defaultIssuePlace = "وكاله الاماره للشوون الامنيه";
-  static const String _defaultIssuePlaceEn = "Sharurah";
+  static const String _defaultNationalityEn = "HUSAR N 1";
+  static const String _defaultIssuePlace = "وكالة الاماره للشؤون الامنية";
+  static const String _defaultIssuePlaceEn =
+      "The Emirate Agency for Security Affairs";
   static const String _defaultProfession = "عامل";
-  static const String _defaultProfessionEn = "Tribes of Rub Al Khali";
+  static const String _defaultProfessionEn = "Work";
   static const String _defaultReligion = "الاسلام";
   static const String _defaultReligionEn = "Islam";
 
   // Default PDF margin values
   static const double _defaultPdfTextWidth = 200;
   static const double _defaultPdfLineHeight = 10;
-  static const double _defaultPdfLeftMargin = 50;
-  static const double _defaultPdfBottomMargin = 50;
+  static const double _defaultPdfLeftMargin = 25;
+  static const double _defaultPdfBottomMargin = 42;
 
   /// Get user name from storage or default.
   static String get userName =>

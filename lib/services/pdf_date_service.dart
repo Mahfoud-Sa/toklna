@@ -48,7 +48,7 @@ class PdfDateService {
     const double monthOffset = 28; // Approximate position where month starts
     page.graphics.drawString(
       timeString,
-      PdfStandardFont(PdfFontFamily.helvetica, 5),
+      PdfStandardFont(PdfFontFamily.helvetica, 4),
       bounds: Rect.fromLTWH(
         (leftMargin + monthOffset) - 13,
         yPosition,
@@ -61,7 +61,7 @@ class PdfDateService {
     // Draw date on second line (smaller font, left-aligned, gray)
     page.graphics.drawString(
       dateString,
-      PdfStandardFont(PdfFontFamily.helvetica, 5),
+      PdfStandardFont(PdfFontFamily.helvetica, 4),
       bounds: Rect.fromLTWH(
         leftMargin,
         yPosition + lineHeight,

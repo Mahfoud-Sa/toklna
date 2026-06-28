@@ -260,14 +260,14 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       ),
                       const SizedBox(height: 15),
                       // Personal Information Rows
-                      _buildInfoRow(
-                        l10n.nationality,
-                        isArabic ? DataNew.nationality : DataNew.nationalityEn,
-                        isArabic,
-                      ),
+                      // _buildInfoRow(
+                      //   l10n.nationality,
+                      //   isArabic ? DataNew.nationality : DataNew.nationalityEn,
+                      //   isArabic,
+                      // ),
                       _buildInfoRow(
                         l10n.idNumber,
-                        "2493596379", //DataNew.passportNumber,
+                        "2492920570", //DataNew.passportNumber,
                         isArabic,
                       ),
                       _buildInfoRow(
@@ -327,14 +327,14 @@ class _HealthPassportPageState extends State<HealthPassportPage> {
                       _buildVaccineInfoRow(
                         l10n.firstDose,
                         DataNew.firstDoseDate,
-                        isArabic ? 'فايزر-بيونتيك' : 'Pfizer-BioNTech',
+                        isArabic ? 'آسترازينيكا' : 'Pfizer-BioNTech',
                         isArabic,
                       ),
                       const SizedBox(height: 10),
                       _buildVaccineInfoRow(
                         l10n.secondDose,
                         DataNew.secondDoseDate,
-                        isArabic ? 'فايزر-بيونتيك' : 'Pfizer-BioNTech',
+                        isArabic ? 'آسترازينيكا' : 'Pfizer-BioNTech',
                         isArabic,
                       ),
                       const SizedBox(height: 20),
